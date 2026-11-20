@@ -11,8 +11,8 @@
 <meta property="og:url" content="https://beginningconcepts.org/">
 <meta property="og:image" content="https://beginningconcepts.org/assets/home-desktop.png">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="assets/home-desktop.png" media="(min-width: 961px)">
-<link rel="preload" as="image" href="assets/home-mobile.png" media="(max-width: 960px)">
+<link rel="preload" as="image" href="assets/home-desktop.png" media="(min-width: 961px), (orientation: landscape)">
+<link rel="preload" as="image" href="assets/home-mobile.png" media="(max-width: 960px) and (orientation: portrait)">
 <title>Beginning Concepts | Digital Experiences That Inspire Action</title>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;background:#05243b}
@@ -45,15 +45,15 @@ button{font:inherit;cursor:pointer}
 .panel p:not(.eyebrow){max-width:34ch;margin:0 auto 25px;line-height:1.65;color:#d3e8f0}
 .panel .done{border:1px solid #d8b26e;background:linear-gradient(#fae5b0,#d8aa57);color:#05233b;font-weight:800;border-radius:999px;padding:12px 30px}
 .toast{position:fixed;z-index:30;bottom:22px;left:50%;transform:translateX(-50%);background:#082e42;border:1px solid #efd19d;color:#fff;border-radius:999px;padding:12px 20px;box-shadow:0 12px 45px #0008;text-align:center;max-width:90vw;font-size:14px}
-@media(min-width:961px){
+@media(min-width:961px), (orientation:landscape){
  .site{min-height:100svh}
  .canvas{width:100%}
  .canvas img{width:100%;min-height:100svh;object-fit:fill}
  /* Real contact action placed above the artwork without obscuring the main headline. */
  .pill-tray{display:flex;top:clamp(66px,5.6vw,102px);right:2.7%}
 }
-@media(min-width:961px) and (max-width:1250px){.pill-tray{top:6.5vw}.contact-cta{padding:.54em .85em}}
-@media(max-width:960px){
+@media(min-width:961px) and (max-width:1250px), (orientation:landscape) and (max-width:1250px){.pill-tray{top:6.5vw}.contact-cta{padding:.54em .85em}}
+@media(max-width:960px) and (orientation:portrait){
  .canvas{max-width:760px}
  .canvas img{width:100%;height:auto}
  .desktop-hit{display:none}
@@ -61,7 +61,7 @@ button{font:inherit;cursor:pointer}
  .pill-tray{display:flex;top:13.8%;right:6%;z-index:7}
  .contact-cta{font-size:clamp(9px,2.5vw,16px);padding:.58em .9em}
 }
-@media(max-width:540px){.pill-tray{top:13.9%;right:4%}.contact-cta{font-size:clamp(9px,2.45vw,13px)}}
+@media(max-width:540px) and (orientation:portrait){.pill-tray{top:13.9%;right:4%}.contact-cta{font-size:clamp(9px,2.45vw,13px)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -69,7 +69,7 @@ button{font:inherit;cursor:pointer}
 <main class="site" id="home">
 <section class="canvas" aria-label="Beginning Concepts premium digital solutions home page">
 <picture>
-  <source srcset="assets/home-mobile.png" media="(max-width:960px)">
+  <source srcset="assets/home-mobile.png" media="(max-width:960px) and (orientation: portrait)">
   <img src="assets/home-desktop.png" width="1586" height="992" alt="Beginning Concepts. We build digital experiences that inspire action. Website development, web applications, course development, custom AI chatbots, and featured digital projects." fetchpriority="high">
 </picture>
 <div class="pill-tray"><button class="contact-cta" id="contact-action" type="button">✉ &nbsp;Contact Us</button></div>
