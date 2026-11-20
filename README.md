@@ -1,37 +1,31 @@
-# Beginning Concepts — Website
+# Beginning Concepts — Official Website
 
-Official website: **https://beginningconcepts.org**
+Official address: https://beginningconcepts.org/
 
-## What is in this first version?
+## Current homepage
 
-- Approved desktop homepage artwork in `assets/home-desktop.png`
-- Approved mobile homepage artwork in `assets/home-mobile.png`
-- Responsive image selection for phone, tablet, and desktop viewports
-- Clickable navigation, featured services, GIA preview, and project areas which show an accessible **Under Construction** overlay until their real functionality is created
-- A working **Share** button (system share sheet on supported phones; copy link on supported desktops)
-- A visible **Contact Us** button and clickable Contact / Book a Consultation areas
-- Provisional favicon; **the final, consistent brand logo has not yet been approved**
+The website now uses a responsive, semantic HTML/CSS design inspired by the approved navy-and-gold Beginning Concepts concepts. The same brand-logo.webp artwork is used in the header, hero and Coming Soon dialog on all screen sizes.
 
-## Important: connect the confirmed business Gmail
+- Desktop/landscape: two-column branded introduction and AI Assistant preview.
+- Phone/portrait: uncluttered stacked layout, compact mobile menu and mobile-friendly focus cards.
+- Navigation, coming-soon dialogs, assistant preview controls and Share website button are interactive.
+- Innovation, Technology, Learning, Development and People cards are clickable.
+- AI text chat and introduction video are PREVIEWS only. No real AI service, backend or video is connected yet.
+- Contact via Gmail will work after a public company email address is confirmed.
 
-The exact contact email is intentionally **not guessed**. In `index.html`, find:
+## Business email setup
 
-```js
-const CONTACT_EMAIL = "";
-```
+In index.html, search for the JavaScript constant CONTACT_EMAIL and enter the verified, public company email address inside the empty quotation marks. Until then, Contact via Gmail displays an accurate setup message; the website does not collect any email or question data.
 
-Replace the empty string with the confirmed business email, for example `const CONTACT_EMAIL = "verified-business-address@gmail.com";`. Contact Us and Book a Consultation will then open the visitor's email app with a prefilled subject. Until then, those buttons explain that business email setup is underway.
+## GitHub Pages and DNS
 
-## Publish the root domain using GitHub Pages
+Settings > Pages: deploy from main branch and root folder. The existing CNAME file remains beginningconcepts.org. In Cloudflare DNS, keep the four recommended GitHub Pages A records for the apex and a suitable www CNAME. Do not remove unrelated subdomains. Enable Enforce HTTPS only once the certificate and DNS verification are ready.
 
-1. Open this repository's **Settings → Pages**.
-2. Under **Build and deployment**, select **Deploy from a branch**. Choose **main** and **/(root)**; save.
-3. In **Custom domain**, enter `beginningconcepts.org` and save. A `CNAME` file has already been provided in this repository.
-4. In Cloudflare DNS for `beginningconcepts.org`, configure **four A records** with name `@` pointing to `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`. Do not overwrite existing, unrelated subdomain entries. Avoid conflicting apex records. Start with DNS only (grey-cloud) during GitHub domain validation, then review Cloudflare proxy settings if wanted.
-5. After DNS resolves and GitHub issues the certificate, enable **Enforce HTTPS** in Pages.
+## Files and preservation
 
-GitHub reference: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+- index.html: complete new responsive site, CSS and preview interactions.
+- assets/brand-logo.webp: consistent B logo cropped from the new approved desktop visual concept.
+- assets/home-desktop.png and assets/home-mobile.png: earlier screenshot-based version retained in the repository as a reference; not used in the new page.
+- CNAME: unchanged.
 
-## Notes
-
-This is an **image-based interactive prototype**, not a fully componentized app. The desktop and mobile artwork are the approved visual mockups, with transparent accessible click zones laid over the pictured controls. The logo and GIA video are placeholders pending final branding and working media integration. At a later stage, rebuild each area as responsive semantic HTML elements without sacrificing the approved look.
+Future: integrate the approved AI guide video, connect a secure AI backend (never put private API keys in GitHub Pages), and replace the current compressed logo with a full-resolution transparent master asset when available.
