@@ -11,11 +11,11 @@ The website now uses a responsive, semantic HTML/CSS design inspired by the appr
 - Navigation, coming-soon dialogs, assistant preview controls and Share website button are interactive.
 - Innovation, Technology, Learning, Development and People cards are clickable.
 - AI text chat and introduction video are PREVIEWS only. No real AI service, backend or video is connected yet.
-- Contact via Gmail will work after a public company email address is confirmed.
+- Contact via Gmail is connected to the public business inbox: beginningconcepts.org@gmail.com.
 
-## Business email setup
+## Business email connection
 
-In index.html, search for the JavaScript constant CONTACT_EMAIL and enter the verified, public company email address inside the empty quotation marks. Until then, Contact via Gmail displays an accurate setup message; the website does not collect any email or question data.
+All Contact and Contact via Gmail controls use a mailto link addressed to beginningconcepts.org@gmail.com, with subject `Enquiry | Beginning Concepts`. The visitor's default mail application handles composing and sending the message. No emails are collected or sent by GitHub Pages itself.
 
 ## GitHub Pages and DNS
 
