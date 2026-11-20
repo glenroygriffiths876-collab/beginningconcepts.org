@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05243b">
+<meta name="description" content="Beginning Concepts creates premium websites, web applications, digital learning experiences, resource hubs and AI assistants.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Beginning Concepts | Digital Experiences That Inspire Action">
+<meta property="og:description" content="Websites, apps, learning platforms and thoughtful AI solutions built to make an impact.">
+<meta property="og:url" content="https://beginningconcepts.org/">
+<meta property="og:image" content="https://beginningconcepts.org/assets/home-desktop.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="assets/home-desktop.png" media="(min-width: 961px)">
+<link rel="preload" as="image" href="assets/home-mobile.png" media="(max-width: 960px)">
+<title>Beginning Concepts | Digital Experiences That Inspire Action</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;background:#05243b}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:280px;overflow-x:hidden;color:#fff;background:#032034}
+button{font:inherit;cursor:pointer}
+.site{min-height:100svh;display:flex;justify-content:center;align-items:center;background:radial-gradient(ellipse at 50% 20%,#07506a 0%,#05243b 68%,#03182d 100%)}
+.canvas{position:relative;width:100%;isolation:isolate}
+.canvas picture,.canvas img{display:block;width:100%}
+.canvas img{height:auto;user-select:none;-webkit-user-drag:none}
+.hotspots{position:absolute;inset:0;pointer-events:none}
+.hit{position:absolute;z-index:3;pointer-events:auto;border:1px solid transparent;border-radius:clamp(5px,1vw,18px);background:transparent;color:transparent;display:block;transition:background .22s,border-color .22s,box-shadow .22s}
+.hit:hover{background:rgba(0,11,29,.25);border-color:rgba(255,218,144,.65);box-shadow:0 0 20px rgba(0,217,240,.16)}
+.hit:focus-visible{outline:3px solid #ffe4a0;outline-offset:3px;background:rgba(0,12,29,.27)}
+.hit:active{background:rgba(0,8,20,.48)}
+.mobile-hit{display:none}
+.pill-tray{position:absolute;z-index:6;top:clamp(12px,1.5vw,29px);right:clamp(20px,4vw,76px);display:none}
+.contact-cta{display:inline-flex;align-items:center;gap:.6em;padding:.76em 1.25em;border-radius:100px;border:1px solid rgba(255,225,167,.7);background:linear-gradient(125deg,#fce5ab,#bf8530);box-shadow:0 6px 28px rgba(255,193,91,.18);color:#04243b;font-weight:750;font-size:clamp(11px,1vw,16px);text-decoration:none}
+.contact-cta:hover{filter:brightness(1.08)}
+.mobile-menu{display:none}
+.dialog[hidden],.toast[hidden]{display:none}
+.dialog{position:fixed;z-index:25;inset:0;display:grid;place-items:center;padding:20px;background:rgba(1,13,29,.77);backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);animation:fade .2s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.panel{width:min(100%,500px);position:relative;text-align:center;padding:clamp(34px,7vw,55px) clamp(22px,5vw,46px);border:1px solid rgba(248,211,137,.64);border-radius:28px;background:linear-gradient(140deg,#0c4561,#041d34 77%);box-shadow:0 32px 100px #0009,0 0 44px #26cedb18}
+.close{position:absolute;right:15px;top:14px;border:1px solid #ffffff42;border-radius:50%;background:#ffffff10;color:white;width:38px;height:38px;font-size:23px}
+.monogram{font-family:Georgia,serif;color:#fbd89a;font-size:45px;font-style:italic;letter-spacing:-.12em;text-shadow:0 1px 19px #d59b4e5a}
+.eyebrow{margin:18px 0 12px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#f6d592;font-weight:750}
+.panel h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(30px,6vw,43px);line-height:1.1;margin:0 0 18px;color:#fff}
+.panel p:not(.eyebrow){max-width:34ch;margin:0 auto 25px;line-height:1.65;color:#d3e8f0}
+.panel .done{border:1px solid #d8b26e;background:linear-gradient(#fae5b0,#d8aa57);color:#05233b;font-weight:800;border-radius:999px;padding:12px 30px}
+.toast{position:fixed;z-index:30;bottom:22px;left:50%;transform:translateX(-50%);background:#082e42;border:1px solid #efd19d;color:#fff;border-radius:999px;padding:12px 20px;box-shadow:0 12px 45px #0008;text-align:center;max-width:90vw;font-size:14px}
+@media(min-width:961px){
+ .site{min-height:100svh}
+ .canvas{width:100%}
+ .canvas img{width:100%;min-height:100svh;object-fit:fill}
+ /* Real contact action placed above the artwork without obscuring the main headline. */
+ .pill-tray{display:flex;top:clamp(66px,5.6vw,102px);right:2.7%}
+}
+@media(min-width:961px) and (max-width:1250px){.pill-tray{top:6.5vw}.contact-cta{padding:.54em .85em}}
+@media(max-width:960px){
+ .canvas{max-width:760px}
+ .canvas img{width:100%;height:auto}
+ .desktop-hit{display:none}
+ .mobile-hit{display:block}
+ .pill-tray{display:flex;top:13.8%;right:6%;z-index:7}
+ .contact-cta{font-size:clamp(9px,2.5vw,16px);padding:.58em .9em}
+}
+@media(max-width:540px){.pill-tray{top:13.9%;right:4%}.contact-cta{font-size:clamp(9px,2.45vw,13px)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="site" id="home">
+<section class="canvas" aria-label="Beginning Concepts premium digital solutions home page">
+<picture>
+  <source srcset="assets/home-mobile.png" media="(max-width:960px)">
+  <img src="assets/home-desktop.png" width="1586" height="992" alt="Beginning Concepts. We build digital experiences that inspire action. Website development, web applications, course development, custom AI chatbots, and featured digital projects." fetchpriority="high">
+</picture>
+<div class="pill-tray"><button class="contact-cta" id="contact-action" type="button">✉ &nbsp;Contact Us</button></div>
+<div class="hotspots" aria-label="Interactive homepage controls">
+<!-- Desktop image hotspot geometry, maintained as percentage coordinates of the artwork -->
+<button type="button" class="hit desktop-hit" data-section="Home" style="left:34.3%;top:2.2%;width:6%;height:4.1%" aria-label="Home"></button>
+<button type="button" class="hit desktop-hit" data-section="Services" style="left:41%;top:2.2%;width:7.1%;height:4.1%" aria-label="Services"></button>
+<button type="button" class="hit desktop-hit" data-section="Solutions" style="left:49%;top:2.2%;width:7.1%;height:4.1%" aria-label="Solutions"></button>
+<button type="button" class="hit desktop-hit" data-section="Portfolio" style="left:57%;top:2.2%;width:6.9%;height:4.1%" aria-label="Portfolio"></button>
+<button type="button" class="hit desktop-hit" data-section="About" style="left:65%;top:2.2%;width:5%;height:4.1%" aria-label="About"></button>
+<button type="button" class="hit desktop-hit" data-action="contact" style="left:70%;top:2.2%;width:7%;height:4.1%" aria-label="Contact"></button>
+<button type="button" class="hit desktop-hit" data-action="contact" style="left:79%;top:1.8%;width:16.2%;height:4.5%" aria-label="Book a consultation"></button>
+<button type="button" class="hit desktop-hit" data-section="Start Your Project" style="left:8.5%;top:30.1%;width:16.8%;height:4.4%" aria-label="Start your project"></button>
+<button type="button" class="hit desktop-hit" data-section="Our Work" style="left:25.1%;top:30.1%;width:13.9%;height:4.4%" aria-label="View our work"></button>
+<button type="button" class="hit desktop-hit" data-section="GIA's introduction video" style="left:42%;top:8%;width:50.5%;height:30.4%" aria-label="Play GIA introduction video"></button>
+<button type="button" class="hit desktop-hit" data-section="Website Development" style="left:7.2%;top:40.4%;width:20.8%;height:18.5%" aria-label="Website Development"></button>
+<button type="button" class="hit desktop-hit" data-section="Web Applications" style="left:29.2%;top:40.4%;width:20.2%;height:18.5%" aria-label="Web Applications"></button>
+<button type="button" class="hit desktop-hit" data-section="Course Development" style="left:50.5%;top:40.4%;width:20.4%;height:18.5%" aria-label="Course Development and E-Learning"></button>
+<button type="button" class="hit desktop-hit" data-section="Custom AI Chatbots" style="left:72%;top:40.4%;width:20.5%;height:18.5%" aria-label="Custom AI Chatbots"></button>
+<button type="button" class="hit desktop-hit" data-section="Portfolio" style="left:5%;top:81%;width:14%;height:5.3%" aria-label="View full portfolio"></button>
+<button type="button" class="hit desktop-hit" data-section="Community Resources & Social Services" style="left:22%;top:70.3%;width:20.4%;height:16.5%" aria-label="Community Resources and Social Services"></button>
+<button type="button" class="hit desktop-hit" data-section="The Learning Academy" style="left:43.4%;top:70.3%;width:20.1%;height:16.5%" aria-label="The Learning Academy"></button>
+<button type="button" class="hit desktop-hit" data-section="AI Resource Portal" style="left:64.5%;top:70.3%;width:19.3%;height:16.5%" aria-label="AI Resource Portal"></button>
+<button type="button" class="hit desktop-hit" data-section="GIA AI Assistant" style="left:85.6%;top:70.6%;width:12%;height:17%" aria-label="Chat with GIA AI Assistant"></button>
+<button type="button" class="hit desktop-hit" data-action="share" style="left:72%;top:90.6%;width:8.2%;height:5.2%" aria-label="Share Beginning Concepts website"></button>
+<button type="button" class="hit desktop-hit" data-section="Report" style="left:81.2%;top:90.6%;width:8.2%;height:5.2%" aria-label="Report an issue"></button>
+<button type="button" class="hit desktop-hit" data-section="Feedback" style="left:90.1%;top:90.6%;width:8.2%;height:5.2%" aria-label="Leave feedback"></button>
+<!-- Mobile screenshot hotspots -->
+<button type="button" class="hit mobile-hit" data-section="Menu" style="left:85%;top:2%;width:11%;height:6%" aria-label="Open menu"></button>
+<button type="button" class="hit mobile-hit" data-section="GIA introduction video" style="left:4.7%;top:29.5%;width:90.9%;height:29.3%" aria-label="Play GIA introduction video"></button>
+<button type="button" class="hit mobile-hit" data-section="Website Development" style="left:3.7%;top:67%;width:24%;height:13%" aria-label="Website Development"></button>
+<button type="button" class="hit mobile-hit" data-section="Web Applications" style="left:28.3%;top:67%;width:23%;height:13%" aria-label="Web Applications"></button>
+<button type="button" class="hit mobile-hit" data-section="Course Development" style="left:52%;top:67%;width:23%;height:13%" aria-label="Course Development"></button>
+<button type="button" class="hit mobile-hit" data-section="Custom AI Chatbots" style="left:76%;top:67%;width:20%;height:13%" aria-label="Custom AI Chatbots"></button>
+<button type="button" class="hit mobile-hit" data-section="Start Your Project" style="left:21%;top:81.2%;width:59%;height:6.1%" aria-label="Start your project"></button>
+<button type="button" class="hit mobile-hit" data-section="GIA AI Assistant" style="left:69%;top:91.1%;width:17%;height:8.5%" aria-label="Chat with GIA"></button>
+<button type="button" class="hit mobile-hit" data-action="share" style="left:86%;top:91.2%;width:12%;height:8%" aria-label="Share Beginning Concepts website"></button>
+</div>
+</section>
+</main>
+<div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-description" hidden>
+  <div class="panel">
+    <button class="close" id="dialog-close" type="button" aria-label="Close message">×</button>
+    <div class="monogram" aria-hidden="true">Bℭ</div>
+    <p class="eyebrow">Beginning Concepts</p>
+    <h2 id="dialog-title">Under Construction</h2>
+    <p id="dialog-description">Something extraordinary is taking shape. This experience is being prepared and will be available soon.</p>
+    <button class="done" id="dialog-done" type="button">Back to Homepage</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+(() => {
+  "use strict";
+  // Update only this value after the company Gmail address is confirmed.
+  const CONTACT_EMAIL = "";
+  const homeUrl = "https://beginningconcepts.org/";
+  const dialog = document.getElementById("dialog");
+  const title = document.getElementById("dialog-title");
+  const description = document.getElementById("dialog-description");
+  const contactButton = document.getElementById("contact-action");
+  let previousFocus;
+  function showDialog(section) {
+    previousFocus = document.activeElement;
+    const isContact = section === "Contact";
+    title.textContent = isContact ? "Contact Beginning Concepts" : "Under Construction";
+    description.textContent = isContact
+      ? "Our business email is being connected to this page. Please check back shortly to get in touch."
+      : section === "GIA AI Assistant"
+        ? "GIA, our virtual AI guide, is being prepared for your interactive experience."
+        : "Our " + section + " experience is being prepared. More is coming soon.";
+    dialog.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("dialog-close").focus();
+  }
+  function closeDialog() {
+    dialog.hidden = true;
+    document.body.style.overflow = "";
+    if (previousFocus && previousFocus.focus) previousFocus.focus();
+  }
+  let toastTimeout;
+  function showToast(message) {
+    const t = document.getElementById("toast");
+    t.textContent = message;
+    t.hidden = false;
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => t.hidden = true, 3200);
+  }
+  function contact() {
+    if (CONTACT_EMAIL) {
+      window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Enquiry | Beginning Concepts");
+    } else {
+      showDialog("Contact");
+    }
+  }
+  async function shareSite() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Beginning Concepts",
+          text: "Explore premium digital solutions by Beginning Concepts.",
+          url: homeUrl
+        });
+      } catch(err) {
+        if (err.name !== "AbortError") showToast("Sharing is not supported on this device.");
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(homeUrl);
+      showToast("Website link copied!");
+    } catch(err) {
+      showToast("Share this link: " + homeUrl);
+    }
+  }
+  document.querySelectorAll("[data-section],[data-action]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (button.dataset.action === "share") return shareSite();
+      if (button.dataset.action === "contact") return contact();
+      if (button.dataset.section === "Home") return window.scrollTo({top:0,behavior:"smooth"});
+      showDialog(button.dataset.section || "Experience");
+    });
+  });
+  contactButton.addEventListener("click", contact);
+  document.getElementById("dialog-close").addEventListener("click", closeDialog);
+  document.getElementById("dialog-done").addEventListener("click", closeDialog);
+  dialog.addEventListener("click", e => { if (e.target === dialog) closeDialog(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && !dialog.hidden) closeDialog(); });
+})();
+</script>
+</body>
+</html>
