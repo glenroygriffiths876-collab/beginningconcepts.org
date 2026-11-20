@@ -1,204 +1,170 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05243b">
-<meta name="description" content="Beginning Concepts creates premium websites, web applications, digital learning experiences, resource hubs and AI assistants.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Beginning Concepts | Digital Experiences That Inspire Action">
-<meta property="og:description" content="Websites, apps, learning platforms and thoughtful AI solutions built to make an impact.">
-<meta property="og:url" content="https://beginningconcepts.org/">
-<meta property="og:image" content="https://beginningconcepts.org/assets/home-desktop.png">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="assets/home-desktop.png" media="(min-width: 961px), (orientation: landscape)">
-<link rel="preload" as="image" href="assets/home-mobile.png" media="(max-width: 960px) and (orientation: portrait)">
-<title>Beginning Concepts | Digital Experiences That Inspire Action</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fbfaf7">
+<meta name="description" content="Beginning Concepts — Innovation, Learning and Development. Where Ideas Begin and Potential Grows.">
+<meta property="og:type" content="website"><meta property="og:title" content="Beginning Concepts | Where Ideas Begin and Potential Grows">
+<meta property="og:description" content="Innovation, technology, learning, development and people."><meta property="og:url" content="https://beginningconcepts.org/">
+<meta property="og:image" content="https://beginningconcepts.org/assets/brand-logo.webp">
+<link rel="icon" href="assets/brand-logo.webp" type="image/webp"><link rel="preload" href="assets/brand-logo.webp" as="image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Great+Vibes&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<title>Beginning Concepts | Where Ideas Begin and Potential Grows</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;background:#05243b}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;min-width:280px;overflow-x:hidden;color:#fff;background:#032034}
-button{font:inherit;cursor:pointer}
-.site{min-height:100svh;display:flex;justify-content:center;align-items:center;background:radial-gradient(ellipse at 50% 20%,#07506a 0%,#05243b 68%,#03182d 100%)}
-.canvas{position:relative;width:100%;isolation:isolate}
-.canvas picture,.canvas img{display:block;width:100%}
-.canvas img{height:auto;user-select:none;-webkit-user-drag:none}
-.hotspots{position:absolute;inset:0;pointer-events:none}
-.hit{position:absolute;z-index:3;pointer-events:auto;border:1px solid transparent;border-radius:clamp(5px,1vw,18px);background:transparent;color:transparent;display:block;transition:background .22s,border-color .22s,box-shadow .22s}
-.hit:hover{background:rgba(0,11,29,.25);border-color:rgba(255,218,144,.65);box-shadow:0 0 20px rgba(0,217,240,.16)}
-.hit:focus-visible{outline:3px solid #ffe4a0;outline-offset:3px;background:rgba(0,12,29,.27)}
-.hit:active{background:rgba(0,8,20,.48)}
-.mobile-hit{display:none}
-.pill-tray{position:absolute;z-index:6;top:clamp(12px,1.5vw,29px);right:clamp(20px,4vw,76px);display:none}
-.contact-cta{display:inline-flex;align-items:center;gap:.6em;padding:.76em 1.25em;border-radius:100px;border:1px solid rgba(255,225,167,.7);background:linear-gradient(125deg,#fce5ab,#bf8530);box-shadow:0 6px 28px rgba(255,193,91,.18);color:#04243b;font-weight:750;font-size:clamp(11px,1vw,16px);text-decoration:none}
-.contact-cta:hover{filter:brightness(1.08)}
-.mobile-menu{display:none}
-.dialog[hidden],.toast[hidden]{display:none}
-.dialog{position:fixed;z-index:25;inset:0;display:grid;place-items:center;padding:20px;background:rgba(1,13,29,.77);backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);animation:fade .2s ease}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-.panel{width:min(100%,500px);position:relative;text-align:center;padding:clamp(34px,7vw,55px) clamp(22px,5vw,46px);border:1px solid rgba(248,211,137,.64);border-radius:28px;background:linear-gradient(140deg,#0c4561,#041d34 77%);box-shadow:0 32px 100px #0009,0 0 44px #26cedb18}
-.close{position:absolute;right:15px;top:14px;border:1px solid #ffffff42;border-radius:50%;background:#ffffff10;color:white;width:38px;height:38px;font-size:23px}
-.monogram{font-family:Georgia,serif;color:#fbd89a;font-size:45px;font-style:italic;letter-spacing:-.12em;text-shadow:0 1px 19px #d59b4e5a}
-.eyebrow{margin:18px 0 12px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#f6d592;font-weight:750}
-.panel h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(30px,6vw,43px);line-height:1.1;margin:0 0 18px;color:#fff}
-.panel p:not(.eyebrow){max-width:34ch;margin:0 auto 25px;line-height:1.65;color:#d3e8f0}
-.panel .done{border:1px solid #d8b26e;background:linear-gradient(#fae5b0,#d8aa57);color:#05233b;font-weight:800;border-radius:999px;padding:12px 30px}
-.toast{position:fixed;z-index:30;bottom:22px;left:50%;transform:translateX(-50%);background:#082e42;border:1px solid #efd19d;color:#fff;border-radius:999px;padding:12px 20px;box-shadow:0 12px 45px #0008;text-align:center;max-width:90vw;font-size:14px}
-@media(min-width:961px), (orientation:landscape){
- .site{min-height:100svh}
- .canvas{width:100%}
- .canvas img{width:100%;min-height:100svh;object-fit:fill}
- /* Real contact action placed above the artwork without obscuring the main headline. */
- .pill-tray{display:flex;top:clamp(66px,5.6vw,102px);right:2.7%}
-}
-@media(min-width:961px) and (max-width:1250px), (orientation:landscape) and (max-width:1250px){.pill-tray{top:6.5vw}.contact-cta{padding:.54em .85em}}
-@media(max-width:960px) and (orientation:portrait){
- .canvas{max-width:760px}
- .canvas img{width:100%;height:auto}
- .desktop-hit{display:none}
- .mobile-hit{display:block}
- .pill-tray{display:flex;top:13.8%;right:6%;z-index:7}
- .contact-cta{font-size:clamp(9px,2.5vw,16px);padding:.58em .9em}
-}
-@media(max-width:540px) and (orientation:portrait){.pill-tray{top:13.9%;right:4%}.contact-cta{font-size:clamp(9px,2.45vw,13px)}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+:root{--blue:#082d48;--deep:#032337;--gold:#ba8837;--cream:#fcfaf7;--line:#dbb571;--text:#122334;font-family:"DM Sans",Arial,sans-serif;background:var(--cream);color:var(--text)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:300px;overflow-x:hidden;background:var(--cream)}
+button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c79539;outline-offset:3px}
+svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+header{height:96px;position:relative;z-index:10;background:rgba(255,255,255,.95);box-shadow:0 2px 20px #072b4220}
+.header-inner{max-width:1640px;margin:auto;height:100%;display:flex;align-items:center;gap:25px;padding:0 clamp(18px,4vw,60px)}
+.brand{display:flex;align-items:center;gap:14px;min-width:0;flex-shrink:0}
+.brand img{height:74px;width:88px;object-fit:contain;mix-blend-mode:multiply}
+.brand-sep{height:44px;border-left:2px solid #d1a15b}
+.brand-main{display:block;font-weight:800;letter-spacing:.03em;font-size:clamp(20px,2.2vw,28px);line-height:1.05;color:var(--blue)}
+.brand-small{display:block;font-size:clamp(11px,1.2vw,16px);letter-spacing:.3em;color:#a77b31;font-weight:700;margin-top:3px}
+nav{display:flex;align-items:center;gap:clamp(16px,2.5vw,36px);margin-left:auto}
+nav button{background:none;border:0;color:var(--text);padding:10px 1px;font-size:14px;white-space:nowrap}
+nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--blue)}
+.mail{display:inline-flex;align-items:center;justify-content:center;gap:10px;color:#fff;background:linear-gradient(140deg,#0a4867,#04283f);border:1px solid #b98b42;border-radius:999px;box-shadow:0 6px 17px #0002;padding:13px 19px;font-weight:700;font-size:14px;white-space:nowrap}
+.mail svg{color:#f5d287;font-size:22px}.mail:hover{filter:brightness(1.12)}
+.menu{display:none;margin-left:auto;padding:8px;color:var(--blue);font-size:31px;border:0;background:transparent}
+.page{position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 50% 22%,white 0%,#fdfaf6 68%,#f9f4ec 100%);min-height:calc(100svh - 96px)}
+.corner{position:absolute;pointer-events:none;z-index:0}
+.corner.top{left:-140px;top:0;width:410px;height:250px;border-radius:0 0 100% 0;background:linear-gradient(130deg,#073e5b 10%,#1c718a 32%,#be8737 33%,#ffe3ab 38%,transparent 39%)}
+.corner.bottom{right:-150px;bottom:-95px;width:530px;height:275px;border-radius:100% 0 0 0;background:linear-gradient(145deg,transparent 28%,#f2d9a6 29%,#b78436 32%,#0d3d5a 35%,#04314d 65%)}
+.corner.top:after{content:"";display:block;position:absolute;left:-40px;top:160px;width:660px;height:220px;transform:rotate(-18deg);border-radius:50%;border-top:26px solid #d2b68720}
+.content{max-width:1640px;margin:auto;position:relative;z-index:1;padding:clamp(20px,3.4vw,54px) clamp(18px,5vw,74px) 54px}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(355px,.9fr);align-items:center;gap:clamp(22px,4.8vw,70px)}
+.intro{text-align:center;min-width:0}
+.main-logo{display:block;width:clamp(205px,23vw,310px);aspect-ratio:165/127;object-fit:contain;mix-blend-mode:multiply;margin:0 auto -9px;filter:drop-shadow(0 4px 6px #0a2c3c15)}
+.intro h1{font-size:clamp(42px,5.3vw,78px);font-weight:800;letter-spacing:.012em;color:var(--blue);line-height:1.07;text-shadow:0 2px 3px #001c3042;margin:0}
+.concepts{display:flex;align-items:center;justify-content:center;gap:17px;color:#b3873f;font-size:clamp(23px,3.4vw,44px);font-weight:500;letter-spacing:.33em;padding-left:.33em;text-shadow:0 1px 2px #ba915680}
+.concepts:before,.concepts:after{content:"";height:2px;width:clamp(22px,5.5vw,82px);background:#c19750;flex-shrink:0}
+.motto{font-size:clamp(8px,.98vw,14px);text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:var(--blue);white-space:nowrap}
+.motto b{color:#b1822d;margin:0 .6em}
+.tagline{font-family:"Playfair Display",Georgia,serif;font-size:clamp(27px,3vw,44px);margin:29px auto 22px;white-space:nowrap;line-height:1.38}
+.tagline em{font-family:"Great Vibes","Brush Script MT",cursive;font-style:normal;font-size:1.25em;position:relative}
+.tagline em:after{content:"";position:absolute;bottom:-4px;left:9%;width:82%;height:8px;border-radius:50%;border-top:3px solid #c09137;transform:rotate(-3deg)}
+.soon{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(#fffdf7,#f8ebd4);border:1px solid #dfad61;border-radius:100px;box-shadow:0 6px 12px #987a4f25;padding:12px 25px;letter-spacing:.26em;font-size:clamp(12px,1.1vw,16px);font-weight:800;color:var(--text)}
+.soon svg{color:var(--gold);font-size:21px}
+.assistant{width:100%;min-width:0;background:linear-gradient(145deg,#fff,#fdf9f3);border:1px solid #d7aa61;border-radius:27px;box-shadow:0 20px 35px #00000014;overflow:hidden}
+.assistant-head{display:flex;align-items:center;gap:17px;position:relative;overflow:hidden;background:linear-gradient(110deg,#08445b,#03263e);color:#fff;padding:18px 27px}
+.assistant-head:after{content:"";position:absolute;right:-30px;top:-50px;width:215px;height:105px;border-top:16px solid #d0a04d;border-radius:50%;transform:rotate(26deg)}
+.bot{display:grid;place-items:center;width:54px;height:54px;flex-shrink:0;background:#0c516a;border-radius:16px;font-size:29px;box-shadow:inset 0 0 12px #efca8530}
+.a-heading{border-left:1px solid #cca866;padding-left:18px;position:relative;z-index:1}
+.a-heading h2{font-size:clamp(23px,2vw,29px);margin:0 0 5px;line-height:1.1}.a-heading p{font-size:13px;margin:0;color:#e1eaec}
+.assistant-content{padding:clamp(17px,2.3vw,28px)}
+.greeting{display:flex;align-items:center;gap:12px;margin-bottom:21px}
+.smallbot{display:grid;place-items:center;width:38px;height:38px;border:1px solid #e7d3ae;border-radius:50%;flex-shrink:0;background:#f9f2e6;font-size:19px}
+.greeting p{margin:0;padding:16px 18px;background:#f5f1ec;border-radius:17px;font-size:clamp(13px,1.35vw,18px);line-height:1.48;color:#1e2329}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.chips button{border:1px solid #d7ac69;background:linear-gradient(#fff,#fdf8ef);border-radius:999px;padding:9px 14px;box-shadow:0 4px 8px #6e4e2c18;color:#1f2931;font-size:13px}
+.chips button:hover{background:#fff1d9}
+.ask{display:flex;gap:7px;align-items:center;border:1px solid #c9ced2;border-radius:15px;background:#f8f8f8;padding:6px;box-shadow:0 5px 9px #0001}
+.ask input{border:0;outline:0;background:transparent;flex:1;min-width:0;padding:10px 13px;color:var(--blue);font-size:14px}
+.ask button{background:linear-gradient(135deg,#0d5a74,#05263d);color:#f5d188;border:0;border-radius:11px;width:49px;height:43px;display:grid;place-items:center;font-size:24px}
+.video-preview{display:flex;align-items:center;justify-content:center;gap:7px;background:none;border:0;color:#65717a;margin:14px auto 0;font-size:12px}
+.video-preview svg{color:#b58637;font-size:17px}
+.features{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:42px auto 0;max-width:1270px}
+.feature{display:flex;flex-direction:column;align-items:center;gap:9px;justify-content:center;min-width:0;padding:14px 8px;background:none;border:0;border-right:1px solid #d5a867;color:var(--blue);transition:transform .2s}
+.feature:hover{transform:translateY(-4px)}.feature:last-child{border-right:0}
+.feature svg{font-size:55px;filter:drop-shadow(0 3px 1px #9280612e)}
+.feature:nth-child(4) svg{color:#b98c3e}
+.feature span{font-weight:800;text-transform:uppercase;font-size:clamp(10px,1.2vw,16px);letter-spacing:.17em}
+.footer{display:flex;align-items:center;justify-content:center;gap:19px;flex-wrap:wrap;margin:24px auto 0;color:#67717a;font-size:12px}
+.footer button.link{border:0;background:none;text-decoration:underline;color:var(--blue)}
+.modal-wrap[hidden],.toast[hidden]{display:none}
+.modal-wrap{position:fixed;inset:0;z-index:30;background:#041a2bc4;backdrop-filter:blur(9px);display:grid;place-items:center;padding:20px}
+.modal{position:relative;width:min(100%,460px);background:linear-gradient(145deg,#fff,#fbf2e4);border:1px solid #d8aa63;border-radius:25px;padding:35px 26px;text-align:center;box-shadow:0 25px 85px #0005}
+.modal img{width:108px;height:83px;object-fit:contain;mix-blend-mode:multiply}.modal h2{font-family:"Playfair Display",Georgia,serif;font-weight:500;font-size:32px;margin:7px 0 12px;color:var(--blue)}
+.modal p{line-height:1.65;color:#485763;margin:0 auto 22px;max-width:34ch}
+.modal .back{background:var(--blue);color:white;border:1px solid #d0a864;border-radius:99px;padding:12px 24px;font-weight:700}
+.close{position:absolute;right:12px;top:10px;border:0;background:none;font-size:27px;color:var(--blue)}
+.toast{position:fixed;z-index:40;bottom:20px;left:50%;transform:translateX(-50%);background:#06354d;color:white;border:1px solid #d7ad69;border-radius:15px;padding:12px 17px;max-width:90vw}
+@media(max-width:1250px){.header-inner{padding-inline:23px;gap:17px}nav{gap:16px}nav button{font-size:13px}.header-mail{font-size:12px;padding:12px 14px}.hero{grid-template-columns:minmax(0,1fr) minmax(340px,.93fr);gap:24px}}
+@media(max-width:990px){header{height:84px}.brand img{height:63px;width:70px}.brand-sep{height:38px}.brand-main{font-size:22px}.brand-small{font-size:12px}.header-mail{display:none}.menu{display:block}nav{display:none;position:absolute;top:83px;left:15px;right:15px;background:white;border:1px solid #e9d6b8;border-radius:18px;box-shadow:0 14px 30px #041d3433;padding:13px;z-index:20}nav.open{display:flex;flex-direction:column;align-items:stretch;gap:0}nav button{font-size:16px;text-align:left;padding:13px}nav button.active,nav button:hover{border-bottom:0;background:#f8f0e1}.page{min-height:calc(100svh - 84px)}.content{max-width:790px}.hero{grid-template-columns:1fr;gap:30px}.main-logo{width:clamp(200px,36vw,300px)}.intro h1{font-size:clamp(46px,8vw,75px)}.concepts{font-size:clamp(25px,5vw,40px)}.tagline{font-size:clamp(29px,4.4vw,43px)}.assistant{max-width:660px;margin:auto}}
+@media(max-width:560px){header{height:78px}.header-inner{padding-inline:13px;gap:10px}.brand{gap:8px}.brand img{width:54px;height:52px}.brand-sep{height:35px;border-left-width:1px}.brand-main{font-size:clamp(17px,5.3vw,24px)}.brand-small{font-size:clamp(9px,2.7vw,13px);letter-spacing:.28em}.menu{font-size:28px;padding:8px 1px}nav{top:78px}.content{padding:21px 14px 43px}.hero{gap:23px}.main-logo{width:clamp(185px,55vw,245px);margin:0 auto -5px}.intro h1{font-size:clamp(35px,9.6vw,52px)}.concepts{font-size:clamp(20px,6.1vw,31px);letter-spacing:.27em;padding-left:.27em;gap:8px}.concepts:before,.concepts:after{width:30px}.motto{font-size:clamp(7px,2vw,10px);letter-spacing:.16em}.motto b{margin:0 .35em}.tagline{font-size:clamp(24px,6.3vw,34px);white-space:normal;line-height:1.26;margin:19px auto}.tagline em{display:block;font-size:1.56em}.soon{font-size:12px;letter-spacing:.18em;padding:11px 22px}.assistant{border-radius:22px}.assistant-head{padding:13px 16px;gap:11px}.bot{width:44px;height:44px;font-size:22px}.a-heading{padding-left:12px}.a-heading h2{font-size:24px}.a-heading p{font-size:10px}.assistant-content{padding:15px 13px}.smallbot{width:33px;height:33px;font-size:16px}.greeting{gap:8px;margin-bottom:17px}.greeting p{padding:12px;font-size:13px}.chips{gap:7px;margin-bottom:15px}.chips button{font-size:11px;padding:8px 10px}.ask input{padding:9px 7px;font-size:13px}.ask button{width:42px;height:40px}.video-preview{font-size:11px}.features{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:30px}.feature{grid-column:span 2;border:1px solid #ddb978!important;border-radius:15px;min-height:106px;padding:10px 2px;background:linear-gradient(#fff,#fcf7ed);box-shadow:0 6px 12px #54452f17;gap:7px}.feature:nth-child(4){grid-column:2/span 2}.feature:nth-child(5){grid-column:4/span 2}.feature svg{font-size:37px}.feature span{font-size:clamp(8px,2.25vw,11px);letter-spacing:.08em}.footer{margin-top:25px;gap:10px}.corner.top{left:-340px}.corner.bottom{right:-300px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<main class="site" id="home">
-<section class="canvas" aria-label="Beginning Concepts premium digital solutions home page">
-<picture>
-  <source srcset="assets/home-mobile.png" media="(max-width:960px) and (orientation: portrait)">
-  <img src="assets/home-desktop.png" width="1586" height="992" alt="Beginning Concepts. We build digital experiences that inspire action. Website development, web applications, course development, custom AI chatbots, and featured digital projects." fetchpriority="high">
-</picture>
-<div class="pill-tray"><button class="contact-cta" id="contact-action" type="button">✉ &nbsp;Contact Us</button></div>
-<div class="hotspots" aria-label="Interactive homepage controls">
-<!-- Desktop image hotspot geometry, maintained as percentage coordinates of the artwork -->
-<button type="button" class="hit desktop-hit" data-section="Home" style="left:34.3%;top:2.2%;width:6%;height:4.1%" aria-label="Home"></button>
-<button type="button" class="hit desktop-hit" data-section="Services" style="left:41%;top:2.2%;width:7.1%;height:4.1%" aria-label="Services"></button>
-<button type="button" class="hit desktop-hit" data-section="Solutions" style="left:49%;top:2.2%;width:7.1%;height:4.1%" aria-label="Solutions"></button>
-<button type="button" class="hit desktop-hit" data-section="Portfolio" style="left:57%;top:2.2%;width:6.9%;height:4.1%" aria-label="Portfolio"></button>
-<button type="button" class="hit desktop-hit" data-section="About" style="left:65%;top:2.2%;width:5%;height:4.1%" aria-label="About"></button>
-<button type="button" class="hit desktop-hit" data-action="contact" style="left:70%;top:2.2%;width:7%;height:4.1%" aria-label="Contact"></button>
-<button type="button" class="hit desktop-hit" data-action="contact" style="left:79%;top:1.8%;width:16.2%;height:4.5%" aria-label="Book a consultation"></button>
-<button type="button" class="hit desktop-hit" data-section="Start Your Project" style="left:8.5%;top:30.1%;width:16.8%;height:4.4%" aria-label="Start your project"></button>
-<button type="button" class="hit desktop-hit" data-section="Our Work" style="left:25.1%;top:30.1%;width:13.9%;height:4.4%" aria-label="View our work"></button>
-<button type="button" class="hit desktop-hit" data-section="GIA's introduction video" style="left:42%;top:8%;width:50.5%;height:30.4%" aria-label="Play GIA introduction video"></button>
-<button type="button" class="hit desktop-hit" data-section="Website Development" style="left:7.2%;top:40.4%;width:20.8%;height:18.5%" aria-label="Website Development"></button>
-<button type="button" class="hit desktop-hit" data-section="Web Applications" style="left:29.2%;top:40.4%;width:20.2%;height:18.5%" aria-label="Web Applications"></button>
-<button type="button" class="hit desktop-hit" data-section="Course Development" style="left:50.5%;top:40.4%;width:20.4%;height:18.5%" aria-label="Course Development and E-Learning"></button>
-<button type="button" class="hit desktop-hit" data-section="Custom AI Chatbots" style="left:72%;top:40.4%;width:20.5%;height:18.5%" aria-label="Custom AI Chatbots"></button>
-<button type="button" class="hit desktop-hit" data-section="Portfolio" style="left:5%;top:81%;width:14%;height:5.3%" aria-label="View full portfolio"></button>
-<button type="button" class="hit desktop-hit" data-section="Community Resources & Social Services" style="left:22%;top:70.3%;width:20.4%;height:16.5%" aria-label="Community Resources and Social Services"></button>
-<button type="button" class="hit desktop-hit" data-section="The Learning Academy" style="left:43.4%;top:70.3%;width:20.1%;height:16.5%" aria-label="The Learning Academy"></button>
-<button type="button" class="hit desktop-hit" data-section="AI Resource Portal" style="left:64.5%;top:70.3%;width:19.3%;height:16.5%" aria-label="AI Resource Portal"></button>
-<button type="button" class="hit desktop-hit" data-section="GIA AI Assistant" style="left:85.6%;top:70.6%;width:12%;height:17%" aria-label="Chat with GIA AI Assistant"></button>
-<button type="button" class="hit desktop-hit" data-action="share" style="left:72%;top:90.6%;width:8.2%;height:5.2%" aria-label="Share Beginning Concepts website"></button>
-<button type="button" class="hit desktop-hit" data-section="Report" style="left:81.2%;top:90.6%;width:8.2%;height:5.2%" aria-label="Report an issue"></button>
-<button type="button" class="hit desktop-hit" data-section="Feedback" style="left:90.1%;top:90.6%;width:8.2%;height:5.2%" aria-label="Leave feedback"></button>
-<!-- Mobile screenshot hotspots -->
-<button type="button" class="hit mobile-hit" data-section="Menu" style="left:85%;top:2%;width:11%;height:6%" aria-label="Open menu"></button>
-<button type="button" class="hit mobile-hit" data-section="GIA introduction video" style="left:4.7%;top:29.5%;width:90.9%;height:29.3%" aria-label="Play GIA introduction video"></button>
-<button type="button" class="hit mobile-hit" data-section="Website Development" style="left:3.7%;top:67%;width:24%;height:13%" aria-label="Website Development"></button>
-<button type="button" class="hit mobile-hit" data-section="Web Applications" style="left:28.3%;top:67%;width:23%;height:13%" aria-label="Web Applications"></button>
-<button type="button" class="hit mobile-hit" data-section="Course Development" style="left:52%;top:67%;width:23%;height:13%" aria-label="Course Development"></button>
-<button type="button" class="hit mobile-hit" data-section="Custom AI Chatbots" style="left:76%;top:67%;width:20%;height:13%" aria-label="Custom AI Chatbots"></button>
-<button type="button" class="hit mobile-hit" data-section="Start Your Project" style="left:21%;top:81.2%;width:59%;height:6.1%" aria-label="Start your project"></button>
-<button type="button" class="hit mobile-hit" data-section="GIA AI Assistant" style="left:69%;top:91.1%;width:17%;height:8.5%" aria-label="Chat with GIA"></button>
-<button type="button" class="hit mobile-hit" data-action="share" style="left:86%;top:91.2%;width:12%;height:8%" aria-label="Share Beginning Concepts website"></button>
+<svg class="sr" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<symbol id="mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></symbol>
+<symbol id="bars" viewBox="0 0 24 24"><path d="M3 5h18M3 12h18M3 19h18"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4L22 2ZM11 13 22 2"/></symbol>
+<symbol id="bulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 3h4M8 14c-1.6-1.2-2.5-3-2.5-5a6.5 6.5 0 1 1 13 0c0 2-.9 3.8-2.5 5l-1 3H9l-1-3ZM12 1v2M3 9H1m22 0h-2M4 3l2 2m14-2-2 2"/></symbol>
+<symbol id="laptop" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="13" rx="1"/><path d="M2 19h20l-2 2H4l-2-2Z"/></symbol>
+<symbol id="book" viewBox="0 0 24 24"><path d="M12 7C8 4.5 5 4 2 5v13c3-1 7 0 10 2 3-2 7-3 10-2V5c-3-1-6-.5-10 2Zm0 0v13M12 7V2m0 4c.1-3 2.4-4.8 5-5-1 2-2.5 4.1-5 5ZM12 6C11.9 3 9.6 1.2 7 1c1 2 2.5 4.1 5 5Z"/></symbol>
+<symbol id="growth" viewBox="0 0 24 24"><path d="M2 21h20M4 19v-5h4v5m4 0V9h4v10m4 0V5h3v14M3 11l7-5 5 2 7-6m-5 0h5v5"/></symbol>
+<symbol id="people" viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><circle cx="4" cy="9" r="2"/><circle cx="20" cy="9" r="2"/><path d="M7 21v-4a5 5 0 0 1 10 0v4M1 21v-5a4 4 0 0 1 4-4h1m17 9v-5a4 4 0 0 0-4-4h-1"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4V8Z"/></symbol>
+<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 1v3M12 20v3M1 12h3m16 0h3M4.2 4.2l2.2 2.2m11.2 11.2 2.2 2.2m0-15.6-2.2 2.2M6.4 17.6l-2.2 2.2"/></symbol>
+<symbol id="share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.5 10.5 7-4m-7 7 7 4"/></symbol>
+</svg>
+<header><div class="header-inner">
+<a class="brand" href="#home" aria-label="Beginning Concepts home"><img src="assets/brand-logo.webp" alt="" width="165" height="127"><span class="brand-sep" aria-hidden="true"></span><span><span class="brand-main">BEGINNING</span><span class="brand-small">CONCEPTS</span></span></a>
+<nav id="nav" aria-label="Main navigation"><button class="active" data-go="home">Home</button><button data-soon="About Beginning Concepts">About</button><button data-go="features">Focus Areas</button><button data-go="assistant">AI Assistant</button><button data-contact>Contact</button></nav>
+<button class="mail header-mail" data-contact><svg aria-hidden="true"><use href="#mail"/></svg>Contact via Gmail</button>
+<button class="menu" id="menu" aria-label="Open navigation" aria-expanded="false" aria-controls="nav"><svg aria-hidden="true"><use href="#bars"/></svg></button>
+</div></header>
+<main class="page" id="home"><div class="corner top" aria-hidden="true"></div><div class="corner bottom" aria-hidden="true"></div>
+<div class="content">
+<div class="hero">
+<section class="intro" aria-label="Beginning Concepts">
+<img class="main-logo" src="assets/brand-logo.webp" alt="Beginning Concepts gold and navy B emblem with growth leaves" width="165" height="127" fetchpriority="high">
+<h1>BEGINNING</h1><div class="concepts" aria-label="Concepts">CONCEPTS</div>
+<div class="motto">Innovation <b>•</b> Learning <b>•</b> Development</div>
+<p class="tagline">Where Ideas Begin and <em>Potential Grows.</em></p>
+<span class="soon"><svg aria-hidden="true"><use href="#gear"/></svg>COMING SOON</span>
+</section>
+<section class="assistant" id="assistant" aria-label="AI assistant preview">
+<div class="assistant-head"><span class="bot" aria-hidden="true">🤖</span><div class="a-heading"><h2>AI Assistant</h2><p>Ask • Explore • Learn • Get Updates</p></div></div>
+<div class="assistant-content">
+<div class="greeting"><span class="smallbot" aria-hidden="true">🤖</span><p>Hello! I'm the Beginning Concepts AI Assistant. How can I help you today?</p></div>
+<div class="chips"><button data-soon="About Beginning Concepts">About Beginning Concepts</button><button data-soon="Our Focus Areas">Our Focus Areas</button><button data-soon="Stay Updated">Stay Updated</button><button data-contact>Contact Us</button></div>
+<form class="ask" id="ask" aria-label="AI Assistant preview"><label class="sr" for="question">Type your question</label><input id="question" placeholder="Type your question..." maxlength="300" autocomplete="off"><button type="submit" aria-label="Send question"><svg aria-hidden="true"><use href="#send"/></svg></button></form>
+<button class="video-preview" data-soon="AI introduction video"><svg aria-hidden="true"><use href="#play"/></svg> Watch your AI guide's introduction — coming soon</button>
 </div>
 </section>
-</main>
-<div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-description" hidden>
-  <div class="panel">
-    <button class="close" id="dialog-close" type="button" aria-label="Close message">×</button>
-    <div class="monogram" aria-hidden="true">Bℭ</div>
-    <p class="eyebrow">Beginning Concepts</p>
-    <h2 id="dialog-title">Under Construction</h2>
-    <p id="dialog-description">Something extraordinary is taking shape. This experience is being prepared and will be available soon.</p>
-    <button class="done" id="dialog-done" type="button">Back to Homepage</button>
-  </div>
 </div>
-<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<section class="features" id="features" aria-label="Our focus areas">
+<button class="feature" data-soon="Innovation"><svg aria-hidden="true"><use href="#bulb"/></svg><span>Innovation</span></button>
+<button class="feature" data-soon="Technology"><svg aria-hidden="true"><use href="#laptop"/></svg><span>Technology</span></button>
+<button class="feature" data-soon="Learning"><svg aria-hidden="true"><use href="#book"/></svg><span>Learning</span></button>
+<button class="feature" data-soon="Development"><svg aria-hidden="true"><use href="#growth"/></svg><span>Development</span></button>
+<button class="feature" data-soon="People"><svg aria-hidden="true"><use href="#people"/></svg><span>People</span></button>
+</section>
+<footer class="footer"><button class="mail" data-contact><svg aria-hidden="true"><use href="#mail"/></svg>Contact via Gmail</button><button class="link" id="share"><svg aria-hidden="true" style="vertical-align:-2px"><use href="#share"/></svg> Share website</button><span>© <span id="year">2026</span> Beginning Concepts</span></footer>
+</div></main>
+<div class="modal-wrap" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-text" hidden><div class="modal">
+<button class="close" id="close" aria-label="Close dialog">×</button><img src="assets/brand-logo.webp" alt="" width="165" height="127">
+<h2 id="modal-title">Coming Soon</h2><p id="modal-text">We're creating something special. More details will be available soon.</p><button class="back" id="back">Back to Homepage</button>
+</div></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <script>
-(() => {
-  "use strict";
-  // Update only this value after the company Gmail address is confirmed.
-  const CONTACT_EMAIL = "";
-  const homeUrl = "https://beginningconcepts.org/";
-  const dialog = document.getElementById("dialog");
-  const title = document.getElementById("dialog-title");
-  const description = document.getElementById("dialog-description");
-  const contactButton = document.getElementById("contact-action");
-  let previousFocus;
-  function showDialog(section) {
-    previousFocus = document.activeElement;
-    const isContact = section === "Contact";
-    title.textContent = isContact ? "Contact Beginning Concepts" : "Under Construction";
-    description.textContent = isContact
-      ? "Our business email is being connected to this page. Please check back shortly to get in touch."
-      : section === "GIA AI Assistant"
-        ? "GIA, our virtual AI guide, is being prepared for your interactive experience."
-        : "Our " + section + " experience is being prepared. More is coming soon.";
-    dialog.hidden = false;
-    document.body.style.overflow = "hidden";
-    document.getElementById("dialog-close").focus();
-  }
-  function closeDialog() {
-    dialog.hidden = true;
-    document.body.style.overflow = "";
-    if (previousFocus && previousFocus.focus) previousFocus.focus();
-  }
-  let toastTimeout;
-  function showToast(message) {
-    const t = document.getElementById("toast");
-    t.textContent = message;
-    t.hidden = false;
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => t.hidden = true, 3200);
-  }
-  function contact() {
-    if (CONTACT_EMAIL) {
-      window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Enquiry | Beginning Concepts");
-    } else {
-      showDialog("Contact");
-    }
-  }
-  async function shareSite() {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Beginning Concepts",
-          text: "Explore premium digital solutions by Beginning Concepts.",
-          url: homeUrl
-        });
-      } catch(err) {
-        if (err.name !== "AbortError") showToast("Sharing is not supported on this device.");
-      }
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(homeUrl);
-      showToast("Website link copied!");
-    } catch(err) {
-      showToast("Share this link: " + homeUrl);
-    }
-  }
-  document.querySelectorAll("[data-section],[data-action]").forEach(button => {
-    button.addEventListener("click", () => {
-      if (button.dataset.action === "share") return shareSite();
-      if (button.dataset.action === "contact") return contact();
-      if (button.dataset.section === "Home") return window.scrollTo({top:0,behavior:"smooth"});
-      showDialog(button.dataset.section || "Experience");
-    });
-  });
-  contactButton.addEventListener("click", contact);
-  document.getElementById("dialog-close").addEventListener("click", closeDialog);
-  document.getElementById("dialog-done").addEventListener("click", closeDialog);
-  dialog.addEventListener("click", e => { if (e.target === dialog) closeDialog(); });
-  document.addEventListener("keydown", e => { if(e.key === "Escape" && !dialog.hidden) closeDialog(); });
+(()=>{"use strict";
+const CONTACT_EMAIL=""; // Confirm the public business Gmail address before setting.
+const SITE_URL="https://beginningconcepts.org/";
+const modal=document.getElementById("modal"),mt=document.getElementById("modal-title"),mp=document.getElementById("modal-text");
+const menu=document.getElementById("menu"),nav=document.getElementById("nav");let prior;
+function open(topic){prior=document.activeElement;mt.textContent=topic==="Contact"?"Contact Beginning Concepts":"Coming Soon";mp.textContent=topic==="Contact"?"Our business Gmail connection is being finalised. Contact will be available soon.":topic==="AI Assistant"?"Our AI assistant is being prepared. This is a preview; your questions are not sent or stored.":topic==="AI introduction video"?"Our AI guide's introduction video will appear here when it is ready.":topic+" is being prepared. More is coming soon.";modal.hidden=false;document.body.style.overflow="hidden";document.getElementById("close").focus()}
+function shut(){modal.hidden=true;document.body.style.overflow="";if(prior&&prior.focus)prior.focus()}
+function contact(){if(!CONTACT_EMAIL)return open("Contact");location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Enquiry | Beginning Concepts")}
+function closeNav(){nav.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.setAttribute("aria-label","Open navigation")}
+menu.addEventListener("click",()=>{const o=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(o));menu.setAttribute("aria-label",o?"Close navigation":"Open navigation")});
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{closeNav();document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth",block:"start"})}));
+document.querySelectorAll("[data-soon]").forEach(b=>b.addEventListener("click",()=>{closeNav();open(b.dataset.soon)}));
+document.querySelectorAll("[data-contact]").forEach(b=>b.addEventListener("click",()=>{closeNav();contact()}));
+document.getElementById("ask").addEventListener("submit",e=>{e.preventDefault();open("AI Assistant")});
+document.getElementById("close").addEventListener("click",shut);document.getElementById("back").addEventListener("click",shut);
+modal.addEventListener("click",e=>{if(e.target===modal)shut()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!modal.hidden)shut();else closeNav()}});
+const toast=document.getElementById("toast");let timer;
+function note(t){toast.textContent=t;toast.hidden=false;clearTimeout(timer);timer=setTimeout(()=>toast.hidden=true,3200)}
+document.getElementById("share").addEventListener("click",async()=>{if(navigator.share){try{await navigator.share({title:"Beginning Concepts",url:SITE_URL})}catch(e){if(e.name!=="AbortError")note("Sharing unavailable.")}return}try{await navigator.clipboard.writeText(SITE_URL);note("Website link copied!")}catch(e){note("Share: "+SITE_URL)}});
+document.getElementById("year").textContent=new Date().getFullYear();
 })();
 </script>
-</body>
-</html>
+</body></html>
