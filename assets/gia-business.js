@@ -62,40 +62,84 @@ let found=patterns.filter(([k,p])=>p.test(s)).map(x=>x[0]);if(found.length>1&&fo
 topic(found[0]||"unknown")}
 quick.addEventListener("click",e=>{let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
 document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s)return;question.value="";add(s,"user");respond(s);question.focus()});
+/* Gia's cinema: play the spoken welcome once, then keep future loops silent. */
 const video=document.getElementById("brandVideo");
 const frame=document.getElementById("brandCinema"),sound=document.getElementById("brandSound");
 const playButton=document.getElementById("brandPlay"),videoStatus=document.getElementById("brandVideoStatus");
 if(video&&frame&&sound&&playButton&&videoStatus){
-  let userPaused=false;
-  function showPlay(label="▶ Play Gia's film"){
+  const heardKey="beginning-concepts-gia-welcome-heard-v1";
+  let heardThisTab=false;
+  try{heardThisTab=sessionStorage.getItem(heardKey)==="1"}catch(_){}
+  function rememberHeard(){
+    heardThisTab=true;
+    try{sessionStorage.setItem(heardKey,"1")}catch(_){}
+  }
+  function updateSoundControl(){
+    const audible=!video.muted;
+    sound.disabled=!!video.error;
+    sound.textContent=audible?"♪ Mute Gia":"♫ Hear Gia";
+    sound.setAttribute("aria-pressed",String(audible));
+    sound.setAttribute("aria-label",audible?"Mute Gia's welcome":"Replay Gia's welcome once with sound");
+    sound.title=audible?"Mute Gia":"Hear Gia's welcome once";
+  }
+  function showPlay(label){
     playButton.hidden=false;
     playButton.querySelector(".bc-play-text").textContent=label;
   }
   function ready(){
     frame.classList.add("is-ready");
-    sound.disabled=false;
     videoStatus.textContent="";
+    updateSoundControl();
   }
-  function playing(){
-    ready();
-    playButton.hidden=true;
-  }
-  function tryPlay(){
-    userPaused=false;
-    videoStatus.textContent="";
-    const attempt=video.play();
-    if(attempt&&typeof attempt.catch==="function"){
-      attempt.catch(()=>{showPlay("▶ Tap to play Gia's film");});
+  function startVideo(withSound,rewind=false){
+    if(video.error)return;
+    if(rewind){
+      video.pause();
+      try{video.currentTime=0}catch(_){}
+    }
+    video.loop=false; // The 'ended' event must fire so we can mute each subsequent loop.
+    video.muted=!withSound;
+    if(withSound)video.volume=0.75;
+    updateSoundControl();
+    const promise=video.play();
+    if(promise&&typeof promise.catch==="function"){
+      promise.catch(()=>{
+        if(withSound){
+          // Mobile browsers frequently forbid unsolicited audio. Keep the visual film going.
+          video.muted=true;
+          updateSoundControl();
+          const silent=video.play();
+          if(silent&&typeof silent.catch==="function"){
+            silent.catch(()=>showPlay("▶ Play Gia's film"));
+          }
+        }else{
+          showPlay("▶ Play Gia's film");
+        }
+      });
     }
   }
   video.addEventListener("loadeddata",ready);
   video.addEventListener("canplay",ready);
-  video.addEventListener("playing",playing);
-  video.addEventListener("pause",()=>{if(!userPaused&&!video.ended)showPlay("▶ Resume Gia's film")});
+  video.addEventListener("playing",()=>{
+    ready();
+    playButton.hidden=true;
+    if(!video.muted)rememberHeard();
+  });
+  video.addEventListener("ended",()=>{
+    // Only the first complete run may contain sound; the rest are quiet.
+    video.muted=true;
+    updateSoundControl();
+    try{video.currentTime=0}catch(_){}
+    startVideo(false);
+  });
+  video.addEventListener("pause",()=>{
+    if(!video.ended&&!video.error&&!document.hidden)
+      showPlay("▶ Resume Gia's film");
+  });
   video.addEventListener("error",()=>{
     frame.classList.remove("is-ready");
     sound.disabled=true;
-    videoStatus.textContent="The film is unavailable in this browser. You can open the video directly below.";
+    videoStatus.textContent="Video unavailable here. You can open Gia's film directly.";
     showPlay("▶ Open video");
   });
   playButton.addEventListener("click",()=>{
@@ -103,18 +147,31 @@ if(video&&frame&&sound&&playButton&&videoStatus){
       window.open("assets/beginning-concepts-gia.mp4","_blank","noopener");
       return;
     }
-    tryPlay();
+    // The click is a browser-approved gesture: make the welcome audible once.
+    startVideo(true,true);
   });
   sound.addEventListener("click",()=>{
-    video.muted=!video.muted;
-    sound.textContent=video.muted?"♪ Sound off":"♪ Sound on";
-    sound.setAttribute("aria-pressed",String(!video.muted));
-    if(video.paused)tryPlay();
+    if(video.error)return;
+    if(!video.muted){
+      video.muted=true;
+      updateSoundControl();
+    }else{
+      // Explicit replay, with Gia's voice once; all following cycles will be muted.
+      startVideo(true,true);
+    }
+  });
+  document.addEventListener("visibilitychange",()=>{
+    if(document.hidden){
+      if(!video.muted){video.muted=true;updateSoundControl()}
+    }else if(video.paused&&!video.error){
+      // Never unexpectedly restart spoken audio when returning to the tab.
+      startVideo(false);
+    }
   });
   if(video.readyState>=2)ready();
-  // Browsers usually autoplay muted clips. A visible play button remains if autoplay is blocked.
-  tryPlay();
-  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&video.paused&&!video.error)tryPlay()});
+  // Try speaking once when the browser permits it; fall back to muted autoplay.
+  // Reloading the same tab won't automatically repeat an introduction already heard.
+  startVideo(!heardThisTab);
 }
 
 })();
