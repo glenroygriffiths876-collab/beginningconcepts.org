@@ -4,7 +4,7 @@ const EMAIL="beginningconcepts.org@gmail.com",PIC="assets/gia-avatar.jpg";
 const wrap=document.createElement("div");wrap.id="giaExperience";
 wrap.innerHTML='<button class="gia-launch" id="giaLaunch" type="button" aria-controls="giaPanel" aria-expanded="false" aria-label="Chat with Gia"><span class="gia-label">Ask Gia ↗</span><span class="gia-face"><img src="'+PIC+'" alt=""><span class="gia-ping"></span></span></button>'
 +'<section class="gia-panel" id="giaPanel" role="dialog" aria-modal="false" aria-labelledby="giaTitle" hidden>'
-+'<div class="gia-head"><img src="'+PIC+'" alt=""><div class="gia-head-copy"><h2 id="giaTitle">Gia <span style="font-weight:400;color:#ead4a9">(JEE-uh)</span></h2><p>Beginning Concepts digital guide</p></div><button class="gia-close" id="giaClose" type="button" aria-label="Close Gia chat">×</button></div>'
++'<div class="gia-head"><img src="'+PIC+'" alt=""><div class="gia-head-copy"><h2 id="giaTitle">Gia</h2><p>Beginning Concepts digital guide</p></div><button class="gia-close" id="giaClose" type="button" aria-label="Close Gia chat">×</button></div>'
 +'<div class="gia-chat" id="giaMessages" role="log" aria-label="Conversation with Gia" aria-live="polite"></div>'
 +'<div class="gia-tools" id="giaQuick" aria-label="Suggestions"></div>'
 +'<div class="gia-input"><form id="giaForm"><label class="sr" for="giaQuestion">Message Gia</label><input id="giaQuestion" maxlength="600" autocomplete="off" placeholder="Ask Gia about your idea..." required><button class="gia-send" type="submit" aria-label="Send message">➤</button></form><p class="gia-footnote">Knowledge-guided assistant; no live generative AI yet. Chat stays in this tab. Enquiries send only when you approve an email draft.</p></div></section>';
@@ -14,7 +14,7 @@ let first=true,returnFocus=null,brief=null;
 const answers={
 websites:"Beginning Concepts creates custom, responsive websites designed around each organisation's needs. We can discuss professional page design, content structure, contact tools, accessibility, domains, hosting and future updates. Actual features and scope are agreed during planning.",
 apps:"We explore custom digital applications including booking and ordering experiences, portals, dashboards, directories and business workflow tools. Requirements for user accounts, databases and security must be assessed before selecting the technology.",
-ai:"Gia (pronounced JEE-uh) is Beginning Concepts' signature virtual assistant identity. We can customise her knowledge and user experience for businesses, service guides and educational platforms. This site's version is knowledge-guided; open-ended generative AI requires a secured backend.",
+ai:"Gia is Beginning Concepts' signature virtual assistant identity. We can customise her knowledge and user experience for businesses, service guides and educational platforms. This site's version is knowledge-guided; open-ended generative AI requires a secured backend.",
 learning:"Our educational solutions can include interactive lessons, visual learning activities, resource libraries, training tools, quizzes and accessibility-conscious experiences. Tell us about your learners and the outcomes you want.",
 digital:"We can discuss searchable directories, resource hubs, QR-code entry points, interactive manuals, forms and other customised digital experiences. Start with the challenge you need technology to solve.",
 cost:"We do not have a published price list. A quotation depends on scope, design, technical features and maintenance needs. I can prepare a project enquiry for the team to review.",
@@ -36,7 +36,7 @@ function add(text,person="gia",action){let row=document.createElement("div");row
 function chips(arr){quick.replaceChildren();arr.forEach(([label,key])=>{let b=document.createElement("button");b.type="button";b.className="gia-chip";b.textContent=label;b.dataset.giaTopic=key;quick.append(b)})}
 function options(){chips([["Websites","websites"],["Apps","apps"],["AI & Gia","ai"],["Learning","learning"],["Our work","work"],["Project brief","brief"]])}
 function mail(subject,body){return "mailto:"+EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body)}
-function open(){returnFocus=document.activeElement;panel.hidden=false;launcher.setAttribute("aria-expanded","true");if(first){first=false;add("Hello! I'm Gia (JEE-uh), your Beginning Concepts digital guide. ✨\n\nI can explain our custom websites, apps, Gia assistants and learning tools—or help you prepare a project enquiry. What would you like to build?");options()}question.focus()}
+function open(){returnFocus=document.activeElement;panel.hidden=false;launcher.setAttribute("aria-expanded","true");if(first){first=false;add("Hello! I'm Gia, your Beginning Concepts digital guide. ✨\n\nI can explain our custom websites, apps, Gia assistants and learning tools—or help you prepare a project enquiry. What would you like to build?");options()}question.focus()}
 function hide(){panel.hidden=true;launcher.setAttribute("aria-expanded","false");(returnFocus?.focus?returnFocus:launcher).focus()}
 launcher.addEventListener("click",()=>panel.hidden?open():hide());close.addEventListener("click",hide);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden){e.stopPropagation();hide()}});
@@ -57,7 +57,7 @@ chips([["Start a project","brief"],["View services","services"],["Costs","cost"]
 function respond(text){if(brief){const [key]=briefQuestions[brief.step];brief.values[key]=text;brief.step++;if(brief.step===briefQuestions.length)endBrief();else add(briefQuestions[brief.step][1]);return}
 let s=text.trim();
 if(/\b(start|prepare|create|write|make)\b.*\b(brief|enquiry|project inquiry)\b/i.test(s)){topic("brief");return}
-if(/^(hi|hey|hello|good morning|good afternoon|good evening|who are you)\b/i.test(s)){add("Hello! I'm Gia—pronounced JEE-uh. I'm here to help you explore Beginning Concepts and prepare an enquiry.");options();return}
+if(/^(hi|hey|hello|good morning|good afternoon|good evening|who are you)\b/i.test(s)){add("Hello! I'm Gia. I'm here to help you explore Beginning Concepts and prepare an enquiry.");options();return}
 let found=patterns.filter(([k,p])=>p.test(s)).map(x=>x[0]);if(found.length>1&&found.some(k=>["websites","apps","ai","learning"].includes(k))){const relevant=found.filter(k=>["websites","apps","ai","learning","digital"].includes(k));if(relevant.length>1){add("Your idea may combine "+relevant.join(", ")+". Let's explore one part first, or create a project brief with all the requirements.");chips([...relevant.map(k=>[k.charAt(0).toUpperCase()+k.slice(1),k]),["Project brief","brief"]]);return}}
 topic(found[0]||"unknown")}
 quick.addEventListener("click",e=>{let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
