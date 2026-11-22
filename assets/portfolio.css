@@ -44,4 +44,12 @@ a.work-card:hover .work-arrow{transform:translate(2px,-2px)}
  .work-body p{font-size:10.5px;line-height:1.45;margin-bottom:8px}.work-action{font-size:10.5px}
  .work-arrow{width:20px;height:20px;font-size:13px}
 }
+
+/* Show project-specific artwork, not generic service icons. */
+.work-emblem-logo{padding:4px;background:#fff;overflow:hidden;border-color:#dfc891;box-shadow:0 5px 14px #001b2938}
+.work-emblem-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;border-radius:7px}
+.work-emblem-wide{width:65px}
+.work-art-hjpa .work-emblem-logo img{border-radius:50%}
+@media(max-width:1020px) and (min-width:601px){.work-emblem-wide{width:53px}}
+@media(max-width:600px){.work-emblem-wide{width:54px}.work-emblem-logo{padding:3px}}
 @media(prefers-reduced-motion:reduce){.work-card,.work-arrow{transition:none}}
