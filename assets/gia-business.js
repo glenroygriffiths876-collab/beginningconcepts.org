@@ -58,5 +58,59 @@ let found=patterns.filter(([k,p])=>p.test(s)).map(x=>x[0]);if(found.length>1&&fo
 topic(found[0]||"unknown")}
 quick.addEventListener("click",e=>{let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
 document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s)return;question.value="";add(s,"user");respond(s);question.focus()});
-const video=document.getElementById("brandVideo"),frame=document.getElementById("brandCinema"),sound=document.getElementById("brandSound");if(video&&frame&&sound){let ready=false;const loaded=()=>{ready=true;frame.classList.add("is-ready");sound.disabled=false;video.play().catch(()=>{})};video.addEventListener("loadeddata",loaded);if(video.readyState>=2)loaded();video.addEventListener("error",()=>{ready=false;frame.classList.remove("is-ready");sound.disabled=true});sound.addEventListener("click",()=>{if(!ready)return;video.muted=!video.muted;sound.textContent=video.muted?"♪ Sound off":"♪ Sound on";sound.setAttribute("aria-pressed",String(!video.muted));if(video.paused)video.play().catch(()=>{})})}
+const video=document.getElementById("brandVideo");
+const frame=document.getElementById("brandCinema"),sound=document.getElementById("brandSound");
+const playButton=document.getElementById("brandPlay"),videoStatus=document.getElementById("brandVideoStatus");
+if(video&&frame&&sound&&playButton&&videoStatus){
+  let userPaused=false;
+  function showPlay(label="▶ Play Gia's film"){
+    playButton.hidden=false;
+    playButton.querySelector(".bc-play-text").textContent=label;
+  }
+  function ready(){
+    frame.classList.add("is-ready");
+    sound.disabled=false;
+    videoStatus.textContent="";
+  }
+  function playing(){
+    ready();
+    playButton.hidden=true;
+  }
+  function tryPlay(){
+    userPaused=false;
+    videoStatus.textContent="";
+    const attempt=video.play();
+    if(attempt&&typeof attempt.catch==="function"){
+      attempt.catch(()=>{showPlay("▶ Tap to play Gia's film");});
+    }
+  }
+  video.addEventListener("loadeddata",ready);
+  video.addEventListener("canplay",ready);
+  video.addEventListener("playing",playing);
+  video.addEventListener("pause",()=>{if(!userPaused&&!video.ended)showPlay("▶ Resume Gia's film")});
+  video.addEventListener("error",()=>{
+    frame.classList.remove("is-ready");
+    sound.disabled=true;
+    videoStatus.textContent="The film is unavailable in this browser. You can open the video directly below.";
+    showPlay("▶ Open video");
+  });
+  playButton.addEventListener("click",()=>{
+    if(video.error){
+      window.open("assets/beginning-concepts-gia.mp4","_blank","noopener");
+      return;
+    }
+    tryPlay();
+  });
+  sound.addEventListener("click",()=>{
+    video.muted=!video.muted;
+    sound.textContent=video.muted?"♪ Sound off":"♪ Sound on";
+    sound.setAttribute("aria-pressed",String(!video.muted));
+    if(video.paused)tryPlay();
+  });
+  if(video.readyState>=2)ready();
+  // Browsers usually autoplay muted clips. A visible play button remains if autoplay is blocked.
+  tryPlay();
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&video.paused&&!video.error)tryPlay()});
+}
+
 })();
