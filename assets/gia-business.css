@@ -83,3 +83,12 @@ html{scroll-padding-top:90px}
 .bc-video-status{position:absolute;z-index:4;top:50px;left:23px;right:23px;margin:0;color:#fff;font-size:12px;text-shadow:0 2px 6px #001a2a;pointer-events:none}
 .bc-cinema .bc-sound:disabled{opacity:.65}
 @media(max-width:560px){.bc-cinema .bc-play{padding:9px 13px;min-height:46px;font-size:11px;gap:7px}.bc-cinema .bc-play .bc-play-symbol{width:28px;height:28px;font-size:16px}.bc-video-status{top:38px;left:14px;right:14px;font-size:10px}}
+
+/* Gia's first spoken welcome plays once; the video then loops silently.
+   Keep the optional 'Hear Gia' control readable on narrow screens. */
+.bc-cinema-actions .bc-sound{font-size:11px;white-space:nowrap;min-width:80px;line-height:1.3}
+.bc-cinema-actions .bc-sound:before{content:none}
+@media(max-width:560px){
+  .bc-cinema-actions .bc-sound{width:auto;height:auto;min-width:76px;border-radius:999px;padding:9px 10px;font-size:10px}
+  .bc-cinema-actions .bc-sound:before{content:none}
+}
