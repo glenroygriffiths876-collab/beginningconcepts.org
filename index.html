@@ -89,7 +89,7 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 @media(max-width:560px){header{height:78px}.header-inner{padding-inline:13px;gap:10px}.brand{gap:8px}.brand img{width:54px;height:52px}.brand-sep{height:35px;border-left-width:1px}.brand-main{font-size:clamp(17px,5.3vw,24px)}.brand-small{font-size:clamp(9px,2.7vw,13px);letter-spacing:.28em}.menu{font-size:28px;padding:8px 1px}nav{top:78px}.content{padding:21px 14px 43px}.hero{gap:23px}.main-logo{width:clamp(185px,55vw,245px);margin:0 auto -5px}.intro h1{font-size:clamp(35px,9.6vw,52px)}.concepts{font-size:clamp(20px,6.1vw,31px);letter-spacing:.27em;padding-left:.27em;gap:8px}.concepts:before,.concepts:after{width:30px}.motto{font-size:clamp(7px,2vw,10px);letter-spacing:.16em}.motto b{margin:0 .35em}.tagline{font-size:clamp(24px,6.3vw,34px);white-space:normal;line-height:1.26;margin:19px auto}.tagline em{display:block;font-size:1.56em}.soon{font-size:12px;letter-spacing:.18em;padding:11px 22px}.assistant{border-radius:22px}.assistant-head{padding:13px 16px;gap:11px}.bot{width:44px;height:44px;font-size:22px}.a-heading{padding-left:12px}.a-heading h2{font-size:24px}.a-heading p{font-size:10px}.assistant-content{padding:15px 13px}.smallbot{width:33px;height:33px;font-size:16px}.greeting{gap:8px;margin-bottom:17px}.greeting p{padding:12px;font-size:13px}.chips{gap:7px;margin-bottom:15px}.chips button{font-size:11px;padding:8px 10px}.ask input{padding:9px 7px;font-size:13px}.ask button{width:42px;height:40px}.video-preview{font-size:11px}.features{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:30px}.feature{grid-column:span 2;border:1px solid #ddb978!important;border-radius:15px;min-height:106px;padding:10px 2px;background:linear-gradient(#fff,#fcf7ed);box-shadow:0 6px 12px #54452f17;gap:7px}.feature:nth-child(4){grid-column:2/span 2}.feature:nth-child(5){grid-column:4/span 2}.feature svg{font-size:37px}.feature span{font-size:clamp(8px,2.25vw,11px);letter-spacing:.08em}.footer{margin-top:25px;gap:10px}.corner.top{left:-340px}.corner.bottom{right:-300px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
-<link rel="stylesheet" href="assets/gia-business.css?v=1">
+<link rel="stylesheet" href="assets/gia-business.css?v=2">
 </head>
 <body>
 <svg class="sr" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,9 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 </section>
 <section class="bc-cinema" id="brandCinema" aria-label="Beginning Concepts cinematic showcase featuring Gia">
 <div class="bc-film-fallback"><img src="assets/gia-avatar.jpg" alt="Gia, the Beginning Concepts virtual guide"></div>
-<video id="brandVideo" class="bc-film" autoplay muted loop playsinline preload="metadata" aria-label="Beginning Concepts cinematic introduction featuring Gia"><source src="assets/beginning-concepts-gia.mp4" type="video/mp4"></video>
+<video id="brandVideo" class="bc-film" autoplay muted loop playsinline preload="auto" poster="assets/gia-avatar.jpg" aria-label="Beginning Concepts cinematic introduction featuring Gia"><source src="assets/beginning-concepts-gia.mp4?v=2" type="video/mp4">Your browser does not support HTML5 video.</video>
+<button type="button" class="bc-play" id="brandPlay" aria-label="Play Gia cinematic introduction"><span class="bc-play-symbol" aria-hidden="true">▶</span><span class="bc-play-text">Play Gia\u0027s film</span></button>
+<p class="bc-video-status" id="brandVideoStatus" role="status" aria-live="polite"></p>
 <div class="bc-cinema-top"><span class="eyebrow">The future begins here</span><span class="live-mark">Beginning Concepts</span></div>
 <div class="bc-cinema-copy"><strong>Built for what's next.</strong><span>Websites · Apps · Gia Assistants · Learning Experiences</span></div>
 <div class="bc-cinema-actions"><button type="button" class="bc-sound" id="brandSound" aria-pressed="false" aria-label="Toggle film sound" disabled>♪ Sound off</button></div>
@@ -167,5 +169,5 @@ document.getElementById("share").addEventListener("click",async()=>{if(navigator
 document.getElementById("year").textContent=new Date().getFullYear();
 })();
 </script>
-<script src="assets/gia-business.js?v=1" defer></script>
+<script src="assets/gia-business.js?v=2" defer></script>
 </body></html>
