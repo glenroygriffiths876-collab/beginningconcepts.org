@@ -2,6 +2,17 @@
 
 Official address: https://beginningconcepts.org/
 
+## Selected work portfolio (November 22, 2026)
+
+The homepage now includes a responsive **Selected Work / Our Work** section beneath the five focus-area controls. Each card is a direct, accessible external link opening in a new tab; no redirects or placeholder dialogs are used. The section's isolated styling lives in `assets/portfolio.css`.
+
+- **WAPS Communication:** https://waps.beginningconcepts.org/ — Western Autism Parents Support, a free caregiver-guided communication support platform.
+- **HSTU Resource Repository:** https://hstu-repository.moh.gov.jm/ — public-health strategic information resources and materials.
+
+The top navigation includes **Our Work**. Gia's browser-based service guide also includes **Our work** suggestions and direct links to both examples when asked for portfolio work, WAPS or HSTU. This change does not alter WAPS, HSTU, Gia's backend model, the cinematic video, DNS or deployment configuration.
+
+Follow-up QA: check both destination URLs in a normal browser and verify the new section visually at desktop/tablet/mobile widths after GitHub Pages publishes this commit. Their live HTTP responses were not independently verified during editing.
+
 ## Gia cinematic homepage and business guide (November 22, 2026)
 
 - The original generic robot assistant preview has been replaced by a floating **Ask Gia** bubble, using the official Gia portrait carried into `assets/gia-avatar.jpg`.
