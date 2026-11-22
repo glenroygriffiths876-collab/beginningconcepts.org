@@ -89,6 +89,7 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 @media(max-width:560px){header{height:78px}.header-inner{padding-inline:13px;gap:10px}.brand{gap:8px}.brand img{width:54px;height:52px}.brand-sep{height:35px;border-left-width:1px}.brand-main{font-size:clamp(17px,5.3vw,24px)}.brand-small{font-size:clamp(9px,2.7vw,13px);letter-spacing:.28em}.menu{font-size:28px;padding:8px 1px}nav{top:78px}.content{padding:21px 14px 43px}.hero{gap:23px}.main-logo{width:clamp(185px,55vw,245px);margin:0 auto -5px}.intro h1{font-size:clamp(35px,9.6vw,52px)}.concepts{font-size:clamp(20px,6.1vw,31px);letter-spacing:.27em;padding-left:.27em;gap:8px}.concepts:before,.concepts:after{width:30px}.motto{font-size:clamp(7px,2vw,10px);letter-spacing:.16em}.motto b{margin:0 .35em}.tagline{font-size:clamp(24px,6.3vw,34px);white-space:normal;line-height:1.26;margin:19px auto}.tagline em{display:block;font-size:1.56em}.soon{font-size:12px;letter-spacing:.18em;padding:11px 22px}.assistant{border-radius:22px}.assistant-head{padding:13px 16px;gap:11px}.bot{width:44px;height:44px;font-size:22px}.a-heading{padding-left:12px}.a-heading h2{font-size:24px}.a-heading p{font-size:10px}.assistant-content{padding:15px 13px}.smallbot{width:33px;height:33px;font-size:16px}.greeting{gap:8px;margin-bottom:17px}.greeting p{padding:12px;font-size:13px}.chips{gap:7px;margin-bottom:15px}.chips button{font-size:11px;padding:8px 10px}.ask input{padding:9px 7px;font-size:13px}.ask button{width:42px;height:40px}.video-preview{font-size:11px}.features{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:30px}.feature{grid-column:span 2;border:1px solid #ddb978!important;border-radius:15px;min-height:106px;padding:10px 2px;background:linear-gradient(#fff,#fcf7ed);box-shadow:0 6px 12px #54452f17;gap:7px}.feature:nth-child(4){grid-column:2/span 2}.feature:nth-child(5){grid-column:4/span 2}.feature svg{font-size:37px}.feature span{font-size:clamp(8px,2.25vw,11px);letter-spacing:.08em}.footer{margin-top:25px;gap:10px}.corner.top{left:-340px}.corner.bottom{right:-300px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
+<link rel="stylesheet" href="assets/gia-business.css?v=1">
 </head>
 <body>
 <svg class="sr" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +107,7 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 </svg>
 <header><div class="header-inner">
 <a class="brand" href="#home" aria-label="Beginning Concepts home"><img src="assets/brand-logo.webp" alt="" width="165" height="127"><span class="brand-sep" aria-hidden="true"></span><span><span class="brand-main">BEGINNING</span><span class="brand-small">CONCEPTS</span></span></a>
-<nav id="nav" aria-label="Main navigation"><button class="active" data-go="home">Home</button><button data-soon="About Beginning Concepts">About</button><button data-go="features">Focus Areas</button><button data-go="assistant">AI Assistant</button><button data-contact>Contact</button></nav>
+<nav id="nav" aria-label="Main navigation"><button class="active" data-go="home">Home</button><button type="button" data-gia-open>About</button><button data-go="features">Focus Areas</button><button type="button" data-gia-open>Ask Gia</button><button data-contact>Contact</button></nav>
 <button class="mail header-mail" data-contact><svg aria-hidden="true"><use href="#mail"/></svg>Contact via Gmail</button>
 <button class="menu" id="menu" aria-label="Open navigation" aria-expanded="false" aria-controls="nav"><svg aria-hidden="true"><use href="#bars"/></svg></button>
 </div></header>
@@ -118,24 +119,23 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 <h1>BEGINNING</h1><div class="concepts" aria-label="Concepts">CONCEPTS</div>
 <div class="motto">Innovation <b>•</b> Learning <b>•</b> Development</div>
 <p class="tagline">Where Ideas Begin and <em>Potential Grows.</em></p>
-<span class="soon"><svg aria-hidden="true"><use href="#gear"/></svg>COMING SOON</span>
+<p class="bc-intro-desc">Custom websites, applications, Gia virtual assistants and digital learning experiences—beautifully built around your ideas.</p>
+<div class="bc-actions"><button class="bc-action primary" type="button" data-gia-open>Discuss your idea with Gia</button><button class="bc-action secondary" type="button" data-go="features">Explore services</button></div>
 </section>
-<section class="assistant" id="assistant" aria-label="AI assistant preview">
-<div class="assistant-head"><span class="bot" aria-hidden="true">🤖</span><div class="a-heading"><h2>AI Assistant</h2><p>Ask • Explore • Learn • Get Updates</p></div></div>
-<div class="assistant-content">
-<div class="greeting"><span class="smallbot" aria-hidden="true">🤖</span><p>Hello! I'm the Beginning Concepts AI Assistant. How can I help you today?</p></div>
-<div class="chips"><button data-soon="About Beginning Concepts">About Beginning Concepts</button><button data-soon="Our Focus Areas">Our Focus Areas</button><button data-soon="Stay Updated">Stay Updated</button><button data-contact>Contact Us</button></div>
-<form class="ask" id="ask" aria-label="AI Assistant preview"><label class="sr" for="question">Type your question</label><input id="question" placeholder="Type your question..." maxlength="300" autocomplete="off"><button type="submit" aria-label="Send question"><svg aria-hidden="true"><use href="#send"/></svg></button></form>
-<button class="video-preview" data-soon="AI introduction video"><svg aria-hidden="true"><use href="#play"/></svg> Watch your AI guide's introduction — coming soon</button>
-</div>
+<section class="bc-cinema" id="brandCinema" aria-label="Beginning Concepts cinematic showcase featuring Gia">
+<div class="bc-film-fallback"><img src="assets/gia-avatar.jpg" alt="Gia, the Beginning Concepts virtual guide"></div>
+<video id="brandVideo" class="bc-film" autoplay muted loop playsinline preload="metadata" aria-label="Beginning Concepts cinematic introduction featuring Gia"><source src="assets/beginning-concepts-gia.mp4" type="video/mp4"></video>
+<div class="bc-cinema-top"><span class="eyebrow">The future begins here</span><span class="live-mark">Beginning Concepts</span></div>
+<div class="bc-cinema-copy"><strong>Built for what's next.</strong><span>Websites · Apps · Gia Assistants · Learning Experiences</span></div>
+<div class="bc-cinema-actions"><button type="button" class="bc-sound" id="brandSound" aria-pressed="false" aria-label="Toggle film sound" disabled>♪ Sound off</button></div>
 </section>
 </div>
 <section class="features" id="features" aria-label="Our focus areas">
-<button class="feature" data-soon="Innovation"><svg aria-hidden="true"><use href="#bulb"/></svg><span>Innovation</span></button>
-<button class="feature" data-soon="Technology"><svg aria-hidden="true"><use href="#laptop"/></svg><span>Technology</span></button>
-<button class="feature" data-soon="Learning"><svg aria-hidden="true"><use href="#book"/></svg><span>Learning</span></button>
-<button class="feature" data-soon="Development"><svg aria-hidden="true"><use href="#growth"/></svg><span>Development</span></button>
-<button class="feature" data-soon="People"><svg aria-hidden="true"><use href="#people"/></svg><span>People</span></button>
+<button class="feature" data-gia-open><svg aria-hidden="true"><use href="#bulb"/></svg><span>Innovation</span></button>
+<button class="feature" data-gia-open><svg aria-hidden="true"><use href="#laptop"/></svg><span>Technology</span></button>
+<button class="feature" data-gia-open><svg aria-hidden="true"><use href="#book"/></svg><span>Learning</span></button>
+<button class="feature" data-gia-open><svg aria-hidden="true"><use href="#growth"/></svg><span>Development</span></button>
+<button class="feature" data-gia-open><svg aria-hidden="true"><use href="#people"/></svg><span>People</span></button>
 </section>
 <footer class="footer"><button class="mail" data-contact><svg aria-hidden="true"><use href="#mail"/></svg>Contact via Gmail</button><button class="link" id="share"><svg aria-hidden="true" style="vertical-align:-2px"><use href="#share-icon"/></svg> Share website</button><span>© <span id="year">2026</span> Beginning Concepts</span></footer>
 </div></main>
@@ -158,7 +158,7 @@ menu.addEventListener("click",()=>{const o=nav.classList.toggle("open");menu.set
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{closeNav();document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth",block:"start"})}));
 document.querySelectorAll("[data-soon]").forEach(b=>b.addEventListener("click",()=>{closeNav();open(b.dataset.soon)}));
 document.querySelectorAll("[data-contact]").forEach(b=>b.addEventListener("click",()=>{closeNav();contact()}));
-document.getElementById("ask").addEventListener("submit",e=>{e.preventDefault();open("AI Assistant")});
+
 document.getElementById("close").addEventListener("click",shut);document.getElementById("back").addEventListener("click",shut);
 modal.addEventListener("click",e=>{if(e.target===modal)shut()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!modal.hidden)shut();else closeNav()}});
 const toast=document.getElementById("toast");let timer;
@@ -167,4 +167,5 @@ document.getElementById("share").addEventListener("click",async()=>{if(navigator
 document.getElementById("year").textContent=new Date().getFullYear();
 })();
 </script>
+<script src="assets/gia-business.js?v=1" defer></script>
 </body></html>
