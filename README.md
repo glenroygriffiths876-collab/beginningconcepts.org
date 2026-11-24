@@ -26,7 +26,7 @@ Follow-up QA: check both destination URLs in a normal browser and verify the new
 
 ## Current homepage
 
-The website now uses a responsive, semantic HTML/CSS design inspired by the approved navy-and-gold Beginning Concepts concepts. The same brand-logo.webp artwork is used in the header, hero and Coming Soon dialog on all screen sizes.
+The website now uses a responsive, semantic HTML/CSS design inspired by the approved navy-and-gold Beginning Concepts concepts. The same brand-logo-hd.avif artwork is used in the header, hero and Coming Soon dialog on all screen sizes.
 
 - Desktop/landscape: two-column brand introduction and cinematic Gia video showcase.
 - Phone/portrait: stacked brand/video layout, compact mobile menu, and floating Gia chat interface.
@@ -46,7 +46,7 @@ Settings > Pages: deploy from main branch and root folder. The existing CNAME fi
 ## Files and preservation
 
 - index.html: complete new responsive site, CSS and preview interactions.
-- assets/brand-logo.webp: consistent B logo cropped from the new approved desktop visual concept.
+- assets/brand-logo-hd.avif: approved high-resolution transparent B emblem (620 × 511).
 - assets/home-desktop.png and assets/home-mobile.png: earlier screenshot-based version retained in the repository as a reference; not used in the new page.
 - CNAME: unchanged.
 
