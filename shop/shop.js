@@ -1,48 +1,148 @@
-const products = [
-  { name: "Pocket notebook", price: 450, colour: "#2e5853", quantity: 0 },
-  { name: "Study journal", price: 850, colour: "#98502d", quantity: 0 },
-  { name: "Sketchbook", price: 1200, colour: "#254766", quantity: 0 }
+const scents = [
+  {id:"golden-hour",name:"Golden Hour",family:"Citrus",notes:"Bitter orange · Neroli · Cedar",story:"Bright orange peel opens into soft neroli, with a dry cedar finish that lingers like late afternoon light.",price:4800},
+  {id:"sea-glass",name:"Sea Glass",family:"Fresh",notes:"Sea salt · Lime leaf · Musk",story:"A crisp lime-leaf opening gives way to a sea-salt accord and a soft, clean musk.",price:4400},
+  {id:"sorrel-dusk",name:"Sorrel Dusk",family:"Spiced",notes:"Hibiscus · Ginger · Amber",story:"Tart hibiscus meets fresh ginger before settling into the warmth of amber.",price:5400},
+  {id:"fern-house",name:"Fern House",family:"Green",notes:"Fern · Vetiver · Green tea",story:"Green tea and crushed fern leaves carry a cool, earthy vetiver base.",price:5000}
 ];
-const money = amount => "J$" + amount.toLocaleString("en-JM");
-const preview = document.querySelector("#preview");
-const message = document.querySelector("#message");
-function updateOrder() {
-  const count = products.reduce((sum, item) => sum + item.quantity, 0);
-  const total = products.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  document.querySelector("#summary").textContent = count
-    ? count + (count === 1 ? " notebook" : " notebooks") + " · Total " + money(total)
-    : "Your basket is empty.";
-  preview.disabled = count === 0;
-  message.hidden = true;
-  return total;
-}
-for (const product of products) {
-  const row = document.createElement("article");
-  row.className = "product";
-  row.style.setProperty("--cover", product.colour);
-  row.innerHTML = '<span class="book" aria-hidden="true"></span><div><h3></h3><p class="price"></p></div><div class="controls"><button type="button">−</button><span>0</span><button type="button">+</button></div>';
-  row.querySelector("h3").textContent = product.name;
-  row.querySelector(".price").textContent = money(product.price);
-  const [minus, plus] = row.querySelectorAll("button");
-  minus.setAttribute("aria-label", "Remove one " + product.name);
-  plus.setAttribute("aria-label", "Add one " + product.name);
-  minus.disabled = true;
-  function change(amount) {
-    product.quantity += amount;
-    row.querySelector(".controls span").textContent = product.quantity;
-    minus.disabled = product.quantity === 0;
-    updateOrder();
+const sizes = [30,50];
+const money = n => "J$" + n.toLocaleString("en-JM");
+const price = (s,size) => s.price + (size === 50 ? 2000 : 0);
+const el = selector => document.querySelector(selector);
+const details = el("#details"), bag = el("#bag");
+const selected = new Map();
+let family = "All", cart = {}, noticeTimer;
+try {
+  const saved = JSON.parse(sessionStorage.getItem("sg-bag-v1") || "{}");
+  for (const s of scents) for (const size of sizes) {
+    const key = s.id + ":" + size;
+    if (Number.isInteger(saved[key]) && saved[key] > 0 && saved[key] <= 99) cart[key] = saved[key];
   }
-  minus.addEventListener("click", () => change(-1));
-  plus.addEventListener("click", () => change(1));
-  document.querySelector("#products").append(row);
+} catch {}
+function notify(message) {
+  clearTimeout(noticeTimer);
+  el("#notice").textContent = message;
+  noticeTimer = setTimeout(() => el("#notice").textContent = "", 2200);
 }
-preview.addEventListener("click", () => {
-  const lines = products.filter(item => item.quantity).map(item =>
-    item.quantity + " × " + item.name + " — " + money(item.price * item.quantity));
-  document.querySelector("#message-text").textContent =
-    ["Hello! I’d like to order", ...lines, "Total " + money(updateOrder())].join("\n");
-  message.hidden = false;
-  message.setAttribute("tabindex", "-1");
-  message.focus();
+function changeQuantity(s,size,delta) {
+  const key = s.id + ":" + size;
+  const next = Math.min(99,Math.max(0,(cart[key] || 0) + delta));
+  if (next) cart[key] = next;
+  else delete cart[key];
+  try { sessionStorage.setItem("sg-bag-v1",JSON.stringify(cart)); } catch {}
+  el("#count").textContent = Object.values(cart).reduce((a,b) => a+b,0);
+}
+function buyControls(root,s,priceNode) {
+  const select = root.querySelector("select");
+  select.setAttribute("aria-label", s.name + " bottle size");
+  for (const size of sizes) select.add(new Option(size + " ml",size));
+  select.value = selected.get(s.id) || 30;
+  function update() {
+    selected.set(s.id,Number(select.value));
+    priceNode.textContent = money(price(s,Number(select.value)));
+  }
+  update();
+  select.addEventListener("change",update);
+  root.querySelector(".add").addEventListener("click",() => {
+    changeQuantity(s,Number(select.value),1);
+    if (details.open) details.close();
+    showBag();
+  });
+}
+function openDetails(s) {
+  el("#detail-body").innerHTML = '<img alt=""><p class="label"></p><h2 id="scent-title"></h2><p class="story"></p><p class="detail-notes"></p><strong class="price"></strong><div class="buy"><select></select><button class="add">Add to bag +</button></div>';
+  const body = el("#detail-body");
+  body.querySelector("img").src = s.id+".webp";
+  body.querySelector(".label").textContent = s.family+" · Eau de parfum";
+  body.querySelector("h2").textContent = s.name;
+  body.querySelector(".story").textContent = s.story;
+  body.querySelector(".detail-notes").textContent = s.notes;
+  buyControls(body,s,body.querySelector(".price"));
+  details.setAttribute("aria-labelledby","scent-title");
+  details.showModal();
+}
+function render() {
+  const list = scents.filter(s => family === "All" || family === s.family);
+  const sort = el("#sort").value;
+  if (sort !== "featured") list.sort((a,b) => (a.price-b.price)*(sort === "low" ? 1 : -1));
+  const grid = el("#grid");
+  grid.replaceChildren();
+  for (const s of list) {
+    const card = el("#product").content.cloneNode(true);
+    card.querySelector("img").src = s.id+".webp";
+    card.querySelector(".photo").setAttribute("aria-label","View "+s.name+" fragrance");
+    card.querySelector("h3 button").textContent = s.name;
+    card.querySelector(".notes").textContent = s.notes;
+    card.querySelectorAll("[data-detail]").forEach(btn => btn.onclick = () => openDetails(s));
+    buyControls(card,s,card.querySelector(".price"));
+    grid.append(card);
+  }
+}
+for (const name of ["All",...scents.map(s => s.family)]) {
+  const btn = document.createElement("button");
+  btn.textContent = name;
+  btn.setAttribute("aria-pressed",name === family);
+  btn.onclick = () => {
+    family = name;
+    el(".filters").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed",b===btn));
+    render();
+    notify(name === "All" ? "Showing all four fragrances" : "Showing "+name.toLowerCase()+" fragrances");
+  };
+  el(".filters").append(btn);
+}
+function showBag() {
+  const body = el("#bag-body");
+  body.replaceChildren();
+  let total = 0;
+  const lines = [];
+  for (const s of scents) for (const size of sizes) {
+    const qty = cart[s.id+":"+size];
+    if (!qty) continue;
+    const amount = qty*price(s,size);
+    total += amount;
+    lines.push(qty+" × "+s.name+" ("+size+" ml) — "+money(amount));
+    const row = document.createElement("div");
+    row.className = "bag-line";
+    row.innerHTML = '<img alt=""><div class="line-copy"><strong></strong><small></small></div><div class="qty"><button>−</button><span></span><button>+</button></div>';
+    row.querySelector("img").src=s.id+".webp";
+    row.querySelector("strong").textContent=s.name;
+    row.querySelector("small").textContent=size+" ml · "+money(amount);
+    row.querySelector(".qty span").textContent=qty;
+    row.querySelectorAll("button").forEach((b,i) => {
+      const label=(i ? "Add one " : "Remove one ")+s.name+" "+size+" ml";
+      b.setAttribute("aria-label",label);
+      b.disabled=i===1 && qty===99;
+      b.onclick=() => {
+        changeQuantity(s,size,i ? 1 : -1);
+        showBag();
+        (body.querySelector('[aria-label="'+label+'"]:not(:disabled)') || bag.querySelector(".close")).focus();
+      };
+    });
+    body.append(row);
+  }
+  if (total) {
+    const summary = document.createElement("div");
+    summary.innerHTML='<div class="subtotal"><span>Subtotal · JMD</span><span></span></div><button class="checkout">Preview sample order</button><p class="hint">Demo checkout. No payment is taken or order sent.</p><p class="receipt" role="status" hidden></p>';
+    summary.querySelector(".subtotal span:last-child").textContent=money(total);
+    summary.querySelector("button").onclick=() => {
+      const receipt=summary.querySelector(".receipt");
+      receipt.hidden=false;
+      receipt.textContent=["Sample order",...lines,"Subtotal "+money(total)].join("\n");
+    };
+    body.append(summary);
+  } else body.textContent="Your bag is empty. Explore the collection to add a fragrance.";
+  if (!bag.open) bag.showModal();
+}
+el("#count").textContent = Object.values(cart).reduce((a,b)=>a+b,0);
+el("#bag-open").onclick=showBag;
+el("#sort").onchange=render;
+for (const dialog of [details,bag]) {
+  dialog.querySelector(".close").onclick=()=>dialog.close();
+}
+details.addEventListener("close",()=> {
+  for (const select of el("#grid").querySelectorAll("select")) {
+    const s=scents.find(item=>select.getAttribute("aria-label")===item.name+" bottle size");
+    select.value=selected.get(s.id);
+    select.dispatchEvent(new Event("change"));
+  }
 });
+render();
