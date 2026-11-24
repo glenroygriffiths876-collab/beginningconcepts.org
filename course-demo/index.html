@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIV and Syphilis 101</title>
+
+  <style>
+    /* CSS Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    :root {
+      --primary-blue: #2a6ebb;
+      --primary-teal: #2bb5b5;
+      --primary-green: #2bb57c;
+      --primary-yellow: #ffcc4d;
+      --primary-red: #e74c3c;
+      --primary-purple: #9b59b6;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #2c3e50;
+      --text-light: #5d6d7e;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 100px);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 25px 20px;
+      margin-bottom: 30px;
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-teal));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: float 20s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .header * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-30px, -30px) rotate(360deg); }
+    }
+
+    .header h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 18px 30px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-teal));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(42, 110, 187, 0.3);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(to right, var(--primary-green), #2bb59c);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(43, 181, 124, 0.3);
+    }
+
+    .btn-certificate {
+      background: linear-gradient(to right, var(--primary-purple), #8e44ad);
+      color: white;
+      font-size: 1.25rem;
+      padding: 20px 35px;
+      margin: 20px auto;
+      width: fit-content;
+    }
+
+    .btn-certificate.unlocked { animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(155, 89, 182, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(155, 89, 182, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(155, 89, 182, 0); }
+    }
+
+    .btn-back {
+      background: var(--text-light);
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+    }
+
+    /* Home Screen */
+    .track-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .track-btn {
+      height: 200px;
+      flex-direction: column;
+      font-size: 1.4rem;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .icon-large { font-size: 3.4rem; margin-bottom: 15px; }
+
+    .progress-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .progress-title {
+      font-size: 1.5rem;
+      color: var(--primary-blue);
+      font-weight: 800;
+    }
+
+    .progress-bar-container {
+      height: 20px;
+      background: #e0e6ef;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 25px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-green), var(--primary-teal));
+      border-radius: 10px;
+      transition: width 1s ease;
+      width: 0%;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .module-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .module-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); }
+
+    .module-card.completed {
+      border-color: var(--primary-green);
+      background: linear-gradient(135deg, #f8fff8 0%, var(--card-bg) 100%);
+    }
+
+    .module-card.locked { opacity: 0.7; filter: grayscale(0.3); }
+
+    .module-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--primary-red);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .module-title { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-dark); }
+
+    .module-status {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    .status-completed { background: #d5f4e6; color: var(--primary-green); }
+    .status-pending { background: #ffeaa7; color: #e17055; }
+    .status-locked { background: #e0e6ef; color: var(--text-light); }
+
+    /* Module Screen */
+    .module-content {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 35px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      line-height: 1.75;
+      font-size: 1.12rem;
+    }
+
+    .content-section {
+      margin-bottom: 28px;
+      padding-bottom: 22px;
+      border-bottom: 2px dashed #e8f4fc;
+    }
+
+    .content-section h3 {
+      color: var(--primary-blue);
+      margin-bottom: 14px;
+      font-size: 1.45rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .content-section ul, .content-section ol { padding-left: 25px; margin: 15px 0; }
+    .content-section li { margin-bottom: 10px; }
+
+    .simple-note {
+      background: #f1f8ff;
+      border-left: 5px solid var(--primary-blue);
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 12px;
+      color: var(--text-dark);
+    }
+
+    /* Flip Cards */
+    .flip-card {
+      background: #f1f8ff;
+      border-radius: var(--radius);
+      padding: 22px;
+      margin: 16px 0;
+      cursor: pointer;
+      border-left: 5px solid var(--primary-blue);
+      transition: var(--transition);
+    }
+
+    .flip-card:hover { background: #e3f2fd; transform: translateX(5px); }
+
+    .flip-question {
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flip-answer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 2px dashed #b3e0ff;
+      color: var(--text-dark);
+      display: none;
+    }
+
+    .flip-card.active .flip-answer { display: block; animation: fadeIn 0.5s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Drag/Drop */
+    .drag-drop-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+      .drag-drop-container { grid-template-columns: 1fr; }
+    }
+
+    .drag-column {
+      background: #f8f9fa;
+      border-radius: var(--radius);
+      padding: 25px;
+      min-height: 260px;
+      border: 3px dashed #d1d8e0;
+    }
+
+    .drag-column h4 {
+      text-align: center;
+      margin-bottom: 18px;
+      color: var(--text-dark);
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .drag-item {
+      background: white;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      cursor: move;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+      user-select: none;
+      font-weight: 650;
+    }
+
+    .drag-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .drag-icon { font-size: 1.5rem; }
+
+    .correct-drop { border-color: var(--primary-green) !important; background: #e8f8f1 !important; }
+    .incorrect-drop { border-color: var(--primary-red) !important; background: #fdeaea !important; }
+
+    /* Quiz */
+    .quiz-container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 35px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 18px;
+      border-bottom: 3px solid #e8f4fc;
+    }
+
+    .quiz-progress { font-size: 1.05rem; color: var(--text-light); margin-bottom: 10px; font-weight: 700; }
+    .quiz-question { font-size: 1.45rem; color: var(--text-dark); margin-bottom: 26px; line-height: 1.5; font-weight: 850; }
+
+    .quiz-options { display: grid; gap: 14px; margin-bottom: 24px; }
+
+    .quiz-option {
+      background: #f8fafc;
+      padding: 18px 20px;
+      border-radius: var(--radius);
+      border: 2px solid #e0e6ef;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .quiz-option:hover { background: #eef5ff; border-color: var(--primary-blue); }
+    .quiz-option.selected { background: #e3f2fd; border-color: var(--primary-blue); color: var(--primary-blue); }
+    .quiz-option.correct { background: #d5f4e6; border-color: var(--primary-green); color: var(--primary-green); }
+    .quiz-option.incorrect { background: #fdeaea; border-color: var(--primary-red); color: var(--primary-red); }
+
+    .option-indicator {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      background: white;
+      flex-shrink: 0;
+    }
+
+    .quiz-feedback {
+      padding: 22px;
+      background: #f8f9fa;
+      border-radius: var(--radius);
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+      border-left: 5px solid var(--primary-teal);
+      font-weight: 650;
+    }
+
+    .quiz-feedback.show { display: block; }
+
+    .feedback-title {
+      font-weight: 900;
+      color: var(--primary-teal);
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+    }
+
+    .quiz-navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-score {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--primary-blue);
+      margin: 28px 0;
+      padding: 18px;
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      border-radius: var(--radius);
+    }
+
+    /* Certificate */
+    .certificate-container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .certificate-locked {
+      text-align: center;
+      padding: 40px;
+      background: #f8f9fa;
+      border-radius: var(--radius);
+      margin: 30px 0;
+    }
+
+    .locked-icon {
+      font-size: 4rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .certificate-preview {
+      width: 100%;
+      min-height: 500px;
+      background: linear-gradient(135deg, #fdfcfb 0%, #f5f7fa 100%);
+      border: 20px solid #2a6ebb;
+      border-image: linear-gradient(45deg, #2a6ebb, #2bb5b5) 1;
+      padding: 50px;
+      margin: 30px 0;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .certificate-preview::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 2px dashed rgba(42, 110, 187, 0.3);
+      pointer-events: none;
+    }
+
+    .certificate-seal {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      box-shadow: 0 10px 30px rgba(42, 110, 187, 0.3);
+      animation: sealRotate 10s linear infinite;
+    }
+
+    @keyframes sealRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .certificate-title {
+      font-size: 3.2rem;
+      color: #2a6ebb;
+      margin-bottom: 18px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .certificate-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 35px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      font-weight: 650;
+    }
+
+    .certificate-name {
+      font-size: 2.8rem;
+      color: var(--text-dark);
+      margin: 35px 0;
+      padding: 18px;
+      border-bottom: 3px solid var(--primary-teal);
+      border-top: 3px solid var(--primary-teal);
+      font-weight: 900;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .certificate-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin: 25px 0;
+      color: var(--text-dark);
+      font-weight: 650;
+    }
+
+    .certificate-details {
+      display: flex;
+      justify-content: space-around;
+      margin: 35px 0;
+      padding-top: 25px;
+      border-top: 2px dashed #e0e6ef;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .certificate-detail { text-align: center; }
+    .detail-label { font-size: 1rem; color: var(--text-light); margin-bottom: 5px; font-weight: 750; }
+    .detail-value { font-size: 1.2rem; color: var(--primary-blue); font-weight: 900; }
+
+    .certificate-signature {
+      margin-top: 45px;
+      padding-top: 25px;
+      border-top: 2px solid var(--primary-blue);
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .signature-line { height: 2px; background: var(--text-dark); margin: 20px 0; }
+
+    .name-input-container { margin: 25px 0; }
+
+    .name-input {
+      width: 100%;
+      max-width: 420px;
+      padding: 16px 22px;
+      font-size: 1.25rem;
+      border: 3px solid #e0e6ef;
+      border-radius: var(--radius);
+      text-align: center;
+      transition: var(--transition);
+      margin: 0 auto;
+      display: block;
+      font-weight: 750;
+    }
+
+    .name-input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(42, 110, 187, 0.2);
+    }
+
+    .remaining-modules {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .remaining-module {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      font-weight: 750;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.85;
+      width: 100%;
+      max-width: 1200px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      font-weight: 650;
+    }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      border-radius: 2px;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0.95; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2rem; }
+      .header h2 { font-size: 1.05rem; }
+      .track-buttons { grid-template-columns: 1fr; }
+      .track-btn { height: 150px; font-size: 1.25rem; }
+      .icon-large { font-size: 2.5rem; }
+      .module-content, .quiz-container, .certificate-container { padding: 25px; }
+      .certificate-preview { padding: 25px; border-width: 10px; }
+      .certificate-title { font-size: 2.3rem; }
+      .certificate-name { font-size: 1.9rem; min-height: 80px; }
+      .btn { padding: 15px 25px; font-size: 1.05rem; }
+      .quiz-question { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .header { padding: 20px 15px; }
+      .certificate-title { font-size: 2rem; }
+      .certificate-name { font-size: 1.5rem; }
+      .quiz-navigation { flex-direction: column; }
+      .quiz-navigation .btn { width: 100%; }
+    }
+
+    /* Utility */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-20 { margin-top: 20px; }
+    .mb-20 { margin-bottom: 20px; }
+  </style>
+</head>
+
+<body><div style="width:100%;max-width:1200px;background:#102b46;color:white;border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center"><a href="../" style="color:white;font-weight:700">← Beginning Concepts</a><span>Interactive course demo · Sample certificates only</span></div>
+  <div class="container">
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+      <div class="header">
+        <h1>🩺 HIV and Syphilis 101</h1>
+        <h2>
+          Simple, easy learning about <strong>HIV</strong> and <strong>Syphilis</strong>.
+          Clear words. Short points. Quick quizzes.
+        </h2>
+      </div>
+
+      <div class="content">
+        <div class="track-buttons">
+          <button class="btn btn-primary track-btn" onclick="loadTrack('hiv')">
+            <span class="icon-large">🧬</span>
+            Learn HIV
+          </button>
+          <button class="btn btn-secondary track-btn" onclick="loadTrack('syphilis')">
+            <span class="icon-large">🦠</span>
+            Learn Syphilis
+          </button>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <div class="progress-title">Your Progress</div>
+            <div id="overall-progress">0% Done</div>
+          </div>
+          <div class="progress-bar-container">
+            <div id="global-progress-bar" class="progress-bar"></div>
+          </div>
+          <div class="text-center mb-20">
+            Finish all modules to unlock your certificate.
+          </div>
+
+          <button id="certificate-btn" class="btn btn-certificate" onclick="openCertificateScreen()" disabled>
+            🏆 Get Certificate
+          </button>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-title">Quick Module List</div>
+          <div class="modules-grid" id="quick-modules"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track Screen -->
+    <div id="track-screen" class="screen hidden">
+      <div class="header">
+        <h1 id="track-title"></h1>
+        <button class="btn btn-back" onclick="loadHome()">← Back Home</button>
+      </div>
+
+      <div class="content">
+        <div class="progress-section">
+          <div class="progress-header">
+            <div class="progress-title" id="track-modules-title"></div>
+            <div id="track-progress">0% Done</div>
+          </div>
+          <div class="progress-bar-container">
+            <div id="track-progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="modules-grid" id="track-modules"></div>
+      </div>
+    </div>
+
+    <!-- Module Screen -->
+    <div id="module-screen" class="screen hidden">
+      <div class="header">
+        <h1 id="module-title"></h1>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-back" onclick="loadTrackScreen()">← Back to Modules</button>
+          <button id="start-quiz-btn" class="btn btn-primary" onclick="startQuiz()">Take Quiz →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div id="module-content" class="module-content"></div>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen hidden">
+      <div class="header">
+        <h1 id="quiz-title"></h1>
+        <button class="btn btn-back" onclick="loadModuleScreen()">← Back to Lesson</button>
+      </div>
+
+      <div class="content">
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <div class="quiz-progress" id="quiz-progress">Question 1 of 5</div>
+            <div class="quiz-question" id="quiz-question"></div>
+          </div>
+
+          <div class="quiz-options" id="quiz-options"></div>
+
+          <div class="quiz-feedback" id="quiz-feedback">
+            <div class="feedback-title" id="feedback-title"></div>
+            <div id="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-navigation">
+            <button class="btn btn-back" onclick="loadModuleScreen()">← Exit Quiz</button>
+            <button id="next-question-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>Next →</button>
+            <button id="submit-quiz-btn" class="btn btn-secondary hidden" onclick="submitQuiz()" disabled>Finish Quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen hidden">
+      <div class="header">
+        <h1>Quiz Result</h1>
+        <button class="btn btn-back" onclick="loadTrackScreen()">← Back to Modules</button>
+      </div>
+
+      <div class="content">
+        <div class="quiz-container">
+          <div class="quiz-score">
+            Score: <span id="final-score">0</span>%
+          </div>
+
+          <div class="content-section">
+            <h3>📊 How You Did</h3>
+            <p id="performance-text"></p>
+            <div class="progress-bar-container mt-20">
+              <div id="results-progress-bar" class="progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h3>🎯 What Next</h3>
+            <p id="next-steps-text"></p>
+          </div>
+
+          <div class="quiz-navigation">
+            <button class="btn btn-secondary" onclick="retakeQuiz()">Try Again</button>
+            <button class="btn btn-primary" onclick="continueLearning()">Continue →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate-screen" class="screen hidden">
+      <div class="header">
+        <h1>Certificate</h1>
+        <button class="btn btn-back" onclick="loadHome()">← Back Home</button>
+      </div>
+
+      <div class="content">
+        <div id="certificate-locked" class="certificate-locked hidden">
+          <div class="locked-icon">🔒</div>
+          <h3>Certificate Locked</h3>
+          <p>Finish all lessons in <strong>HIV</strong> and <strong>Syphilis</strong> to unlock.</p>
+
+          <div class="remaining-modules" id="remaining-modules"></div>
+        </div>
+
+        <div id="certificate-unlocked" class="certificate-container hidden">
+          <div class="name-input-container">
+            <input type="text" id="certificate-name" class="name-input"
+              placeholder="Type your name here"
+              maxlength="50" oninput="updateCertificatePreview()">
+          </div>
+
+          <div class="certificate-preview" id="certificate-preview">
+            <div class="certificate-seal">🏆</div>
+            <h2 class="certificate-title">Certificate</h2>
+            <p class="certificate-subtitle">This paper says you finished <strong>HIV and Syphilis 101</strong>.</p>
+
+            <div class="certificate-name" id="preview-name">Your Name Here</div>
+
+            <p class="certificate-text">
+              has finished all lessons and quizzes in HIV and Syphilis 101.
+              This shows they learned the basics about how HIV and syphilis can <strong>pass on</strong>,
+              how to protect themselves, and where to get help.
+            </p>
+
+            <div class="certificate-details">
+              <div class="certificate-detail">
+                <div class="detail-label">Date</div>
+                <div class="detail-value" id="preview-date">January 1, 2026</div>
+              </div>
+              <div class="certificate-detail">
+                <div class="detail-label">Certificate ID</div>
+                <div class="detail-value" id="preview-id">CERT-2026-000000</div>
+              </div>
+              <div class="certificate-detail">
+                <div class="detail-label">Status</div>
+                <div class="detail-value">All Done</div>
+              </div>
+            </div>
+
+            <div class="certificate-signature">
+              <div class="signature-line"></div>
+              <p>Beginning Concepts · Demo only</p>
+            </div>
+          </div>
+
+          <div class="quiz-navigation">
+            <button class="btn btn-primary" onclick="downloadCertificate()">📥 Download</button>
+            <button class="btn btn-back" onclick="loadHome()">Back Home</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confetti -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Beginning Concepts · Interactive learning demonstration
+    </div>
+  </div>
+
+  <script>
+    // ============================================================================
+    // APP STATE
+    // ============================================================================
+    const appState = {
+      currentTrack: null,
+      currentModule: null,
+      currentQuestion: 0,
+      userAnswers: [],
+      // 4 modules each
+      completedModules: { hiv: [false, false, false, false], syphilis: [false, false, false, false] },
+      quizScores: { hiv: [0, 0, 0, 0], syphilis: [0, 0, 0, 0] },
+      userName: '',
+      certificateUnlocked: false,
+      certificateId: '',
+      completionDate: ''
+    };
+
+    // ============================================================================
+    // SIMPLE WORDS HELPER (small glossary shown inside lessons)
+    // ============================================================================
+    function glossaryBox(items) {
+      const lines = items.map(x => `<li><strong>${x.term}:</strong> ${x.meaning}</li>`).join('');
+      return `
+        <div class="simple-note">
+          <strong>Easy Words:</strong>
+          <ul style="margin-top:10px; padding-left:20px;">
+            ${lines}
+          </ul>
+        </div>
+      `;
+    }
+
+    // ============================================================================
+    // LEARNING CONTENT (SIMPLE LANGUAGE)
+    // ============================================================================
+    const learningContent = {
+      hiv: [
+        {
+          title: "HIV 1: What is HIV?",
+          content: `
+            <div class="content-section">
+              <h3>🧬 What is HIV?</h3>
+              <p><strong>HIV</strong> is a germ (a virus) that can make the body's defence system weak.</p>
+              <p>Your body has “soldiers” that fight sickness. HIV attacks those soldiers.</p>
+              ${glossaryBox([
+                { term: "Virus (germ)", meaning: "Something very small that can make you sick." },
+                { term: "Defence system", meaning: "How your body fights sickness." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>⚕️ HIV and AIDS (not the same)</h3>
+              <ul>
+                <li><strong>HIV</strong> is the germ.</li>
+                <li><strong>AIDS</strong> is when HIV is very advanced and the body gets very weak.</li>
+                <li>Many people with HIV do <strong>not</strong> reach AIDS if they take treatment.</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>💊 Treatment can help</h3>
+              <ul>
+                <li>HIV medicine helps the virus get very low in the body.</li>
+                <li>When the virus is very low, you can live a long life.</li>
+                <li>When the virus is very low (undetectable), you do not pass HIV to a sex partner.</li>
+              </ul>
+              ${glossaryBox([
+                { term: "Undetectable", meaning: "So low that a test cannot find much virus." },
+                { term: "Pass on", meaning: "Give the infection to someone else." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>🎯 Tap to see answers</h3>
+              <div class="flip-card">
+                <div class="flip-question">Can HIV be cured? <span>👇</span></div>
+                <div class="flip-answer">Right now, there is no full cure. But medicine can control HIV very well.</div>
+              </div>
+              <div class="flip-card">
+                <div class="flip-question">Can a person with HIV look healthy? <span>👇</span></div>
+                <div class="flip-answer">Yes. You cannot know by looking. Testing is the only way.</div>
+              </div>
+              <div class="flip-card">
+                <div class="flip-question">Can people with HIV live long? <span>👇</span></div>
+                <div class="flip-answer">Yes. With treatment and clinic visits, many people live long, normal lives.</div>
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "HIV is a…",
+              options: [
+                "Type of bacteria",
+                "Type of virus (germ)",
+                "Type of worm",
+                "Type of food poisoning"
+              ],
+              correct: 1,
+              explanation: "HIV is a virus (a tiny germ)."
+            },
+            {
+              question: "HIV mainly attacks the body's…",
+              options: [
+                "Bones",
+                "Skin",
+                "Defence system (the body soldiers)",
+                "Hair"
+              ],
+              correct: 2,
+              explanation: "HIV makes the body's defence system weak."
+            },
+            {
+              question: "AIDS means…",
+              options: [
+                "The advanced stage when HIV is very bad",
+                "A cough medicine",
+                "A skin rash only",
+                "A way to wash hands"
+              ],
+              correct: 0,
+              explanation: "AIDS is the advanced stage of HIV when the body is very weak."
+            },
+            {
+              question: "HIV medicine helps by…",
+              options: [
+                "Making the virus very low in the body",
+                "Making you taller",
+                "Stopping all colds forever",
+                "Turning HIV into flu"
+              ],
+              correct: 0,
+              explanation: "Treatment lowers the virus in the body and protects health."
+            },
+            {
+              question: "True or False: You can know someone has HIV just by looking.",
+              options: ["True", "False"],
+              correct: 1,
+              explanation: "False. Many people look healthy. Testing is the only way to know."
+            }
+          ]
+        },
+
+        {
+          title: "HIV 2: How HIV Can Pass On",
+          content: `
+            <div class="content-section">
+              <h3>🩸 How HIV can pass on</h3>
+              <p>HIV can pass on when certain body fluids from a person with HIV enter another person's body.</p>
+              <ul>
+                <li><strong>Blood</strong></li>
+                <li><strong>Semen</strong> (fluid from a man during sex)</li>
+                <li><strong>Vaginal fluid</strong> (fluid from a woman during sex)</li>
+                <li><strong>Fluid from the bottom</strong> (rectal fluid)</li>
+                <li><strong>Breast milk</strong> (from mother to baby)</li>
+              </ul>
+              ${glossaryBox([
+                { term: "Fluid from the bottom", meaning: "Rectal fluid (inside the bottom area)." },
+                { term: "Sex without a condom", meaning: "Unprotected sex." },
+                { term: "Pass on", meaning: "Give the infection to someone else." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>✅ Common ways it can happen</h3>
+              <ul>
+                <li>Sex <strong>without a condom</strong> (especially anal sex)</li>
+                <li>Sharing needles or syringes</li>
+                <li>Mother to baby during pregnancy, birth, or breastfeeding (if not treated)</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>❌ What does NOT pass HIV</h3>
+              <p>HIV does NOT pass on through normal everyday contact.</p>
+              <div class="drag-drop-container">
+                <div class="drag-column" id="can-transmit">
+                  <h4>Can Pass HIV</h4>
+                </div>
+                <div class="drag-column" id="cannot-transmit">
+                  <h4>Cannot Pass HIV</h4>
+                </div>
+              </div>
+              <p class="text-center" style="margin-top:10px;">
+                Drag the cards to the right side.
+              </p>
+            </div>
+
+            <div class="content-section">
+              <h3>🤰 Mother to baby</h3>
+              <p>If a pregnant mother with HIV gets treatment early, the chance of passing HIV to the baby can be very low.</p>
+              <div class="simple-note">
+                <strong>Simple tip:</strong> If pregnant, test early and go to the clinic. Treatment protects both mother and baby.
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "Which one CAN pass HIV?",
+              options: ["Sweat", "Tears", "Semen", "Saliva"],
+              correct: 2,
+              explanation: "Semen can carry HIV. Sweat, tears, and saliva do not pass HIV in normal life."
+            },
+            {
+              question: "HIV can pass on through…",
+              options: ["Sharing a spoon", "Sharing a needle", "Hugging", "Using the same toilet"],
+              correct: 1,
+              explanation: "Sharing needles can pass HIV because blood can enter the body."
+            },
+            {
+              question: "True or False: Hugging can pass HIV.",
+              options: ["False", "True"],
+              correct: 0,
+              explanation: "False. HIV does not pass by hugging."
+            },
+            {
+              question: "“Fluid from the bottom” means…",
+              options: ["Urine", "Rectal fluid", "Sweat", "Tears"],
+              correct: 1,
+              explanation: "It means rectal fluid (inside the bottom area)."
+            },
+            {
+              question: "Mother to baby HIV can happen most when…",
+              options: ["Mother is treated and followed up", "Mother is not treated", "Mother drinks water", "Mother eats fruit"],
+              correct: 1,
+              explanation: "Without treatment, HIV can pass during pregnancy, birth, or breastfeeding."
+            }
+          ]
+        },
+
+        {
+          title: "HIV 3: How to Protect Yourself",
+          content: `
+            <div class="content-section">
+              <h3>🛡️ Simple ways to protect yourself</h3>
+              <ul>
+                <li><strong>Use condoms</strong> every time for sex.</li>
+                <li><strong>Test</strong> for HIV and other STIs.</li>
+                <li>If you have HIV, <strong>take treatment</strong> every day.</li>
+                <li>If you are HIV negative and at risk, ask the clinic about <strong>PrEP</strong>.</li>
+                <li>If you had a scary moment (possible exposure), go to the clinic fast for <strong>PEP</strong>.</li>
+              </ul>
+              ${glossaryBox([
+                { term: "PrEP", meaning: "Pills to help prevent HIV (for HIV negative persons at risk)." },
+                { term: "PEP", meaning: "Emergency pills after possible exposure (go ASAP)." },
+                { term: "Exposure", meaning: "A moment when HIV could enter the body." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>⏰ Important about PEP</h3>
+              <p>PEP works best when started quickly. Do not wait.</p>
+              <div class="simple-note">
+                <strong>Remember:</strong> PEP should start within 3 days (72 hours).
+              </div>
+            </div>
+
+            <div class="content-section">
+              <h3>🎯 Tap to see answers</h3>
+              <div class="flip-card">
+                <div class="flip-question">Do condoms help? <span>👇</span></div>
+                <div class="flip-answer">Yes. When used the right way, condoms greatly lower HIV and STI risk.</div>
+              </div>
+              <div class="flip-card">
+                <div class="flip-question">If my partner “looks clean,” do I still need protection? <span>👇</span></div>
+                <div class="flip-answer">Yes. You cannot know by looking. Use condoms and test.</div>
+              </div>
+              <div class="flip-card">
+                <div class="flip-question">Does testing help? <span>👇</span></div>
+                <div class="flip-answer">Yes. Testing helps you know your status and get help early.</div>
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "Which one is a simple way to protect from HIV during sex?",
+              options: ["Drink bush tea", "Use condoms", "Take sleeping tablets", "Wash with bleach"],
+              correct: 1,
+              explanation: "Condoms lower the chance of HIV passing during sex."
+            },
+            {
+              question: "PrEP is…",
+              options: ["A vaccine for flu", "A prevention pill for HIV", "A pain medicine", "A cough syrup"],
+              correct: 1,
+              explanation: "PrEP is a prevention pill for HIV (for people who are HIV negative and at risk)."
+            },
+            {
+              question: "PEP should be started…",
+              options: ["Within 3 days (72 hours)", "Anytime within 3 months", "After 1 week", "Only after you feel sick"],
+              correct: 0,
+              explanation: "PEP should start as soon as possible, within 72 hours."
+            },
+            {
+              question: "True or False: Testing can help protect your health.",
+              options: ["True", "False"],
+              correct: 0,
+              explanation: "True. Testing helps you get help early and protect others too."
+            },
+            {
+              question: "If someone has HIV and takes treatment well, the virus can become…",
+              options: ["Very low (undetectable)", "Bigger", "Louder", "Visible on skin"],
+              correct: 0,
+              explanation: "Treatment can make the virus very low (undetectable)."
+            }
+          ]
+        },
+
+        {
+          title: "HIV 4: Treatment (Medicine)",
+          content: `
+            <div class="content-section">
+              <h3>💊 HIV treatment</h3>
+              <p>HIV is treated with daily medicine (ART).</p>
+              <ul>
+                <li>Medicine lowers the virus in the body.</li>
+                <li>Medicine helps you stay strong and healthy.</li>
+                <li>Medicine helps stop passing HIV to sex partners when virus is very low.</li>
+              </ul>
+              ${glossaryBox([
+                { term: "ART", meaning: "HIV medicine taken every day." },
+                { term: "Clinic follow-up", meaning: "Come back to the clinic for checks." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>✅ Taking medicine the right way</h3>
+              <ul>
+                <li>Take it every day.</li>
+                <li>Try to take it the same time daily.</li>
+                <li>If side effects trouble you, tell the nurse/doctor.</li>
+                <li>Do your blood tests when the clinic says.</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>❤️ Living well</h3>
+              <ul>
+                <li>Eat as best as you can.</li>
+                <li>Get rest.</li>
+                <li>Talk to someone you trust if you feel stressed.</li>
+                <li>Keep clinic visits.</li>
+              </ul>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "HIV medicine is usually taken…",
+              options: ["Once a year", "Only when you feel sick", "Every day", "Only on weekends"],
+              correct: 2,
+              explanation: "HIV treatment is taken every day."
+            },
+            {
+              question: "The main goal of HIV treatment is to make the virus…",
+              options: ["Very low in the body", "Change color", "Move to the legs", "Turn into sugar"],
+              correct: 0,
+              explanation: "Treatment lowers the virus to protect health."
+            },
+            {
+              question: "True or False: If side effects bother you, you should tell the clinic.",
+              options: ["True", "False"],
+              correct: 0,
+              explanation: "True. The clinic can help."
+            },
+            {
+              question: "When HIV is very low (undetectable), it helps to…",
+              options: ["Make you hungry", "Stop passing HIV to sex partners", "Make you forget", "Cause more sickness"],
+              correct: 1,
+              explanation: "When undetectable, HIV is not passed to sex partners."
+            },
+            {
+              question: "A good habit for treatment is…",
+              options: ["Skip doses to rest", "Take medicine same time each day", "Share pills with friends", "Stop when you feel better"],
+              correct: 1,
+              explanation: "Taking it the same time each day helps you keep on track."
+            }
+          ]
+        }
+      ],
+
+      syphilis: [
+        {
+          title: "Syphilis 1: What is Syphilis?",
+          content: `
+            <div class="content-section">
+              <h3>🦠 What is syphilis?</h3>
+              <p><strong>Syphilis</strong> is an STI (a sickness that can pass during sex).</p>
+              <p>It is caused by a germ (a bacteria). The good news: <strong>syphilis can be cured</strong> with the right medicine.</p>
+              ${glossaryBox([
+                { term: "STI", meaning: "A sickness that can pass during sex." },
+                { term: "Bacteria", meaning: "A type of germ that can be treated with antibiotics." },
+                { term: "Antibiotics", meaning: "Medicine that kills bacteria." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>⚠️ Why it matters</h3>
+              <p>If syphilis is not treated, it can later damage the body.</p>
+              <ul>
+                <li>It can harm the brain and nerves.</li>
+                <li>It can harm the heart.</li>
+                <li>It can cause serious problems in pregnancy and babies.</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>🤰 Pregnancy</h3>
+              <p>Syphilis can pass from a pregnant mother to the baby.</p>
+              <div class="simple-note">
+                <strong>Simple tip:</strong> Pregnant? Test early. Treatment can protect the baby.
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "Syphilis is…",
+              options: ["A cold", "An STI", "A foot fungus", "A headache"],
+              correct: 1,
+              explanation: "Syphilis is an STI (can pass during sex)."
+            },
+            {
+              question: "Syphilis is caused by…",
+              options: ["A bacteria (germ)", "A mosquito", "Salt", "A broken bone"],
+              correct: 0,
+              explanation: "Syphilis is caused by a bacteria (a germ)."
+            },
+            {
+              question: "Can syphilis be cured?",
+              options: ["No", "Yes, with the right medicine", "Only with surgery", "Only with vitamins"],
+              correct: 1,
+              explanation: "Yes. The clinic can treat and cure syphilis."
+            },
+            {
+              question: "Syphilis in pregnancy can…",
+              options: ["Pass to the baby", "Make hair grow", "Stop your eyes from blinking", "Only affect teeth"],
+              correct: 0,
+              explanation: "Syphilis can pass to the baby if not treated."
+            },
+            {
+              question: "True or False: If syphilis is not treated, it can cause big problems later.",
+              options: ["True", "False"],
+              correct: 0,
+              explanation: "True. Untreated syphilis can damage the body."
+            }
+          ]
+        },
+
+        {
+          title: "Syphilis 2: Signs and Stages (Simple)",
+          content: `
+            <div class="content-section">
+              <h3>📌 Syphilis can come in stages</h3>
+              <p>Some people see signs. Some people see nothing. That is why testing is important.</p>
+              ${glossaryBox([
+                { term: "Stage", meaning: "A step in how an illness changes over time." },
+                { term: "Sore", meaning: "A break in the skin, like a small wound." },
+                { term: "Rash", meaning: "Spots or bumps on the skin." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>1️⃣ First stage (early)</h3>
+              <ul>
+                <li>A sore can show up where the germ entered (private parts, mouth, or bottom).</li>
+                <li>The sore may not hurt.</li>
+                <li>The sore can go away, but the germ can still be inside.</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>2️⃣ Next stage</h3>
+              <ul>
+                <li>Rash on skin (sometimes on palms and soles).</li>
+                <li>Fever or feeling tired.</li>
+                <li>Swollen glands (like lumps in neck/groin).</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>3️⃣ Quiet stage</h3>
+              <p>You may feel fine, but the germ can still be there. Testing and treatment still needed.</p>
+            </div>
+
+            <div class="content-section">
+              <h3>4️⃣ Late stage (if not treated)</h3>
+              <p>Over years, it can damage the brain, nerves, eyes, or heart.</p>
+              <div class="simple-note">
+                <strong>Simple message:</strong> Don’t wait. Test and treat early.
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "A syphilis sore can be…",
+              options: ["Always very painful", "Always on the hand", "Painless (may not hurt)", "Only on the foot"],
+              correct: 2,
+              explanation: "Syphilis sores often do not hurt."
+            },
+            {
+              question: "In the next stage, a person may get…",
+              options: ["A rash", "A broken arm", "A toothache only", "A new haircut"],
+              correct: 0,
+              explanation: "Syphilis can cause a rash in the next stage."
+            },
+            {
+              question: "True or False: If the sore goes away, the person is always cured.",
+              options: ["False", "True"],
+              correct: 0,
+              explanation: "False. The sore can go, but the germ can stay. You still need treatment."
+            },
+            {
+              question: "The quiet stage means…",
+              options: ["No signs, but the germ can still be inside", "You are cured", "You cannot test", "You cannot treat"],
+              correct: 0,
+              explanation: "You may see no signs, but testing can still find syphilis."
+            },
+            {
+              question: "Late stage syphilis can harm the…",
+              options: ["Brain and heart", "Fingernails only", "Hair only", "Ears only"],
+              correct: 0,
+              explanation: "Late stage can damage important parts like brain, nerves, eyes, and heart."
+            }
+          ]
+        },
+
+        {
+          title: "Syphilis 3: How Syphilis Can Pass On",
+          content: `
+            <div class="content-section">
+              <h3>🔄 How syphilis can pass on</h3>
+              <p>Syphilis can pass on by touching a syphilis sore during sex.</p>
+              <ul>
+                <li>Vaginal sex</li>
+                <li>Anal sex</li>
+                <li>Oral sex</li>
+              </ul>
+              ${glossaryBox([
+                { term: "Pass on", meaning: "Give the infection to someone else." },
+                { term: "Sex without a condom", meaning: "Unprotected sex." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>🤰 Mother to baby</h3>
+              <p>Syphilis can pass from a pregnant mother to the baby during pregnancy or birth.</p>
+            </div>
+
+            <div class="content-section">
+              <h3>❌ What does NOT pass syphilis</h3>
+              <ul>
+                <li>Hugging</li>
+                <li>Sharing food</li>
+                <li>Sharing toilets</li>
+                <li>Swimming pool</li>
+                <li>Mosquito bites</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>🔗 Syphilis and HIV</h3>
+              <p>Syphilis sores can make it easier for HIV to pass during sex. That is why testing is important.</p>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "Syphilis mainly passes on by…",
+              options: ["Touching a sore during sex", "Coughing", "Sharing a towel", "Sharing a plate"],
+              correct: 0,
+              explanation: "Syphilis passes by direct contact with a sore during sex."
+            },
+            {
+              question: "True or False: You can get syphilis from hugging.",
+              options: ["False", "True"],
+              correct: 0,
+              explanation: "False. Syphilis does not pass through normal hugging."
+            },
+            {
+              question: "Syphilis can pass from mother to baby…",
+              options: ["During pregnancy or birth", "Only by kissing", "Only by handshakes", "Only in the rain"],
+              correct: 0,
+              explanation: "It can pass during pregnancy or birth if not treated."
+            },
+            {
+              question: "Syphilis sores can make it easier for…",
+              options: ["HIV to pass during sex", "Hair to grow", "Teeth to fall out fast", "Food to taste better"],
+              correct: 0,
+              explanation: "Sores can make it easier for HIV to enter the body."
+            },
+            {
+              question: "Which one does NOT pass syphilis?",
+              options: ["Mosquito bites", "Touching a sore during sex", "Anal sex without a condom", "Oral sex touching a sore"],
+              correct: 0,
+              explanation: "Mosquito bites do not pass syphilis."
+            }
+          ]
+        },
+
+        {
+          title: "Syphilis 4: Treatment and Protection",
+          content: `
+            <div class="content-section">
+              <h3>💉 Treatment</h3>
+              <p>Syphilis is treated at the clinic with antibiotics (often an injection).</p>
+              <ul>
+                <li>Do not self-treat.</li>
+                <li>Finish what the clinic gives you.</li>
+                <li>Come back for follow-up tests.</li>
+              </ul>
+              ${glossaryBox([
+                { term: "Follow-up", meaning: "Come back to check that you are cured." },
+                { term: "Antibiotics", meaning: "Medicine that kills bacteria germs." }
+              ])}
+            </div>
+
+            <div class="content-section">
+              <h3>🛡️ Protect yourself</h3>
+              <ul>
+                <li>Use condoms for sex.</li>
+                <li>Test often if sexually active.</li>
+                <li>If you have symptoms, go to the clinic quickly.</li>
+                <li>Partners should test and treat too (to stop passing back and forth).</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h3>🤝 Partner care</h3>
+              <p>If you have syphilis, your sex partner(s) should be told and helped to test/treat.</p>
+              <div class="simple-note">
+                <strong>Simple reason:</strong> If only one person treats, the infection can come back from the partner.
+              </div>
+            </div>
+          `,
+          quiz: [
+            {
+              question: "Syphilis treatment is usually…",
+              options: ["A clinic antibiotic (often injection)", "A sugar drink", "A soap bath", "A cough syrup"],
+              correct: 0,
+              explanation: "Syphilis is treated with antibiotics from the clinic."
+            },
+            {
+              question: "After treatment, follow-up tests are for…",
+              options: ["To ensure you are cured", "To grow muscles", "To change eye color", "To stop hunger"],
+              correct: 0,
+              explanation: "Follow-up checks that treatment worked."
+            },
+            {
+              question: "A good way to protect yourself is…",
+              options: ["Sex without a condom", "Use condoms", "Share needles", "Skip testing"],
+              correct: 1,
+              explanation: "Condoms reduce the chance of syphilis passing during sex."
+            },
+            {
+              question: "Partners should…",
+              options: ["Ignore it", "Test and treat too", "Only pray and wait", "Only drink tea"],
+              correct: 1,
+              explanation: "Partner testing/treatment helps stop the infection from coming back."
+            },
+            {
+              question: "True or False: You should not self-treat syphilis.",
+              options: ["True", "False"],
+              correct: 0,
+              explanation: "True. Always go to the clinic for proper treatment."
+            }
+          ]
+        }
+      ]
+    };
+
+    // ============================================================================
+    // SCREEN NAV
+    // ============================================================================
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+      document.getElementById(screenId).classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    // ============================================================================
+    // HOME / TRACK / MODULE
+    // ============================================================================
+    function loadHome() {
+      showScreen('home-screen');
+      updateProgressDisplay();
+      loadQuickModules();
+      checkAllCompleteAndUnlockCertificate();
+    }
+
+    function loadTrack(track) {
+      appState.currentTrack = track;
+      const trackTitle = track === 'hiv' ? '🧬 Learn HIV' : '🦠 Learn Syphilis';
+      document.getElementById('track-title').textContent = trackTitle;
+      document.getElementById('track-modules-title').textContent = `Lessons in ${track === 'hiv' ? 'HIV' : 'Syphilis'}`;
+
+      updateTrackProgress();
+      loadTrackModules();
+      showScreen('track-screen');
+    }
+
+    function loadTrackScreen() {
+      if (appState.currentTrack) loadTrack(appState.currentTrack);
+      else loadHome();
+    }
+
+    function loadModule(moduleIndex) {
+      const track = appState.currentTrack;
+      const moduleData = learningContent[track][moduleIndex];
+      appState.currentModule = moduleIndex;
+
+      document.getElementById('module-title').textContent = moduleData.title;
+      document.getElementById('module-content').innerHTML = moduleData.content;
+
+      initFlipCards();
+      initDragDrop();
+      showScreen('module-screen');
+    }
+
+    function loadModuleScreen() {
+      if (appState.currentTrack !== null && appState.currentModule !== null) loadModule(appState.currentModule);
+      else loadTrackScreen();
+    }
+
+    function initFlipCards() {
+      document.querySelectorAll('.flip-card').forEach(card => {
+        card.addEventListener('click', () => card.classList.toggle('active'));
+      });
+    }
+
+    // Drag/drop appears in HIV 2 only (but safely checks for elements)
+    function initDragDrop() {
+      const canTransmitColumn = document.getElementById('can-transmit');
+      const cannotTransmitColumn = document.getElementById('cannot-transmit');
+
+      if (canTransmitColumn && cannotTransmitColumn) {
+        canTransmitColumn.innerHTML = '<h4>Can Pass HIV</h4>';
+        cannotTransmitColumn.innerHTML = '<h4>Cannot Pass HIV</h4>';
+
+        const items = [
+          { id: 'item1', icon: '🩸', text: 'Sharing needles', correctColumn: 'can-transmit' },
+          { id: 'item2', icon: '💑', text: 'Sex without a condom', correctColumn: 'can-transmit' },
+          { id: 'item3', icon: '🤗', text: 'Hugging', correctColumn: 'cannot-transmit' },
+          { id: 'item4', icon: '🍽️', text: 'Sharing food', correctColumn: 'cannot-transmit' },
+          { id: 'item5', icon: '🚽', text: 'Using same toilet', correctColumn: 'cannot-transmit' },
+          { id: 'item6', icon: '🦟', text: 'Mosquito bite', correctColumn: 'cannot-transmit' }
+        ];
+
+        // Shuffle items so they do not always appear the same
+        const shuffled = items.slice().sort(() => Math.random() - 0.5);
+
+        // Put all items in the LEFT column first (so the activity makes sense)
+        shuffled.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'drag-item';
+          div.id = item.id;
+          div.draggable = true;
+          div.innerHTML = `<span class="drag-icon">${item.icon}</span> ${item.text}`;
+
+          div.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('text/plain', item.id);
+            e.dataTransfer.setData('correct-column', item.correctColumn);
+          });
+
+          canTransmitColumn.appendChild(div);
+        });
+
+        [canTransmitColumn, cannotTransmitColumn].forEach(col => {
+          col.addEventListener('dragover', e => e.preventDefault());
+          col.addEventListener('drop', e => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const correctColumn = e.dataTransfer.getData('correct-column');
+            const draggedItem = document.getElementById(id);
+
+            if (draggedItem) {
+              if (col.id === correctColumn) {
+                col.classList.add('correct-drop');
+                setTimeout(() => col.classList.remove('correct-drop'), 900);
+                col.appendChild(draggedItem);
+              } else {
+                col.classList.add('incorrect-drop');
+                setTimeout(() => col.classList.remove('incorrect-drop'), 900);
+              }
+            }
+          });
+        });
+      }
+    }
+
+    // ============================================================================
+    // QUIZ ENGINE (answers are NOT always "A")
+    // ============================================================================
+    function startQuiz() {
+      appState.currentQuestion = 0;
+      appState.userAnswers = [];
+      loadQuestion();
+      showScreen('quiz-screen');
+    }
+
+    function loadQuestion() {
+      const track = appState.currentTrack;
+      const moduleIndex = appState.currentModule;
+      const quizData = learningContent[track][moduleIndex].quiz;
+      const q = quizData[appState.currentQuestion];
+
+      document.getElementById('quiz-title').textContent = learningContent[track][moduleIndex].title + ' - Quiz';
+      document.getElementById('quiz-progress').textContent = `Question ${appState.currentQuestion + 1} of ${quizData.length}`;
+      document.getElementById('quiz-question').textContent = q.question;
+
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const el = document.createElement('div');
+        el.className = 'quiz-option';
+        el.innerHTML = `
+          <div class="option-indicator">${String.fromCharCode(65 + idx)}</div>
+          <div>${opt}</div>
+        `;
+        el.onclick = () => selectAnswer(idx);
+        optionsContainer.appendChild(el);
+      });
+
+      document.getElementById('quiz-feedback').classList.remove('show');
+
+      const nextBtn = document.getElementById('next-question-btn');
+      const submitBtn = document.getElementById('submit-quiz-btn');
+
+      nextBtn.disabled = true;
+      submitBtn.disabled = true;
+
+      const isLast = appState.currentQuestion === quizData.length - 1;
+      nextBtn.classList.toggle('hidden', isLast);
+      submitBtn.classList.toggle('hidden', !isLast);
+    }
+
+    function selectAnswer(answerIndex) {
+      const options = document.querySelectorAll('.quiz-option');
+      options.forEach(o => o.classList.remove('selected', 'correct', 'incorrect'));
+
+      const track = appState.currentTrack;
+      const moduleIndex = appState.currentModule;
+      const quizData = learningContent[track][moduleIndex].quiz;
+      const q = quizData[appState.currentQuestion];
+
+      appState.userAnswers[appState.currentQuestion] = answerIndex;
+
+      const selectedOption = options[answerIndex];
+      selectedOption.classList.add('selected');
+
+      const isCorrect = (answerIndex === q.correct);
+      if (isCorrect) {
+        selectedOption.classList.add('correct');
+      } else {
+        selectedOption.classList.add('incorrect');
+        options[q.correct].classList.add('correct');
+      }
+
+      const feedback = document.getElementById('quiz-feedback');
+      const title = document.getElementById('feedback-title');
+      const expl = document.getElementById('feedback-explanation');
+
+      title.textContent = isCorrect ? '✅ Correct!' : '❌ Not quite';
+      title.style.color = isCorrect ? 'var(--primary-green)' : 'var(--primary-red)';
+      expl.textContent = q.explanation;
+      feedback.classList.add('show');
+
+      const isLast = appState.currentQuestion === quizData.length - 1;
+      document.getElementById('next-question-btn').disabled = isLast ? true : false;
+      document.getElementById('submit-quiz-btn').disabled = isLast ? false : true;
+    }
+
+    function nextQuestion() {
+      const track = appState.currentTrack;
+      const moduleIndex = appState.currentModule;
+      const quizData = learningContent[track][moduleIndex].quiz;
+
+      if (appState.userAnswers[appState.currentQuestion] === undefined) {
+        alert('Please choose an answer.');
+        return;
+      }
+
+      if (appState.currentQuestion < quizData.length - 1) {
+        appState.currentQuestion++;
+        loadQuestion();
+      }
+    }
+
+    function submitQuiz() {
+      if (appState.userAnswers[appState.currentQuestion] === undefined) {
+        alert('Please choose an answer.');
+        return;
+      }
+
+      const track = appState.currentTrack;
+      const moduleIndex = appState.currentModule;
+      const quizData = learningContent[track][moduleIndex].quiz;
+
+      let correct = 0;
+      quizData.forEach((q, i) => { if (appState.userAnswers[i] === q.correct) correct++; });
+      const score = Math.round((correct / quizData.length) * 100);
+
+      appState.quizScores[track][moduleIndex] = score;
+      if (score >= 70) appState.completedModules[track][moduleIndex] = true;
+
+      saveState();
+      showQuizResults(score, correct, quizData.length);
+    }
+
+    function showQuizResults(score, correct, total) {
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('results-progress-bar').style.width = score + '%';
+
+      const perf = document.getElementById('performance-text');
+      const next = document.getElementById('next-steps-text');
+
+      if (score >= 70) {
+        perf.textContent = `You passed! You got ${correct} out of ${total} correct (${score}%). This lesson is now marked as done.`;
+        next.textContent = 'You can move on to the next lesson now.';
+        checkAllCompleteAndUnlockCertificate();
+      } else {
+        perf.textContent = `You got ${correct} out of ${total} correct (${score}%). You need 70% to pass.`;
+        next.textContent = 'Try again. Read the lesson once more, then retake the quiz.';
+      }
+
+      updateProgressDisplay();
+      showScreen('results-screen');
+    }
+
+    function retakeQuiz() { startQuiz(); }
+    function continueLearning() { loadTrackScreen(); }
+
+    // ============================================================================
+    // PROGRESS / MODULE CARDS
+    // ============================================================================
+    function updateProgressDisplay() {
+      const total = 8;
+      let completed = 0;
+      for (let i = 0; i < 4; i++) {
+        if (appState.completedModules.hiv[i]) completed++;
+        if (appState.completedModules.syphilis[i]) completed++;
+      }
+      const pct = Math.round((completed / total) * 100);
+      document.getElementById('overall-progress').textContent = `${pct}% Done`;
+      document.getElementById('global-progress-bar').style.width = `${pct}%`;
+
+      const certBtn = document.getElementById('certificate-btn');
+      if (completed === total) {
+        certBtn.disabled = false;
+        certBtn.classList.add('unlocked');
+        certBtn.title = 'Click to get your certificate';
+      } else {
+        certBtn.disabled = true;
+        certBtn.classList.remove('unlocked');
+        certBtn.title = `Finish ${total - completed} more lesson(s) to unlock`;
+      }
+    }
+
+    function updateTrackProgress() {
+      const track = appState.currentTrack;
+      const total = 4;
+      const completed = appState.completedModules[track].filter(Boolean).length;
+      const pct = Math.round((completed / total) * 100);
+      document.getElementById('track-progress').textContent = `${pct}% Done`;
+      document.getElementById('track-progress-bar').style.width = `${pct}%`;
+    }
+
+    function createModuleCard(track, index, title, isCompleted, isLocked = false) {
+      const card = document.createElement('div');
+      card.className = `module-card ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
+      const trackIcon = track === 'hiv' ? '🧬' : '🦠';
+
+      const statusText = isCompleted ? 'Done' : (isLocked ? 'Locked' : 'Open');
+      const statusClass = isCompleted ? 'status-completed' : (isLocked ? 'status-locked' : 'status-pending');
+
+      card.innerHTML = `
+        <div class="module-badge">${trackIcon}</div>
+        <h3 class="module-title">${title}</h3>
+        <p>${track === 'hiv' ? 'HIV lesson' : 'Syphilis lesson'}</p>
+        <div class="module-status ${statusClass}">${statusText}</div>
+      `;
+
+      if (!isLocked) {
+        card.style.cursor = 'pointer';
+        card.onclick = () => { appState.currentTrack = track; loadModule(index); };
+      } else {
+        card.style.cursor = 'not-allowed';
+        card.title = 'Finish the lesson before this one';
+      }
+
+      return card;
+    }
+
+    function loadQuickModules() {
+      const c = document.getElementById('quick-modules');
+      c.innerHTML = '';
+      for (let i = 0; i < 4; i++) c.appendChild(createModuleCard('hiv', i, learningContent.hiv[i].title, appState.completedModules.hiv[i], false));
+      for (let i = 0; i < 4; i++) c.appendChild(createModuleCard('syphilis', i, learningContent.syphilis[i].title, appState.completedModules.syphilis[i], false));
+    }
+
+    function loadTrackModules() {
+      const c = document.getElementById('track-modules');
+      c.innerHTML = '';
+      const track = appState.currentTrack;
+
+      learningContent[track].forEach((m, idx) => {
+        const isCompleted = appState.completedModules[track][idx];
+        const isLocked = idx > 0 && !appState.completedModules[track][idx - 1];
+        c.appendChild(createModuleCard(track, idx, m.title, isCompleted, isLocked));
+      });
+    }
+
+    // ============================================================================
+    // CERTIFICATE
+    // ============================================================================
+    function checkAllCompleteAndUnlockCertificate() {
+      let allComplete = true;
+
+      for (let i = 0; i < 4; i++) {
+        if (!appState.completedModules.hiv[i]) { allComplete = false; break; }
+      }
+
+      if (allComplete) {
+        for (let i = 0; i < 4; i++) {
+          if (!appState.completedModules.syphilis[i]) { allComplete = false; break; }
+        }
+      }
+
+      appState.certificateUnlocked = allComplete;
+
+      if (allComplete && !appState.certificateId) {
+        appState.certificateId = generateCertificateId();
+        appState.completionDate = new Date().toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+        saveState();
+        showConfetti();
+      }
+
+      updateProgressDisplay();
+      return allComplete;
+    }
+
+    function openCertificateScreen() {
+      const isUnlocked = checkAllCompleteAndUnlockCertificate();
+
+      if (isUnlocked) {
+        document.getElementById('certificate-locked').classList.add('hidden');
+        document.getElementById('certificate-unlocked').classList.remove('hidden');
+
+        if (appState.userName) {
+          document.getElementById('certificate-name').value = appState.userName;
+        }
+
+        updateCertificatePreview();
+      } else {
+        document.getElementById('certificate-locked').classList.remove('hidden');
+        document.getElementById('certificate-unlocked').classList.add('hidden');
+
+        const container = document.getElementById('remaining-modules');
+        container.innerHTML = '';
+
+        for (let i = 0; i < 4; i++) {
+          if (!appState.completedModules.hiv[i]) {
+            const module = learningContent.hiv[i];
+            const item = document.createElement('div');
+            item.className = 'remaining-module';
+            item.innerHTML = `<span>🧬</span> ${module.title}`;
+            container.appendChild(item);
+          }
+        }
+
+        for (let i = 0; i < 4; i++) {
+          if (!appState.completedModules.syphilis[i]) {
+            const module = learningContent.syphilis[i];
+            const item = document.createElement('div');
+            item.className = 'remaining-module';
+            item.innerHTML = `<span>🦠</span> ${module.title}`;
+            container.appendChild(item);
+          }
+        }
+      }
+
+      showScreen('certificate-screen');
+    }
+
+    function updateCertificatePreview() {
+      const name = document.getElementById('certificate-name').value.trim() || 'Your Name Here';
+      appState.userName = name;
+      saveState();
+
+      document.getElementById('preview-name').textContent = name;
+      document.getElementById('preview-date').textContent = appState.completionDate || new Date().toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+      document.getElementById('preview-id').textContent = appState.certificateId || generateCertificateId();
+    }
+
+    function downloadCertificate() {
+      const name = document.getElementById('certificate-name').value.trim();
+      if (!name) {
+        alert('Please type your name.');
+        return;
+      }
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = 2480;
+      canvas.height = 3508;
+
+      ctx.fillStyle = '#fdfcfb';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      gradient.addColorStop(0, '#2a6ebb');
+      gradient.addColorStop(1, '#2bb5b5');
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 40;
+      ctx.strokeRect(100, 100, canvas.width - 200, canvas.height - 200);
+
+      ctx.setLineDash([30, 20]);
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(42, 110, 187, 0.3)';
+      ctx.strokeRect(140, 140, canvas.width - 280, canvas.height - 280);
+      ctx.setLineDash([]);
+
+      // Seal
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, 600, 200, 0, Math.PI * 2);
+      const sealGradient = ctx.createRadialGradient(canvas.width / 2, 600, 50, canvas.width / 2, 600, 200);
+      sealGradient.addColorStop(0, '#2a6ebb');
+      sealGradient.addColorStop(1, '#9b59b6');
+      ctx.fillStyle = sealGradient;
+      ctx.fill();
+
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 120px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🏆', canvas.width / 2, 600);
+
+      ctx.fillStyle = '#2a6ebb';
+      ctx.font = 'bold 140px "Times New Roman", serif';
+      ctx.fillText('Certificate', canvas.width / 2, 900);
+
+      ctx.fillStyle = '#5d6d7e';
+      ctx.font = 'italic 60px "Times New Roman", serif';
+      ctx.fillText('This certifies that', canvas.width / 2, 1100);
+
+      ctx.fillStyle = '#2c3e50';
+      ctx.font = 'bold 120px "Times New Roman", serif';
+      ctx.fillText(name, canvas.width / 2, 1300);
+
+      ctx.fillStyle = '#2c3e50';
+      ctx.font = '50px "Times New Roman", serif';
+      const text = 'has finished all lessons and quizzes in HIV and Syphilis 101.';
+      wrapText(ctx, text, canvas.width / 2, 1500, 1000, 60);
+
+      const detailsY = 2000;
+      ctx.font = '40px "Times New Roman", serif';
+
+      ctx.fillStyle = '#5d6d7e';
+      ctx.textAlign = 'left';
+      ctx.fillText('Date:', 500, detailsY);
+      ctx.fillStyle = '#2a6ebb';
+      ctx.fillText(appState.completionDate || new Date().toLocaleDateString(), 500, detailsY + 70);
+
+      ctx.fillStyle = '#5d6d7e';
+      ctx.textAlign = 'center';
+      ctx.fillText('Certificate ID:', canvas.width / 2, detailsY);
+      ctx.fillStyle = '#2a6ebb';
+      ctx.fillText(appState.certificateId || generateCertificateId(), canvas.width / 2, detailsY + 70);
+
+      ctx.fillStyle = '#5d6d7e';
+      ctx.textAlign = 'right';
+      ctx.fillText('Status:', canvas.width - 500, detailsY);
+      ctx.fillStyle = '#2a6ebb';
+      ctx.fillText('All Done', canvas.width - 500, detailsY + 70);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#2c3e50';
+      ctx.font = 'bold 50px "Times New Roman", serif';
+      ctx.fillText('Beginning Concepts · Demo only', canvas.width / 2, 3200);
+
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2 - 300, 3300);
+      ctx.lineTo(canvas.width / 2 + 300, 3300);
+      ctx.strokeStyle = '#2c3e50';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(93, 109, 126, 0.7)';
+      ctx.font = '30px Arial';
+      ctx.fillText('Sample certificate — not an accredited credential', canvas.width / 2, 3450);
+
+      const link = document.createElement('a');
+      link.download = `HIV-and-Syphilis-101-Certificate-${name.replace(/\s+/g, '-')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const testWidth = context.measureText(testLine).width;
+        if (testWidth > maxWidth && n > 0) {
+          context.fillText(line, x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      context.fillText(line, x, y);
+    }
+
+    function generateCertificateId() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const random = Math.floor(100000 + Math.random() * 900000);
+      return `CERT-${year}-${random}`;
+    }
+
+    function showConfetti() {
+      const container = document.getElementById('confetti-container');
+      container.innerHTML = '';
+      container.style.display = 'block';
+
+      const colors = ['#2a6ebb', '#2bb5b5', '#2bb57c', '#ffcc4d', '#e74c3c', '#9b59b6'];
+
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(confetti);
+      }
+
+      setTimeout(() => { container.style.display = 'none'; }, 5000);
+    }
+
+    // ============================================================================
+    // STORAGE
+    // ============================================================================
+    function saveState() { localStorage.setItem('bcCourseDemoState', JSON.stringify(appState)); }
+
+    function loadState() {
+      const saved = localStorage.getItem('bcCourseDemoState');
+      if (!saved) return;
+      try { Object.assign(appState, JSON.parse(saved)); } catch (_) {}
+    }
+
+    function resetProgress() {
+      if (confirm('Reset all progress?')) {
+        appState.completedModules = { hiv: [false, false, false, false], syphilis: [false, false, false, false] };
+        appState.quizScores = { hiv: [0, 0, 0, 0], syphilis: [0, 0, 0, 0] };
+        appState.certificateUnlocked = false;
+        appState.certificateId = '';
+        appState.completionDate = '';
+        appState.userName = '';
+        saveState();
+        loadHome();
+        alert('Progress reset.');
+      }
+    }
+
+    // ============================================================================
+    // INIT
+    // ============================================================================
+    function init() {
+      loadState();
+      loadHome();
+
+      const footer = document.querySelector('.footer');
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Reset';
+      resetBtn.style.marginLeft = '20px';
+      resetBtn.style.padding = '6px 16px';
+      resetBtn.style.background = 'var(--primary-red)';
+      resetBtn.style.color = 'white';
+      resetBtn.style.border = 'none';
+      resetBtn.style.borderRadius = '8px';
+      resetBtn.style.cursor = 'pointer';
+      resetBtn.style.fontSize = '0.9rem';
+      resetBtn.style.fontWeight = '800';
+      resetBtn.onclick = resetProgress;
+      footer.appendChild(resetBtn);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
