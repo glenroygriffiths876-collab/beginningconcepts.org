@@ -788,7 +788,7 @@
       </div>
 
       <div class="content">
-        <div class="track-buttons">
+        <div style="text-align:center;margin:0 0 20px"><button type="button" class="btn btn-back" style="background:#102b46;color:white;border:1px solid #b58a43" onclick="previewSampleCertificate()">Preview Sample Certificate</button></div><dialog id="sample-certificate-dialog" style="width:min(95vw,1000px);max-height:92vh;overflow:auto;margin:auto;padding:16px;border:1px solid #b58a43;border-radius:16px;background:#fffdf8;color:#102b46"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px"><strong>Sample certificate</strong><button type="button" onclick="this.closest('dialog').close()" aria-label="Close sample certificate" style="padding:8px 14px;cursor:pointer">Close ×</button></div><img id="sample-certificate-image" alt="Sample HIV and Syphilis 101 certificate" style="width:100%;height:auto;display:block"><p style="text-align:center;margin:12px">Preview only — complete the course to earn your personalised certificate.</p><a id="sample-certificate-download" class="btn btn-primary" download="Beginning-Concepts-Sample-Certificate.png">Download sample</a></dialog><div class="track-buttons">
           <button class="btn btn-primary track-btn" onclick="loadTrack('hiv')">
             <span class="icon-large">🧬</span>
             Learn HIV
@@ -2092,8 +2092,16 @@
       document.getElementById('preview-id').textContent = appState.certificateId || generateCertificateId();
     }
 
-    async function downloadCertificate() {
-      const name = document.getElementById('certificate-name').value.trim();
+    async function previewSampleCertificate(){
+      const url=await downloadCertificate(true);
+      if(!url)return;
+      document.getElementById('sample-certificate-image').src=url;
+      document.getElementById('sample-certificate-download').href=url;
+      document.getElementById('sample-certificate-dialog').showModal();
+    }
+    async function downloadCertificate(sample=false) {
+      if(!sample && !appState.certificateUnlocked)return;
+      const name = sample ? 'Jordan Brown' : document.getElementById('certificate-name').value.trim();
       if (!name) { alert('Please type your name.'); return; }
       const loadImage = src => new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;});
       let logo, qr;
@@ -2115,11 +2123,12 @@
       line('has successfully completed all eight lessons and quizzes in',1230,58,'#52606b');
       line('HIV and Syphilis 101',1370,105,'#102d43',true);
       line('Educational content reviewed and verified by a Public Health and STI Specialist.',1550,55,'#102d43');
-      line('Completed: '+(appState.completionDate||new Date().toLocaleDateString()),1740,48,'#52606b');
-      line('Certificate ID: '+(appState.certificateId||generateCertificateId()),1820,48,'#52606b');
+      line('Completed: '+(sample?'November 23, 2026':(appState.completionDate||new Date().toLocaleDateString())),1740,48,'#52606b');
+      line('Certificate ID: '+(sample?'SAMPLE-2026-000000':(appState.certificateId||generateCertificateId())),1820,48,'#52606b');
       ctx.imageSmoothingEnabled=false;ctx.drawImage(qr,mid-148,1880,296,296);
       line('beginningconcepts.org',2210,45,'#102d43',true);
       line('Demonstration course · Not an accredited professional qualification.',2310,40,'#52606b');
+      if(sample){line('SAMPLE — NOT ISSUED',1660,52,'#9b672a',true);return canvas.toDataURL('image/png');}
       const link=document.createElement('a');link.download='HIV-and-Syphilis-101-Certificate.png';link.href=canvas.toDataURL('image/png');link.click();
     }
 
