@@ -6,8 +6,18 @@
 <meta name="description" content="Discover Salt & Grove, an island-inspired fragrance storefront concept by Beginning Concepts. Explore the notes, choose a size and try the shopping bag.">
 <meta name="theme-color" content="#22392b"><link rel="icon" href="../assets/favicon.svg">
 <link rel="stylesheet" href="shop.css?v=6"><script src="shop.js?v=6" defer></script>
-</head><body>
-<aside class="studio" aria-label="Demo store notice"><strong>Demo store</strong><span>Practise shopping · No real payments</span></aside>
+<style>
+.bc-shop-brand.studio{background:#102b46;color:#fff;border-bottom:2px solid #c9a363;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px clamp(16px,5vw,70px);flex-wrap:wrap}
+.bc-shop-identity{display:flex;align-items:center;gap:13px;text-decoration:none;color:#fff;text-align:left}
+.bc-shop-identity img{width:76px;height:auto;display:block;background:#fffdf8;border-radius:10px;padding:5px;border:1px solid #c9a363}
+.bc-shop-identity strong{display:block;font-family:Georgia,serif;font-size:clamp(15px,2.3vw,23px);letter-spacing:.045em;color:#fff}
+.bc-shop-identity small{display:block;font-size:12px;color:#e9c98b;margin-top:4px}
+.bc-shop-notice{font-size:12px;color:#fff}
+.bc-shop-footer{display:inline-flex;align-items:center;gap:10px}
+.bc-shop-footer img{width:50px;height:auto;background:#fffdf8;border-radius:7px;padding:4px}
+@media(max-width:550px){.bc-shop-brand.studio{justify-content:center;text-align:center;gap:7px;padding:10px 12px}.bc-shop-identity img{width:62px}.bc-shop-notice{width:100%}}
+</style></head><body>
+<aside class="studio bc-shop-brand" aria-label="Beginning Concepts demo store"><a href="../" class="bc-shop-identity"><img src="../assets/brand-logo.webp" alt="Beginning Concepts official logo" width="165" height="127"><span><strong>BEGINNING CONCEPTS</strong><small>Interactive shop demonstration</small></span></a><span class="bc-shop-notice">Practise shopping · No real payments</span></aside>
 <header><a class="wordmark" href="#top">Salt <i>&amp;</i> Grove</a><nav aria-label="Store"><a href="#collection">Collection</a><button id="bag-open" aria-haspopup="dialog">Bag <span id="count">0</span></button></nav></header>
 <main id="top">
 <section class="hero" aria-labelledby="hero-title">
@@ -22,7 +32,7 @@
 <p>For your shop, we can work with your existing product photos or create branded product visuals around your brief.</p>
 <a class="cta" href="mailto:beginningconcepts.org@gmail.com?subject=Storefront%20design%20and%20product%20imagery%20enquiry">Discuss my shop design <span aria-hidden="true">↗</span></a></div>
 <div class="design-examples"><figure><img src="golden-hour.webp" loading="lazy" width="627" height="627" alt="Golden Hour bottle styled with orange peel on limestone"><figcaption>Product image</figcaption></figure><figure><img src="coast.webp" loading="lazy" width="1600" height="900" alt="The same fragrance in a sunset coastal campaign"><figcaption>Website banner</figcaption></figure><p>AI-assisted concept imagery for the Salt &amp; Grove demo.</p></div>
-</section></main><footer><a href="../">Visit Beginning Concepts <span aria-hidden="true">↗</span></a><a href="#top">Back to the shop ↑</a></footer>
+</section></main><footer><a href="../" class="bc-shop-footer"><img src="../assets/brand-logo.webp" alt="" width="165" height="127">Designed by Beginning Concepts <span aria-hidden="true">↗</span></a><a href="#top">Back to the shop ↑</a></footer>
 <dialog id="finder" aria-labelledby="finder-title">
 <button class="close" aria-label="Close scent finder">×</button><p class="label">Demo · Scent finder</p><h2 id="finder-title">What draws you in?</h2><p class="finder-intro">Choose a note to discover your fragrance.</p><div id="choices"></div>
 </dialog>
