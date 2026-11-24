@@ -2,26 +2,38 @@
 <html lang="en-JM">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Salt &amp; Grove · Fragrance collection | Beginning Concepts</title>
+<title>Salt &amp; Grove · Demo store | Beginning Concepts</title>
 <meta name="description" content="Discover Salt & Grove, an island-inspired fragrance storefront concept by Beginning Concepts. Explore the notes, choose a size and try the shopping bag.">
 <meta name="theme-color" content="#22392b"><link rel="icon" href="../assets/favicon.svg">
-<link rel="stylesheet" href="shop.css?v=3"><script src="shop.js?v=3" defer></script>
+<link rel="stylesheet" href="shop.css?v=4"><script src="shop.js?v=4" defer></script>
 </head><body>
-<div class="studio"><a href="../">Beginning Concepts</a><span aria-hidden="true"> / </span>Storefront demo</div>
+<aside class="studio" aria-label="Demo store notice"><strong>Demo store</strong><span>Practise shopping · No real payments</span></aside>
 <header><a class="wordmark" href="#top">Salt <i>&amp;</i> Grove</a><nav aria-label="Store"><a href="#collection">Collection</a><button id="bag-open" aria-haspopup="dialog">Bag <span id="count">0</span></button></nav></header>
 <main id="top">
 <section class="hero" aria-labelledby="hero-title">
 <picture><source media="(max-width:650px)" srcset="coast-mobile.webp"><img src="coast.webp" fetchpriority="high" alt="Golden Hour perfume on the Jamaican coast in the evening light"></picture>
-<div class="hero-copy"><p class="label">The island collection</p><h1 id="hero-title">An island,<br> in a <em>bottle.</em></h1><p>Four fragrances inspired by Jamaica, from bitter orange in the afternoon sun to sorrel after dusk.</p>
-<div class="hero-actions"><a class="cta" href="#collection">Shop the collection <span aria-hidden="true">↓</span></a><button id="finder-open" aria-haspopup="dialog">Find my scent</button></div></div></section>
+<div class="hero-copy"><p class="label">A Beginning Concepts storefront demo</p><h1 id="hero-title">An island,<br> in a <em>bottle.</em></h1><p>Four fragrances inspired by Jamaica, from bitter orange in the afternoon sun to sorrel after dusk.</p>
+<div class="hero-actions"><a class="cta" href="#collection">Explore the demo <span aria-hidden="true">↓</span></a><button id="finder-open" aria-haspopup="dialog">Find my scent</button></div></div></section>
 <section id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="label">Eau de parfum</p><h2 id="collection-title">The fragrances.</h2></div><label class="sort">Sort by <select id="sort"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></label></div>
 <div class="filters" role="group" aria-label="Filter by scent family"></div><div id="grid"></div><noscript>Please enable JavaScript to explore the fragrances.</noscript></section>
 </main><footer><div><p class="label">Designed by Beginning Concepts</p><h2>A storefront for your business.</h2></div><a href="mailto:beginningconcepts.org@gmail.com?subject=Custom%20storefront%20enquiry">Discuss your shop <span aria-hidden="true">↗</span></a></footer>
 <dialog id="finder" aria-labelledby="finder-title">
-<button class="close" aria-label="Close scent finder">×</button><p class="label">Scent finder</p><h2 id="finder-title">What draws you in?</h2><p class="finder-intro">Choose a note to discover your fragrance.</p><div id="choices"></div>
+<button class="close" aria-label="Close scent finder">×</button><p class="label">Demo · Scent finder</p><h2 id="finder-title">What draws you in?</h2><p class="finder-intro">Choose a note to discover your fragrance.</p><div id="choices"></div>
 </dialog>
 <dialog id="details"><button class="close" aria-label="Close product details" autofocus>×</button><div id="detail-body"></div></dialog>
-<dialog id="bag" aria-label="Shopping bag"><div class="bag-head"><h2>Your bag</h2><button class="close" aria-label="Close shopping bag" autofocus>×</button></div><div id="bag-body"></div></dialog>
+<dialog id="bag" aria-label="Shopping bag"><p class="label">Demo store · Practice only</p><div class="bag-head"><h2 tabindex="-1">Your bag</h2><button class="close" aria-label="Close shopping bag" autofocus>×</button></div><div id="bag-body"></div></dialog>
+<template id="checkout-options"><p class="step">Step 1 of 2 · Delivery &amp; payment</p>
+<fieldset><legend>How would you receive your order?</legend>
+<label><input type="radio" name="delivery" value="pickup" checked> Sample pickup · Free</label>
+<label><input type="radio" name="delivery" value="delivery"> Sample delivery · J$500</label></fieldset>
+<p class="payment"><strong>Demo payment card</strong><br>Test card ending in 4242. No card details needed.</p>
+<button class="checkout">Review demo order</button><button class="back-step">Back to bag</button></template>
+<template id="checkout-review"><p class="step">Step 2 of 2 · Review</p><p class="order-lines"></p>
+<p class="fulfilment"></p><p>Payment · Demo card ending in 4242</p><div class="subtotal"><span>Demo total</span><strong></strong></div>
+<button class="checkout">Place demo order</button><button class="back-step">Edit checkout options</button></template>
+<template id="checkout-complete"><p class="step">Simulation complete</p><p>Your practice order is complete. Nothing was charged or sent for delivery.</p>
+<p class="order-lines"></p><p class="fulfilment"></p><div class="subtotal"><span>Demo total</span><strong></strong></div>
+<button class="checkout">Continue exploring</button></template>
 <template id="product"><article><button class="photo" data-detail><img loading="lazy" alt=""></button><div class="product-head"><h3><button data-detail></button></h3><span class="price"></span></div><p class="notes"></p><div class="buy"><label><select aria-label="Bottle size"></select></label><button class="add">Add to bag <span aria-hidden="true">+</span></button></div></article></template>
 <div id="notice" role="status"></div>
 </body></html>

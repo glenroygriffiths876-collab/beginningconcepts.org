@@ -56,3 +56,11 @@ dialog{color:var(--ink);background:var(--cream);border:0;padding:25px;max-width:
 #detail-body .buy{flex-direction:row;align-items:center}#detail-body .buy .add{width:auto}
 .qty button{min-width:36px}.bag-line{gap:8px}.bag-line img{width:42px;height:42px}
 }
+
+.studio{position:sticky;top:0;z-index:4;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;background:#f5dda0;color:#23392b;font-size:.84rem;padding:8px 12px;letter-spacing:0}
+.studio strong{background:#23392b;color:white;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;padding:3px 9px;border-radius:3px}
+.studio span{color:inherit;margin:0}#collection{scroll-margin-top:65px}
+#bag fieldset{margin:12px 0;padding:12px;border:1px solid var(--line)}#bag legend{font-weight:600}#bag fieldset label{display:flex;align-items:center;gap:8px;min-height:46px}
+#bag .step{font-size:.85rem;letter-spacing:.03em;font-weight:600;color:#476049;margin-bottom:18px}
+#bag .payment,#bag .order-lines{padding:14px;background:#eceee3;margin:16px 0;white-space:pre-line}
+#bag .fulfilment{margin:12px 0}#bag .subtotal{margin-top:16px}.back-step{display:block;margin:8px auto;padding:10px;text-decoration:underline}

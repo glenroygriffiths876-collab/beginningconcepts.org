@@ -52,7 +52,7 @@ function openDetails(s, recommendation = false) {
   el("#detail-body").innerHTML = '<img alt=""><p class="label"></p><h2 id="scent-title"></h2><p class="story"></p><dl class="detail-notes"></dl><strong class="price"></strong><div class="buy"><select></select><button class="add">Add to bag +</button></div>';
   const body = el("#detail-body");
   body.querySelector("img").src = s.id+".webp";
-  body.querySelector(".label").textContent = (recommendation ? "Your scent match · " : "") + s.family+" · Eau de parfum";
+  body.querySelector(".label").textContent = "Demo · " + (recommendation ? "Your scent match · " : "") + s.family+" · Eau de parfum";
   body.querySelector("h2").textContent = s.name;
   body.querySelector(".story").textContent = s.story;
   const layers = ["Opening", "Heart", "Base"];
@@ -119,7 +119,49 @@ for (const name of ["All",...scents.map(s => s.family)]) {
   };
   el(".filters").append(btn);
 }
+function showCheckoutStep(template, title) {
+  const body = el("#bag-body");
+  body.replaceChildren(el(template).content.cloneNode(true));
+  const heading = bag.querySelector("h2");
+  heading.textContent = title;
+  heading.focus();
+  bag.scrollTop = 0;
+  return body;
+}
+function checkout(lines, subtotal, delivery = "pickup") {
+  const body = showCheckoutStep("#checkout-options", "Demo checkout");
+  body.querySelector('input[value="' + delivery + '"]').checked = true;
+  body.querySelector(".back-step").onclick = () => {
+    showBag();
+    bag.querySelector("h2").focus();
+  };
+  body.querySelector(".checkout").onclick = () => {
+    const method = body.querySelector("input:checked").value;
+    const fee = method === "delivery" ? 500 : 0;
+    const fulfilment = fee ? "Sample delivery · " + money(fee) : "Sample pickup · Free";
+    function fillSummary(panel) {
+      panel.querySelector(".order-lines").textContent = lines.join("\n");
+      panel.querySelector(".fulfilment").textContent = fulfilment;
+      panel.querySelector(".subtotal strong").textContent = money(subtotal + fee);
+    }
+    const review = showCheckoutStep("#checkout-review", "Review demo order");
+    fillSummary(review);
+    review.querySelector(".back-step").onclick = () => checkout(lines, subtotal, method);
+    review.querySelector(".checkout").onclick = () => {
+      cart = {};
+      try { sessionStorage.removeItem("sg-bag-v1"); } catch {}
+      el("#count").textContent = "0";
+      const confirmation = showCheckoutStep("#checkout-complete", "Demo order confirmed");
+      fillSummary(confirmation);
+      confirmation.querySelector(".checkout").onclick = () => {
+        bag.close();
+        el("#bag-open").focus();
+      };
+    };
+  };
+}
 function showBag() {
+  bag.querySelector("h2").textContent = "Your bag";
   const body = el("#bag-body");
   body.replaceChildren();
   let total = 0;
@@ -151,13 +193,9 @@ function showBag() {
   }
   if (total) {
     const summary = document.createElement("div");
-    summary.innerHTML='<div class="subtotal"><span>Subtotal · JMD</span><span></span></div><button class="checkout">Preview sample order</button><p class="hint">Demo checkout. No payment is taken or order sent.</p><p class="receipt" role="status" hidden></p>';
+    summary.innerHTML='<div class="subtotal"><span>Subtotal · JMD</span><span></span></div><button class="checkout">Start demo checkout</button><p class="hint">Try delivery and payment with sample details.</p>';
     summary.querySelector(".subtotal span:last-child").textContent=money(total);
-    summary.querySelector("button").onclick=() => {
-      const receipt=summary.querySelector(".receipt");
-      receipt.hidden=false;
-      receipt.textContent=["Sample order",...lines,"Subtotal "+money(total)].join("\n");
-    };
+    summary.querySelector("button").onclick=() => checkout(lines,total);
     body.append(summary);
   } else body.textContent="Your bag is empty. Explore the collection to add a fragrance.";
   if (!bag.open) bag.showModal();
