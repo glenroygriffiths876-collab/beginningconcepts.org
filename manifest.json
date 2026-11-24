@@ -9,15 +9,15 @@
   "theme_color": "#102b40",
   "icons": [
     {
-      "src": "/assets/brand-logo-hd.avif",
-      "sizes": "620x511",
-      "type": "image/avif",
+      "src": "/assets/bc-app-icon.svg",
+      "sizes": "192x192 512x512 any",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/assets/bc-app-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/assets/brand-logo-hd.avif",
+      "sizes": "620x511",
+      "type": "image/avif",
       "purpose": "any"
     }
   ]
