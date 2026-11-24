@@ -754,19 +754,37 @@
     .text-center { text-align: center; }
     .mt-20 { margin-top: 20px; }
     .mb-20 { margin-bottom: 20px; }
-  </style>
+  #home-screen .bc-course-hero{position:relative;overflow:hidden;padding:38px 20px 30px;background:radial-gradient(ellipse at 50% 0%,#254b63 0%,#102b46 52%,#071b2e 100%);color:#fff;border-bottom:4px solid #c9a363;text-align:center}
+#home-screen .bc-course-hero:before,#home-screen .bc-course-hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #d7b67644;border-radius:50%;pointer-events:none}
+#home-screen .bc-course-hero:before{left:-170px;top:-130px;box-shadow:0 0 0 24px #d7b67612,0 0 0 48px #d7b6760c}
+#home-screen .bc-course-hero:after{right:-170px;bottom:-130px;box-shadow:0 0 0 24px #d7b67612,0 0 0 48px #d7b6760c}
+.bc-course-brand{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 22px;position:relative;z-index:1}
+.bc-course-brand a{display:block;background:#fffdf7;border:1px solid #d7b676;border-radius:18px;padding:10px;box-shadow:0 8px 30px #0003}
+.bc-course-brand img{display:block;width:clamp(95px,17vw,165px);height:auto;object-fit:contain}
+.bc-course-brand>div{font-family:Georgia,serif;font-size:clamp(19px,4vw,34px);font-weight:700;letter-spacing:.06em;text-align:left;color:#fff}
+.bc-course-brand span{display:block;font:600 .48em Arial,sans-serif;letter-spacing:.32em;color:#e9c98b;margin-top:5px}
+.bc-course-kicker{font-size:11px;letter-spacing:.18em;font-weight:700;color:#e9c98b;margin-bottom:12px}
+#home-screen .bc-course-hero h1{font-family:Georgia,serif;font-size:clamp(30px,5.6vw,58px);line-height:1.12;color:#fff;margin:0 0 14px}
+#home-screen .bc-course-hero h1 em{color:#e9c98b;font-style:normal}
+#home-screen .bc-course-hero h2{font-size:clamp(15px,2.6vw,21px);line-height:1.55;color:#edf3f8;font-weight:400;margin:0 auto 22px}
+.bc-course-facts{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.bc-course-facts span{border:1px solid #d7b67688;border-radius:30px;padding:7px 13px;font-size:12px;color:#fff}
+.bc-course-review{font-size:12px;line-height:1.5;color:#e9c98b;margin:20px auto 0;max-width:580px}
+@media(max-width:480px){#home-screen .bc-course-hero{padding:25px 12px}.bc-course-brand{gap:10px}.bc-course-brand a{padding:7px}.bc-course-facts span{font-size:11px;padding:6px 9px}}
+</style>
 </head>
 
 <body><div style="width:100%;max-width:1200px;background:#102b46;color:white;border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center"><a href="../" style="color:white;font-weight:700">← Beginning Concepts</a><span>Interactive course demo · Sample certificates only</span></div>
   <div class="container">
     <!-- Home Screen -->
     <div id="home-screen" class="screen">
-      <div class="header">
-        <h1>🩺 HIV and Syphilis 101</h1>
-        <h2>
-          Simple, easy learning about <strong>HIV</strong> and <strong>Syphilis</strong>.
-          Clear words. Short points. Quick quizzes.
-        </h2>
+      <div class="header bc-course-hero">
+        <div class="bc-course-brand"><a href="../" aria-label="Beginning Concepts home"><img src="../assets/brand-logo.webp" alt="Beginning Concepts official logo" width="165" height="127"></a><div>BEGINNING<span>CONCEPTS</span></div></div>
+        <div class="bc-course-kicker">INTERACTIVE LEARNING EXPERIENCE</div>
+        <h1>HIV and Syphilis <em>101</em></h1>
+        <h2>Understand the facts. Break the myths.<br>Learn at your own pace.</h2>
+        <div class="bc-course-facts"><span>8 interactive lessons</span><span>2 learning tracks</span><span>Completion certificate</span></div>
+        <p class="bc-course-review">Educational content reviewed and verified by a Public Health and STI Specialist.</p>
       </div>
 
       <div class="content">
