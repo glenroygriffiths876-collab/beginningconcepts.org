@@ -48,18 +48,48 @@ function buyControls(root,s,priceNode) {
     showBag();
   });
 }
-function openDetails(s) {
-  el("#detail-body").innerHTML = '<img alt=""><p class="label"></p><h2 id="scent-title"></h2><p class="story"></p><p class="detail-notes"></p><strong class="price"></strong><div class="buy"><select></select><button class="add">Add to bag +</button></div>';
+function openDetails(s, recommendation = false) {
+  el("#detail-body").innerHTML = '<img alt=""><p class="label"></p><h2 id="scent-title"></h2><p class="story"></p><dl class="detail-notes"></dl><strong class="price"></strong><div class="buy"><select></select><button class="add">Add to bag +</button></div>';
   const body = el("#detail-body");
   body.querySelector("img").src = s.id+".webp";
-  body.querySelector(".label").textContent = s.family+" · Eau de parfum";
+  body.querySelector(".label").textContent = (recommendation ? "Your scent match · " : "") + s.family+" · Eau de parfum";
   body.querySelector("h2").textContent = s.name;
   body.querySelector(".story").textContent = s.story;
-  body.querySelector(".detail-notes").textContent = s.notes;
+  const layers = ["Opening", "Heart", "Base"];
+  s.notes.split(" · ").forEach((note,index) => {
+    const pair = document.createElement("div");
+    const term = document.createElement("dt");
+    const value = document.createElement("dd");
+    term.textContent = layers[index];
+    value.textContent = note;
+    pair.append(term,value);
+    body.querySelector(".detail-notes").append(pair);
+  });
   buyControls(body,s,body.querySelector(".price"));
   details.setAttribute("aria-labelledby","scent-title");
   details.showModal();
 }
+const finder = el("#finder");
+const preferences = {
+  "golden-hour":"Bright citrus peel", "sea-glass":"Salt air and lime",
+  "sorrel-dusk":"Warm ginger and spice", "fern-house":"Rain on green leaves"
+};
+for (const scent of scents) {
+  const choice = document.createElement("button");
+  const image = document.createElement("img");
+  image.src = scent.id+".webp";
+  image.alt = "";
+  image.loading = "lazy";
+  const caption = document.createElement("span");
+  caption.textContent = preferences[scent.id];
+  choice.append(image, caption);
+  choice.onclick = () => {
+    finder.close();
+    openDetails(scent,true);
+  };
+  el("#choices").append(choice);
+}
+el("#finder-open").onclick = () => finder.showModal();
 function render() {
   const list = scents.filter(s => family === "All" || family === s.family);
   const sort = el("#sort").value;
@@ -135,7 +165,7 @@ function showBag() {
 el("#count").textContent = Object.values(cart).reduce((a,b)=>a+b,0);
 el("#bag-open").onclick=showBag;
 el("#sort").onchange=render;
-for (const dialog of [details,bag]) {
+for (const dialog of [details,bag,finder]) {
   dialog.querySelector(".close").onclick=()=>dialog.close();
 }
 details.addEventListener("close",()=> {
