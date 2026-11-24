@@ -64,3 +64,7 @@ dialog{color:var(--ink);background:var(--cream);border:0;padding:25px;max-width:
 #bag .step{font-size:.85rem;letter-spacing:.03em;font-weight:600;color:#476049;margin-bottom:18px}
 #bag .payment,#bag .order-lines{padding:14px;background:#eceee3;margin:16px 0;white-space:pre-line}
 #bag .fulfilment{margin:12px 0}#bag .subtotal{margin-top:16px}.back-step{display:block;margin:8px auto;padding:10px;text-decoration:underline}
+.scent-links{display:grid;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.scent-links a,.scent-links button{text-align:left;font-size:.89rem;text-decoration:underline;text-underline-offset:3px;padding:4px 0}
+.activity{padding-inline-start:20px;margin:12px 0 24px}.activity li{padding-block:4px}
+.advance[hidden]{display:none}

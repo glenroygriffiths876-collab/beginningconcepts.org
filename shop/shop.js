@@ -48,6 +48,12 @@ function buyControls(root,s,priceNode) {
     showBag();
   });
 }
+const pairings = {
+  "golden-hour": ["sea-glass", "Prefer a fresher citrus?"],
+  "sea-glass": ["fern-house", "Like fresh scents with a greener finish?"],
+  "fern-house": ["golden-hour", "Try a brighter take on woody notes."],
+  "sorrel-dusk": ["golden-hour", "Explore a lighter, sun-warmed scent."]
+};
 function openDetails(s, recommendation = false) {
   el("#detail-body").innerHTML = '<img alt=""><p class="label"></p><h2 id="scent-title"></h2><p class="story"></p><dl class="detail-notes"></dl><strong class="price"></strong><div class="buy"><select></select><button class="add">Add to bag +</button></div>';
   const body = el("#detail-body");
@@ -67,7 +73,32 @@ function openDetails(s, recommendation = false) {
   });
   buyControls(body,s,body.querySelector(".price"));
   details.setAttribute("aria-labelledby","scent-title");
-  details.showModal();
+  const actions = document.createElement("div");
+  actions.className = "scent-links";
+  const share = document.createElement("a");
+  share.textContent = "Share on WhatsApp";
+  share.target = "_blank";
+  share.rel = "noopener noreferrer";
+  const select = body.querySelector("select");
+  function setShareLink() {
+    const product = new URL(s.id + "/", location.href);
+    product.searchParams.set("size", select.value);
+    share.href = "https://wa.me/?text=" + encodeURIComponent(s.name + " · " + select.value + " ml | Salt & Grove demo\n" + product.href);
+  }
+  select.addEventListener("change", setShareLink);
+  setShareLink();
+  const [otherId, reason] = pairings[s.id];
+  const other = scents.find(item => item.id === otherId);
+  const suggestion = document.createElement("button");
+  suggestion.textContent = reason + " Explore " + other.name + " →";
+  suggestion.onclick = () => openDetails(other);
+  actions.append(share,suggestion);
+  body.append(actions);
+  if (!details.open) details.showModal();
+  else {
+    details.scrollTop = 0;
+    details.querySelector(".close").focus();
+  }
 }
 const finder = el("#finder");
 const preferences = {
@@ -128,6 +159,45 @@ function showCheckoutStep(template, title) {
   bag.scrollTop = 0;
   return body;
 }
+let lastOrder;
+try {
+  const saved = JSON.parse(sessionStorage.getItem("sg-last-order") || "null");
+  if (saved && Array.isArray(saved.lines) && Array.isArray(saved.activity) &&
+      Number.isFinite(saved.total) && ["delivery","pickup"].includes(saved.method)) lastOrder = saved;
+} catch {}
+function saveOrder(order) {
+  lastOrder = order;
+  try { sessionStorage.setItem("sg-last-order", JSON.stringify(order)); } catch {}
+}
+function showOwner(order) {
+  const panel = showCheckoutStep("#owner-view","Order details");
+  panel.querySelector(".order-id").textContent = order.id;
+  panel.querySelector(".order-lines").textContent = order.lines.join("\n");
+  panel.querySelector(".fulfilment").textContent = order.fulfilment;
+  panel.querySelector(".subtotal strong").textContent = money(order.total);
+  const nextStatus = order.method === "delivery" ? "Out for delivery" : "Ready for pickup";
+  const advance = panel.querySelector(".advance");
+  function renderActivity() {
+    const list = panel.querySelector(".activity");
+    list.replaceChildren();
+    for (const event of order.activity) {
+      const item = document.createElement("li");
+      item.textContent = event.status + " · " + new Date(event.at).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+      list.append(item);
+    }
+    advance.hidden = order.activity.length > 1;
+  }
+  advance.textContent = "Mark " + nextStatus.toLowerCase();
+  advance.onclick = () => {
+    if (order.activity.length > 1) return;
+    order.activity.push({status:nextStatus,at:Date.now()});
+    saveOrder(order);
+    renderActivity();
+    panel.querySelector(".back-step").focus();
+  };
+  panel.querySelector(".back-step").onclick = () => bag.close();
+  renderActivity();
+}
 function checkout(lines, subtotal, delivery = "pickup") {
   const body = showCheckoutStep("#checkout-options", "Demo checkout");
   body.querySelector('input[value="' + delivery + '"]').checked = true;
@@ -153,7 +223,11 @@ function checkout(lines, subtotal, delivery = "pickup") {
       el("#count").textContent = "0";
       const confirmation = showCheckoutStep("#checkout-complete", "Demo order confirmed");
       fillSummary(confirmation);
-      confirmation.querySelector(".checkout").onclick = () => {
+      const order = {id:"Demo order " + crypto.randomUUID().slice(0,8).toUpperCase(), lines:[...lines],
+        method, fulfilment, total:subtotal+fee, activity:[{status:"Order received",at:Date.now()}]};
+      saveOrder(order);
+      confirmation.querySelector(".owner-open").onclick = () => showOwner(order);
+      confirmation.querySelector(".continue").onclick = () => {
         bag.close();
         el("#bag-open").focus();
       };
@@ -198,6 +272,13 @@ function showBag() {
     summary.querySelector("button").onclick=() => checkout(lines,total);
     body.append(summary);
   } else body.textContent="Your bag is empty. Explore the collection to add a fragrance.";
+  if (lastOrder) {
+    const previous = document.createElement("button");
+    previous.className = "back-step";
+    previous.textContent = "View latest demo order as owner";
+    previous.onclick = () => showOwner(lastOrder);
+    body.append(previous);
+  }
   if (!bag.open) bag.showModal();
 }
 el("#count").textContent = Object.values(cart).reduce((a,b)=>a+b,0);
@@ -214,3 +295,10 @@ details.addEventListener("close",()=> {
   }
 });
 render();
+const entry = new URLSearchParams(location.search);
+const sharedScent = scents.find(s => s.id === entry.get("scent"));
+if (sharedScent) {
+  const sharedSize = Number(entry.get("size"));
+  if (sizes.includes(sharedSize)) selected.set(sharedScent.id,sharedSize);
+  openDetails(sharedScent);
+}

@@ -5,7 +5,7 @@
 <title>Salt &amp; Grove · Demo store | Beginning Concepts</title>
 <meta name="description" content="Discover Salt & Grove, an island-inspired fragrance storefront concept by Beginning Concepts. Explore the notes, choose a size and try the shopping bag.">
 <meta name="theme-color" content="#22392b"><link rel="icon" href="../assets/favicon.svg">
-<link rel="stylesheet" href="shop.css?v=4"><script src="shop.js?v=4" defer></script>
+<link rel="stylesheet" href="shop.css?v=5"><script src="shop.js?v=5" defer></script>
 </head><body>
 <aside class="studio" aria-label="Demo store notice"><strong>Demo store</strong><span>Practise shopping · No real payments</span></aside>
 <header><a class="wordmark" href="#top">Salt <i>&amp;</i> Grove</a><nav aria-label="Store"><a href="#collection">Collection</a><button id="bag-open" aria-haspopup="dialog">Bag <span id="count">0</span></button></nav></header>
@@ -33,7 +33,8 @@
 <button class="checkout">Place demo order</button><button class="back-step">Edit checkout options</button></template>
 <template id="checkout-complete"><p class="step">Simulation complete</p><p>Your practice order is complete. Nothing was charged or sent for delivery.</p>
 <p class="order-lines"></p><p class="fulfilment"></p><div class="subtotal"><span>Demo total</span><strong></strong></div>
-<button class="checkout">Continue exploring</button></template>
+<button class="owner-open checkout">View this order as the shop owner</button><button class="continue back-step">Continue exploring</button></template>
+<template id="owner-view"><p class="step">Shop owner · Practice order</p><strong class="order-id"></strong><p class="order-lines"></p><p class="fulfilment"></p><div class="subtotal"><span>Order total</span><strong></strong></div><h3>Order activity</h3><ol class="activity" aria-live="polite"></ol><button class="advance checkout"></button><button class="back-step">Return to store</button></template>
 <template id="product"><article><button class="photo" data-detail><img loading="lazy" alt=""></button><div class="product-head"><h3><button data-detail></button></h3><span class="price"></span></div><p class="notes"></p><div class="buy"><label><select aria-label="Bottle size"></select></label><button class="add">Add to bag <span aria-hidden="true">+</span></button></div></article></template>
 <div id="notice" role="status"></div>
 </body></html>
