@@ -99,7 +99,7 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 @media(max-width:990px){.intro .main-logo{width:clamp(175px,26vw,240px)}}
 @media(max-width:560px){.intro .main-logo{width:clamp(150px,43vw,205px);margin-bottom:2px}}
 </style>
-</head>
+<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#102b40"><link rel="apple-touch-icon" href="/assets/brand-logo-hd.avif"><style>.bc-app-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px auto 0}.bc-app-actions a,.bc-app-actions button{font:inherit;font-weight:700;border:1px solid #ad873f;border-radius:12px;padding:11px 16px;text-decoration:none;cursor:pointer;background:#102b40;color:white}.bc-app-actions button{background:#fff;color:#102b40}.bc-app-actions button[hidden]{display:none}#bc-install-help{max-width:480px;margin:8px auto;font-size:14px;text-align:center}</style></head>
 <body>
 <svg class="sr" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 <symbol id="mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></symbol>
@@ -129,7 +129,7 @@ nav button:hover,nav button.active{border-bottom:2px solid #b58635;color:var(--b
 <div class="motto">Innovation <b>•</b> Learning <b>•</b> Development</div>
 <p class="tagline">Where Ideas Begin and <em>Potential Grows.</em></p>
 <p class="bc-intro-desc">We design websites and product images for Jamaican businesses. We also build custom apps and learning tools for organisations and families.</p>
-</section>
+<div class="bc-app-actions"><a href="https://velora.beginningconcepts.org/">▶ Watch Live TV</a><button type="button" id="bc-install">Install Beginning Concepts</button></div><p id="bc-install-help" role="status" hidden></p></section>
 <section class="bc-cinema" id="brandCinema" aria-label="Beginning Concepts cinematic showcase featuring Gia">
 <div class="bc-film-fallback"><img src="assets/gia-avatar.jpg" alt="Gia, the Beginning Concepts virtual guide"></div>
 <video id="brandVideo" class="bc-film" autoplay muted playsinline preload="auto" poster="assets/gia-avatar.jpg" aria-label="Beginning Concepts cinematic introduction featuring Gia"><source src="assets/beginning-concepts-gia.mp4?v=2" type="video/mp4">Your browser does not support HTML5 video.</video>
@@ -201,4 +201,4 @@ document.getElementById("year").textContent=new Date().getFullYear();
 })();
 </script>
 <script src="assets/gia-business.js?v=9" defer></script>
-</body></html>
+<script>(()=>{let promptEvent;const button=document.getElementById('bc-install'),help=document.getElementById('bc-install-help');const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const sync=()=>{button.hidden=standalone()};window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();promptEvent=e;sync()});window.addEventListener('appinstalled',()=>{promptEvent=null;button.hidden=true;help.hidden=true});button.addEventListener('click',async()=>{if(promptEvent){const p=promptEvent;promptEvent=null;try{await p.prompt();await p.userChoice}catch(e){}sync();return}help.hidden=false;help.textContent=/iPhone|iPad|iPod/.test(navigator.userAgent)||navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1?'In Safari, tap Share, then Add to Home Screen.':'Open your browser menu and choose Install app or Add to Home screen, if available.'});sync();if('serviceWorker' in navigator)navigator.serviceWorker.register('/bc-sw.js').catch(()=>{});})();</script></body></html>
