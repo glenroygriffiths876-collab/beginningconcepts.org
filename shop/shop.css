@@ -68,3 +68,12 @@ dialog{color:var(--ink);background:var(--cream);border:0;padding:25px;max-width:
 .scent-links a,.scent-links button{text-align:left;font-size:.89rem;text-decoration:underline;text-underline-offset:3px;padding:4px 0}
 .activity{padding-inline-start:20px;margin:12px 0 24px}.activity li{padding-block:4px}
 .advance[hidden]{display:none}
+
+.design-studio{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(20px,5vw,80px);align-items:center;border-top:1px solid var(--line);padding:clamp(32px,5vw,76px) 0;scroll-margin-top:70px}
+.design-copy h2{font-size:clamp(2rem,4vw,3.7rem);max-width:15ch}.design-copy>p:not(.label){max-width:46ch;margin:14px 0}.design-copy .cta{margin-top:5px}
+.design-examples{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.design-examples figure{margin:0}.design-examples figure img{position:static;width:100%;height:clamp(155px,18vw,260px);display:block;object-fit:cover}
+.design-examples figure:last-of-type img{object-position:72% center}
+.design-examples figcaption{position:static;background:none;padding:6px 0;font:600 .85rem/1.4 system-ui}
+.design-examples p,.design-credit{font-size:.78rem}.design-examples p{grid-column:1/-1;color:#4b5a4f}.design-credit{margin-top:14px}.hero-copy .label a{text-underline-offset:3px}
+@media(max-width:730px){.design-studio{grid-template-columns:1fr}.design-examples figure img{height:clamp(120px,34vw,220px)}}

@@ -5,18 +5,24 @@
 <title>Salt &amp; Grove · Demo store | Beginning Concepts</title>
 <meta name="description" content="Discover Salt & Grove, an island-inspired fragrance storefront concept by Beginning Concepts. Explore the notes, choose a size and try the shopping bag.">
 <meta name="theme-color" content="#22392b"><link rel="icon" href="../assets/favicon.svg">
-<link rel="stylesheet" href="shop.css?v=5"><script src="shop.js?v=5" defer></script>
+<link rel="stylesheet" href="shop.css?v=6"><script src="shop.js?v=6" defer></script>
 </head><body>
 <aside class="studio" aria-label="Demo store notice"><strong>Demo store</strong><span>Practise shopping · No real payments</span></aside>
 <header><a class="wordmark" href="#top">Salt <i>&amp;</i> Grove</a><nav aria-label="Store"><a href="#collection">Collection</a><button id="bag-open" aria-haspopup="dialog">Bag <span id="count">0</span></button></nav></header>
 <main id="top">
 <section class="hero" aria-labelledby="hero-title">
 <picture><source media="(max-width:650px)" srcset="coast-mobile.webp"><img src="coast.webp" fetchpriority="high" alt="Golden Hour perfume on the Jamaican coast in the evening light"></picture>
-<div class="hero-copy"><p class="label">A Beginning Concepts storefront demo</p><h1 id="hero-title">An island,<br> in a <em>bottle.</em></h1><p>Four fragrances inspired by Jamaica, from bitter orange in the afternoon sun to sorrel after dusk.</p>
+<div class="hero-copy"><p class="label">Page design &amp; product imagery by <a href="#design-studio">Beginning Concepts</a></p><h1 id="hero-title">An island,<br> in a <em>bottle.</em></h1><p>Four fragrances inspired by Jamaica, from bitter orange in the afternoon sun to sorrel after dusk.</p>
 <div class="hero-actions"><a class="cta" href="#collection">Explore the demo <span aria-hidden="true">↓</span></a><button id="finder-open" aria-haspopup="dialog">Find my scent</button></div></div></section>
 <section id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="label">Eau de parfum</p><h2 id="collection-title">The fragrances.</h2></div><label class="sort">Sort by <select id="sort"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></label></div>
 <div class="filters" role="group" aria-label="Filter by scent family"></div><div id="grid"></div><noscript>Please enable JavaScript to explore the fragrances.</noscript></section>
-</main><footer><div><p class="label">Designed by <a href="../">Beginning Concepts</a></p><h2>A storefront for your business.</h2></div><a href="mailto:beginningconcepts.org@gmail.com?subject=Custom%20storefront%20enquiry">Discuss your shop <span aria-hidden="true">↗</span></a></footer>
+<section id="design-studio" class="design-studio" aria-labelledby="design-title" tabindex="-1">
+<div class="design-copy"><p class="label">Behind Salt &amp; Grove</p><h2 id="design-title">Your products, pictured your way.</h2>
+<p>Beginning Concepts designed this storefront, from the bottle images and coastal campaign banner to the product pages and checkout.</p>
+<p>For your shop, we can work with your existing product photos or create branded product visuals around your brief.</p>
+<a class="cta" href="mailto:beginningconcepts.org@gmail.com?subject=Storefront%20design%20and%20product%20imagery%20enquiry">Discuss my shop design <span aria-hidden="true">↗</span></a></div>
+<div class="design-examples"><figure><img src="golden-hour.webp" loading="lazy" width="627" height="627" alt="Golden Hour bottle styled with orange peel on limestone"><figcaption>Product image</figcaption></figure><figure><img src="coast.webp" loading="lazy" width="1600" height="900" alt="The same fragrance in a sunset coastal campaign"><figcaption>Website banner</figcaption></figure><p>AI-assisted concept imagery for the Salt &amp; Grove demo.</p></div>
+</section></main><footer><a href="../">Visit Beginning Concepts <span aria-hidden="true">↗</span></a><a href="#top">Back to the shop ↑</a></footer>
 <dialog id="finder" aria-labelledby="finder-title">
 <button class="close" aria-label="Close scent finder">×</button><p class="label">Demo · Scent finder</p><h2 id="finder-title">What draws you in?</h2><p class="finder-intro">Choose a note to discover your fragrance.</p><div id="choices"></div>
 </dialog>

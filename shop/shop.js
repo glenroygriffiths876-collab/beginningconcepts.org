@@ -94,6 +94,15 @@ function openDetails(s, recommendation = false) {
   suggestion.onclick = () => openDetails(other);
   actions.append(share,suggestion);
   body.append(actions);
+  const studioLink = document.createElement("a");
+  studioLink.className = "design-credit";
+  studioLink.href = "#design-studio";
+  studioLink.textContent = "Product imagery by Beginning Concepts";
+  studioLink.onclick = () => {
+    details.close();
+    el("#design-studio").focus();
+  };
+  body.append(studioLink);
   if (!details.open) details.showModal();
   else {
     details.scrollTop = 0;
