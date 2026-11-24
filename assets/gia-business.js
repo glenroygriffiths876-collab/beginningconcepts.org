@@ -100,7 +100,29 @@ const voice=document.createElement("button");voice.type="button";voice.className
 let speak=false;
 if("speechSynthesis" in window){document.querySelector(".gia-input").prepend(voice);voice.addEventListener("click",()=>{speak=!speak;voice.setAttribute("aria-pressed",String(speak));voice.textContent=speak?"Stop reading replies":"Read replies aloud";if(!speak)window.speechSynthesis.cancel()})}
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-if(SpeechRecognition){const mic=document.createElement("button");mic.type="button";mic.className="gia-chip";mic.textContent="Voice input";document.querySelector(".gia-input").prepend(mic);mic.addEventListener("click",()=>{try{const rec=new SpeechRecognition();rec.lang="en-JM";rec.onresult=e=>{question.value=e.results[0][0].transcript.slice(0,600);question.focus()};rec.onerror=()=>{mic.textContent="Voice unavailable — type instead"};rec.start()}catch(_){mic.textContent="Voice unavailable — type instead"}})}
+const mic=document.createElement("button");mic.type="button";mic.className="gia-mic";mic.setAttribute("aria-label","Dictate message");mic.title="Dictate message";mic.setAttribute("aria-pressed","false");
+const micIcon='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M9 22h6"/></svg>';
+const stopIcon='<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>';
+mic.innerHTML=micIcon;send.before(mic);
+const dictationStatus=document.createElement("p");dictationStatus.className="gia-dictation-status";dictationStatus.setAttribute("role","status");dictationStatus.hidden=true;document.getElementById("giaForm").after(dictationStatus);
+let activeRecognition=null;
+function status(message){dictationStatus.textContent=message;dictationStatus.hidden=!message}
+function resetMic(){activeRecognition=null;mic.innerHTML=micIcon;mic.setAttribute("aria-pressed","false");mic.setAttribute("aria-label","Dictate message");mic.title="Dictate message";mic.classList.remove("is-listening");}
+mic.addEventListener("click",()=>{
+if(activeRecognition){try{activeRecognition.stop();status("Finishing dictation…")}catch(_){resetMic()}return}
+if(!SpeechRecognition){status("Dictation is unavailable in this browser. Try Chrome or Edge, or type your message.");return}
+if(busy)return;
+const rec=new SpeechRecognition();rec.lang="en-JM";rec.continuous=true;rec.interimResults=true;
+const prefix=question.value.trim();let failed=false;
+activeRecognition=rec;mic.innerHTML=stopIcon;mic.classList.add("is-listening");mic.setAttribute("aria-pressed","true");mic.setAttribute("aria-label","Stop dictation");mic.title="Stop dictation";status("Listening… tap to finish.");
+rec.onresult=e=>{let transcript="";for(let i=0;i<e.results.length;i++)transcript+=e.results[i][0].transcript+" ";question.value=[prefix,transcript.trim()].filter(Boolean).join(" ").slice(0,600)};
+rec.onerror=e=>{failed=true;status(e.error==="not-allowed"?"Allow microphone access to dictate.": "Dictation unavailable. You can still type.");resetMic()};
+rec.onend=()=>{if(activeRecognition===rec)resetMic();if(!failed){status("");if(!panel.hidden)question.focus()}};
+try{rec.start()}catch(_){resetMic();status("Unable to start microphone. Please try again.")}
+});
+close.addEventListener("click",()=>{if(activeRecognition)activeRecognition.stop()});
+launcher.addEventListener("click",()=>{if(panel.hidden&&activeRecognition)activeRecognition.stop()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&activeRecognition)activeRecognition.stop()});
 async function askAI(s){
 if(brief||/\b(start|prepare|create|write|make)\b.*\b(brief|enquiry|project inquiry)\b/i.test(s)){respond(s);return}
 busy=true;send.disabled=true;quick.inert=true;question.setAttribute("aria-busy","true");
@@ -118,7 +140,7 @@ if(speak){const utterance=new SpeechSynthesisUtterance(reply);utterance.lang="en
 finally{clearTimeout(timeout);pending.remove();busy=false;send.disabled=false;quick.inert=false;question.removeAttribute("aria-busy");if(!panel.hidden)question.focus()}
 }
 quick.addEventListener("click",e=>{if(busy)return;let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
-document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s||busy)return;question.value="";add(s,"user");askAI(s)});
+document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s||busy)return;if(activeRecognition){activeRecognition.stop();return}question.value="";add(s,"user");askAI(s)});
 /* Gia's cinema: play the spoken welcome once, then keep future loops silent. */
 const video=document.getElementById("brandVideo");
 const frame=document.getElementById("brandCinema"),sound=document.getElementById("brandSound");
