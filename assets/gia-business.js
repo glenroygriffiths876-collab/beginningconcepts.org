@@ -7,14 +7,15 @@ wrap.innerHTML='<button class="gia-launch" id="giaLaunch" type="button" aria-con
 +'<div class="gia-head"><img src="'+PIC+'" alt=""><div class="gia-head-copy"><h2 id="giaTitle">Gia</h2><p>Business &amp; digital solutions guide</p></div><button class="gia-close" id="giaClose" type="button" aria-label="Close Gia chat">×</button></div>'
 +'<div class="gia-chat" id="giaMessages" role="log" aria-label="Conversation with Gia" aria-live="polite"></div>'
 +'<div class="gia-tools" id="giaQuick" aria-label="Suggestions"></div>'
-+'<div class="gia-input"><form id="giaForm"><label class="sr" for="giaQuestion">Message Gia</label><input id="giaQuestion" maxlength="600" autocomplete="off" placeholder="Ask Gia about your idea..." required><button class="gia-send" type="submit" aria-label="Send message">➤</button></form><p class="gia-footnote">Context-aware, knowledge-guided assistant; no live generative AI. Chat stays in this tab. Enquiries send only when you approve an email draft.</p></div></section>';
++'<div class="gia-input"><form id="giaForm"><label class="sr" for="giaQuestion">Message Gia</label><input id="giaQuestion" maxlength="600" autocomplete="off" placeholder="Ask Gia about your idea..." required><button class="gia-send" type="submit" aria-label="Send message">➤</button></form><p class="gia-footnote">Messages may be processed by Cloudflare AI. Avoid sensitive information. Enquiries are sent only when you approve an email draft.</p></div></section>';
 document.body.append(wrap);
 const panel=document.getElementById("giaPanel"),launcher=document.getElementById("giaLaunch"),close=document.getElementById("giaClose"),log=document.getElementById("giaMessages"),quick=document.getElementById("giaQuick"),question=document.getElementById("giaQuestion");
 let first=true,returnFocus=null,brief=null;
+const conversation=[]; let busy=false; const endpoint="https://gia-ai.glenroygriffiths876.workers.dev/";
 const answers={
 websites:"Beginning Concepts creates custom, responsive websites designed around each organisation's needs. For an online shop, we can design the page layout, create branded product images and campaign banners, and build the shopping experience. We can also discuss content structure, contact tools, accessibility, domains, hosting and future updates. Actual features and scope are agreed during planning.",
 apps:"We explore custom digital applications including booking and ordering experiences, portals, dashboards, directories and business workflow tools. Requirements for user accounts, databases and security must be assessed before selecting the technology.",
-ai:"Gia is Beginning Concepts' signature virtual assistant identity. We can customise her knowledge and user experience for businesses, service guides and educational platforms. This site's version is knowledge-guided; open-ended generative AI requires a secured backend.",
+ai:"Gia is Beginning Concepts' signature virtual assistant identity. We can customise her knowledge and user experience for businesses, service guides and educational platforms. This site combines AI conversation with a knowledge-guided fallback.",
 learning:"Our educational solutions can include interactive lessons, visual learning activities, resource libraries, training tools, quizzes and accessibility-conscious experiences. Tell us about your learners and the outcomes you want.",
 digital:"We can discuss searchable directories, resource hubs, QR-code entry points, interactive manuals, forms and other customised digital experiences. Start with the challenge you need technology to solve.",
 cost:"We do not have a published price list. A quotation depends on scope, design, technical features and maintenance needs. I can prepare a project enquiry for the team to review.",
@@ -22,7 +23,7 @@ timeline:"Project timings depend on complexity, content, feedback and approvals.
 hosting:"Domains, subdomains, Cloudflare DNS and hosting can be considered. Static sites may use free hosting, while secure accounts, databases or live AI often require a separate backend. We won't promise a hosting configuration before reviewing it.",
 maintenance:"Maintenance, changes and support can be discussed as part of the project. The arrangements need to be specifically agreed.",
 contact:"Contact Beginning Concepts at beginningconcepts.org@gmail.com. You can email the team directly or prepare an enquiry with me.",
-privacy:"This version of Gia keeps the conversation in browser memory and doesn't upload it to a server or external AI model. Nothing is sent until you use your email application to send an enquiry. Please avoid entering sensitive personal information.",
+privacy:"Gia keeps conversation context in this tab and may send recent messages to Cloudflare AI for processing. Project enquiries are sent only through your email application when you approve them. Avoid sensitive information.",
 process:"Start by sharing your goal and audience. We can then discuss the features, design direction, technical needs, cost and delivery plan. I can help you prepare the first project brief."
 };
 const patterns=[["work",/\b(portfolio|our work|past work|your work|examples|what have you built|projects you.ve built|waps|hstu|hanover ?jpa|hanoverjpa|justices? of the peace|velora|case stud(?:y|ies))\b/i],["cost",/\b(price|cost|quote|quotations|pricing|budget|fee|payment|free)\b/i],["timeline",/\b(timeline|deadline|delivery|how long|turnaround|duration)\b/i],["hosting",/\b(domain|subdomain|dns|cloudflare|github|hosting|host|deploy)\b/i],["maintenance",/\b(maintenance|update|ongoing|support|bug|repair)\b/i],["privacy",/\b(privacy|secure|security|data collection|data stored)\b/i],["contact",/\b(contact|email|phone|whatsapp|reach you|call you)\b/i],["ai",/\b(gia|chatbot|chat bot|virtual assistant|ai assistant|artificial intelligence|automation)\b/i],["learning",/\b(learning|education|school|course|training|children|lesson|lms|quiz|worksheet|accessible)\b/i],["websites",/\b(website|webpage|web page|web design|site|landing page|portfolio|online store)\b/i],["apps",/\b(app|apps|application|portal|dashboard|booking|ordering|software)\b/i],["digital",/\b(services|what do you do|digital|directory|qr code|manual|resource hub|digital tool)\b/i],["process",/\b(get started|start a project|steps|your process)\b/i]];
@@ -32,7 +33,7 @@ const briefQuestions=[
 ["features","What pages or important features should it include? You can say 'not sure yet'."],
 ["timing","Do you have a preferred deadline? 'Flexible' is fine too."]
 ];
-function add(text,person="gia",action){let row=document.createElement("div");row.className="gia-line "+(person==="user"?"gia-user":"gia-agent");if(person!=="user"){let img=document.createElement("img");img.src=PIC;img.alt="";img.className="gia-mini";row.append(img)}let bubble=document.createElement("div");bubble.className="gia-msg";bubble.textContent=text;if(action){const link=document.createElement("a");link.href=action.href;link.textContent=action.label;link.className="gia-email";if(/^https:\/\//.test(action.href)){link.target="_blank";link.rel="noopener noreferrer"}bubble.append(document.createElement("br"),link)}row.append(bubble);log.append(row);log.scrollTop=log.scrollHeight}
+function add(text,person="gia",action){conversation.push({role:person==="user"?"user":"assistant",content:text});if(conversation.length>20)conversation.shift();let row=document.createElement("div");row.className="gia-line "+(person==="user"?"gia-user":"gia-agent");if(person!=="user"){let img=document.createElement("img");img.src=PIC;img.alt="";img.className="gia-mini";row.append(img)}let bubble=document.createElement("div");bubble.className="gia-msg";bubble.textContent=text;if(action){const link=document.createElement("a");link.href=action.href;link.textContent=action.label;link.className="gia-email";if(/^https:\/\//.test(action.href)){link.target="_blank";link.rel="noopener noreferrer"}bubble.append(document.createElement("br"),link)}row.append(bubble);log.append(row);log.scrollTop=log.scrollHeight}
 function chips(arr){quick.replaceChildren();arr.forEach(([label,key])=>{let b=document.createElement("button");b.type="button";b.className="gia-chip";b.textContent=label;b.dataset.giaTopic=key;quick.append(b)})}
 function options(){chips([["Websites","websites"],["Apps","apps"],["AI & Gia","ai"],["Learning","learning"],["Our work","work"],["Project brief","brief"]])}
 function mail(subject,body){return "mailto:"+EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body)}
@@ -93,8 +94,31 @@ if(/^(hi|hey|hello|good morning|good afternoon|good evening|who are you)\b/i.tes
 if(smarter(s))return;
 let found=patterns.filter(([k,p])=>p.test(s)).map(x=>x[0]);if(found.length>1&&found.some(k=>["websites","apps","ai","learning"].includes(k))){const relevant=found.filter(k=>["websites","apps","ai","learning","digital"].includes(k));if(relevant.length>1){add("Your idea may combine "+relevant.join(", ")+". Let's explore one part first, or create a project brief with all the requirements.");chips([...relevant.map(k=>[k.charAt(0).toUpperCase()+k.slice(1),k]),["Project brief","brief"]]);return}}
 topic(found[0]||"unknown")}
-quick.addEventListener("click",e=>{let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
-document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s)return;question.value="";add(s,"user");respond(s);question.focus()});
+const send=document.querySelector(".gia-send");
+const allowedLinks=["https://beginningconcepts.org/","https://beginningconcepts.org/shop/?v=design-studio","https://beginningconcepts.org/course-demo/","https://beginningconcepts.org/game-demo/index.html","https://waps.beginningconcepts.org/","https://hstu-repository.moh.gov.jm/","https://hanoverjpa.com/","https://velora.beginningconcepts.org/"];
+const voice=document.createElement("button");voice.type="button";voice.className="gia-chip";voice.textContent="Read replies aloud";voice.setAttribute("aria-pressed","false");
+let speak=false;
+if("speechSynthesis" in window){document.querySelector(".gia-input").prepend(voice);voice.addEventListener("click",()=>{speak=!speak;voice.setAttribute("aria-pressed",String(speak));voice.textContent=speak?"Stop reading replies":"Read replies aloud";if(!speak)window.speechSynthesis.cancel()})}
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(SpeechRecognition){const mic=document.createElement("button");mic.type="button";mic.className="gia-chip";mic.textContent="Voice input";document.querySelector(".gia-input").prepend(mic);mic.addEventListener("click",()=>{try{const rec=new SpeechRecognition();rec.lang="en-JM";rec.onresult=e=>{question.value=e.results[0][0].transcript.slice(0,600);question.focus()};rec.onerror=()=>{mic.textContent="Voice unavailable — type instead"};rec.start()}catch(_){mic.textContent="Voice unavailable — type instead"}})}
+async function askAI(s){
+if(brief||/\b(start|prepare|create|write|make)\b.*\b(brief|enquiry|project inquiry)\b/i.test(s)){respond(s);return}
+busy=true;send.disabled=true;quick.inert=true;question.setAttribute("aria-busy","true");
+const pending=document.createElement("p");pending.className="gia-footnote";pending.textContent="Gia is thinking…";log.append(pending);log.scrollTop=log.scrollHeight;
+const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),18000);
+try{
+const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:s,history:conversation.slice(0,-1).slice(-8)}),signal:controller.signal});
+if(!res.ok)throw Error("AI unavailable");
+const data=await res.json();if(typeof data.reply!=="string"||!data.reply.trim())throw Error("Empty response");
+pending.remove();const reply=data.reply.trim();add(reply);lastIdea=(lastIdea?lastIdea+"; ":"")+s;lastIdea=lastIdea.slice(-1200);if(!lastNeed)lastNeed="custom digital solution";
+allowedLinks.filter(url=>reply.includes(url)&&url!=="https://beginningconcepts.org/").forEach(url=>add("Explore this resource:","gia",{label:"Open resource ↗",href:url}));
+chips([["Prepare my enquiry","brief"],["Our work","work"],["Contact","contact"]]);
+if(speak){const utterance=new SpeechSynthesisUtterance(reply);utterance.lang="en-JM";window.speechSynthesis.speak(utterance)}
+}catch(_){pending.remove();add("Live AI is temporarily unavailable. I can still help using our business guide.");respond(s)}
+finally{clearTimeout(timeout);pending.remove();busy=false;send.disabled=false;quick.inert=false;question.removeAttribute("aria-busy");if(!panel.hidden)question.focus()}
+}
+quick.addEventListener("click",e=>{if(busy)return;let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
+document.getElementById("giaForm").addEventListener("submit",e=>{e.preventDefault();let s=question.value.trim();if(!s||busy)return;question.value="";add(s,"user");askAI(s)});
 /* Gia's cinema: play the spoken welcome once, then keep future loops silent. */
 const video=document.getElementById("brandVideo");
 const frame=document.getElementById("brandCinema"),sound=document.getElementById("brandSound");
