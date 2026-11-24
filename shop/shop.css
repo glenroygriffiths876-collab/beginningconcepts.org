@@ -1,0 +1,29 @@
+*{box-sizing:border-box}
+body{margin:0;color:#112f40;background:#fcfaf5;font:1rem/1.5 system-ui,sans-serif}
+header,main{max-width:1080px;margin:auto;padding:0 clamp(16px,4vw,44px)}
+header{display:flex;align-items:center;justify-content:space-between;min-height:76px;border-bottom:1px solid #ddd5c6}
+a{color:inherit;text-underline-offset:.2em}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;font:bold 1.1rem Georgia,serif}
+.brand img{width:45px;height:auto}
+.intro{padding:clamp(32px,6vw,72px) 0 24px}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.15em;color:#735624;font-weight:bold}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.15;margin:0}
+h1{font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-.045em}
+.intro p:last-child{max-width:54ch}
+.layout{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(20px,4vw,58px);align-items:start}
+#products{margin-top:14px}
+.product{display:flex;align-items:center;gap:14px;padding:17px 0;border-top:1px solid #ddd5c6}
+.book{width:44px;height:58px;border-radius:2px 6px 6px 2px;border-left:5px solid #0003;box-shadow:inset 0 -3px #0002;flex:none;background:var(--cover)}
+.book::after{content:"";display:block;width:20px;height:8px;margin:13px auto;background:#fff8df}
+.price{margin:4px 0 0}
+.controls{margin-left:auto;display:flex;align-items:center;gap:8px}
+button,.contact{border:0;border-radius:8px;background:#113c4f;color:white;padding:12px 15px;font:inherit;font-weight:650;cursor:pointer}
+.controls button{min-width:44px;min-height:44px;padding:6px;background:#eee9dc;color:#17394b}
+button:disabled{opacity:.45;cursor:default}
+a:focus-visible,button:focus-visible{outline:3px solid #90641c;outline-offset:3px}
+.order{padding:24px;background:white;border:1px solid #ddd5c6;border-radius:12px}
+#message{border-top:1px solid #ddd5c6;padding-top:18px;margin-top:20px}
+#message-text{white-space:pre-line}
+footer{margin:36px 0;padding:25px 0;border-top:1px solid #ddd5c6;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer p{margin:6px 0}.contact{text-decoration:none}
+@media(max-width:730px){.layout{grid-template-columns:1fr}.product{gap:9px}.controls{gap:5px}}
