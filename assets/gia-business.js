@@ -4,10 +4,10 @@ const EMAIL="beginningconcepts.org@gmail.com",PIC="assets/gia-avatar.jpg";
 const wrap=document.createElement("div");wrap.id="giaExperience";
 wrap.innerHTML='<button class="gia-launch" id="giaLaunch" type="button" aria-controls="giaPanel" aria-expanded="false" aria-label="Chat with Gia"><span class="gia-label">Ask Gia ↗</span><span class="gia-face"><img src="'+PIC+'" alt=""><span class="gia-ping"></span></span></button>'
 +'<section class="gia-panel" id="giaPanel" role="dialog" aria-modal="false" aria-labelledby="giaTitle" hidden>'
-+'<div class="gia-head"><img src="'+PIC+'" alt=""><div class="gia-head-copy"><h2 id="giaTitle">Gia</h2><p>Beginning Concepts digital guide</p></div><button class="gia-close" id="giaClose" type="button" aria-label="Close Gia chat">×</button></div>'
++'<div class="gia-head"><img src="'+PIC+'" alt=""><div class="gia-head-copy"><h2 id="giaTitle">Gia</h2><p>Business &amp; digital solutions guide</p></div><button class="gia-close" id="giaClose" type="button" aria-label="Close Gia chat">×</button></div>'
 +'<div class="gia-chat" id="giaMessages" role="log" aria-label="Conversation with Gia" aria-live="polite"></div>'
 +'<div class="gia-tools" id="giaQuick" aria-label="Suggestions"></div>'
-+'<div class="gia-input"><form id="giaForm"><label class="sr" for="giaQuestion">Message Gia</label><input id="giaQuestion" maxlength="600" autocomplete="off" placeholder="Ask Gia about your idea..." required><button class="gia-send" type="submit" aria-label="Send message">➤</button></form><p class="gia-footnote">Knowledge-guided assistant; no live generative AI yet. Chat stays in this tab. Enquiries send only when you approve an email draft.</p></div></section>';
++'<div class="gia-input"><form id="giaForm"><label class="sr" for="giaQuestion">Message Gia</label><input id="giaQuestion" maxlength="600" autocomplete="off" placeholder="Ask Gia about your idea..." required><button class="gia-send" type="submit" aria-label="Send message">➤</button></form><p class="gia-footnote">Context-aware, knowledge-guided assistant; no live generative AI. Chat stays in this tab. Enquiries send only when you approve an email draft.</p></div></section>';
 document.body.append(wrap);
 const panel=document.getElementById("giaPanel"),launcher=document.getElementById("giaLaunch"),close=document.getElementById("giaClose"),log=document.getElementById("giaMessages"),quick=document.getElementById("giaQuick"),question=document.getElementById("giaQuestion");
 let first=true,returnFocus=null,brief=null;
@@ -41,7 +41,7 @@ function hide(){panel.hidden=true;launcher.setAttribute("aria-expanded","false")
 launcher.addEventListener("click",()=>panel.hidden?open():hide());close.addEventListener("click",hide);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden){e.stopPropagation();hide()}});
 document.querySelectorAll("[data-gia-open]").forEach(b=>b.addEventListener("click",()=>{const nav=document.getElementById("nav"),menu=document.getElementById("menu");nav?.classList.remove("open");menu?.setAttribute("aria-expanded","false");menu?.setAttribute("aria-label","Open navigation");if(panel.hidden)open();else question.focus();if(b.dataset.giaTopic)topic(b.dataset.giaTopic)}));
-function startBrief(){brief={step:0,values:{}};add("I'll prepare an enquiry with you, one step at a time. Nothing is sent automatically.");add(briefQuestions[0][1]);chips([["Cancel brief","cancel"]])}
+function startBrief(){brief=lastNeed?{step:1,values:{service:lastNeed+" — "+lastIdea}}:{step:0,values:{}};add("I'll prepare an enquiry with you, one step at a time. Nothing is sent automatically.");add(briefQuestions[brief.step][1]);chips([["Cancel brief","cancel"]])}
 function endBrief(){const a=brief.values,body="Hello Beginning Concepts,\n\nI would like to discuss a project.\n\nType of project: "+a.service+"\nGoal and audience: "+a.goal+"\nImportant features: "+a.features+"\nPreferred timeframe: "+a.timing+"\n\nPlease let me know the next steps.\nThank you.";
 add("Here's the project brief I've prepared:\n\n"+body+"\n\nSelect the email draft below, review it and send it when you're ready.","gia",{label:"Open email draft ↗",href:mail("New project enquiry | Beginning Concepts",body)});brief=null;chips([["Start another brief","brief"],["Services","services"],["Contact","contact"]])}
 function topic(key,echo=false){if(echo)add(key==="brief"?"Start a project enquiry":key,"user");
@@ -56,10 +56,41 @@ chips([["Our services","services"],["Start a project","brief"],["Contact","conta
 if(key==="services"){add("Our focus areas: custom websites, tailored digital applications, personalised Gia chatbots, educational tools and practical digital solutions.");chips([["Websites","websites"],["Apps","apps"],["AI & Gia","ai"],["Learning","learning"],["Digital solutions","digital"],["Our work","work"],["Project brief","brief"]]);return}
 add(answers[key]||"I can help explore our services or prepare a project enquiry. I won't guess about unconfirmed details.", "gia",key==="contact"?{label:"Email Beginning Concepts ↗",href:mail("Enquiry | Beginning Concepts","Hello Beginning Concepts,\n\nI would like to enquire about your services.\n\n")}:null);
 chips([["Start a project","brief"],["View services","services"],["Costs","cost"],["Contact","contact"]])}
+
+let lastNeed="", lastIdea="";
+const demos={shop:["Try our shop demo","https://beginningconcepts.org/shop/?v=design-studio"],course:["Try our course demo","https://beginningconcepts.org/course-demo/"],game:["Try our game demo","https://beginningconcepts.org/game-demo/index.html"]};
+function recommend(kind,idea){
+lastNeed=kind;lastIdea=idea;
+const advice={
+shop:"A mobile-friendly catalogue with product photos, prices and an ordering flow would be a useful starting point. We can discuss WhatsApp ordering or a more advanced checkout. What products do you sell, and how do customers order today?",
+course:"An interactive learning platform could combine lessons, quizzes and progress tracking. Who are your learners, and what should they be able to do after training?",
+game:"A custom learning game could use visual prompts, matching and feedback. What age group and learning skill should it target?",
+booking:"A booking platform could show services and available appointments, with confirmations. Do you need customers to book independently or request appointments for approval?",
+website:"A responsive website could introduce your business, showcase services and make enquiries easy. Who is your target audience, and what action should visitors take?",
+assistant:"A customised assistant could answer service questions and guide visitors to the right resources. What questions do your customers ask most often?"
+};
+const d=demos[kind];add(advice[kind],"gia",d?{label:d[0],href:d[1]}:null);chips([["Prepare my enquiry","brief"],["Costs","cost"],["Our work","work"]]);
+}
+function smarter(s){
+const n=s.toLowerCase().replace(/\b(mi|meh)\b/g,"i").replace(/\b(wah|waan|wanna)\b/g,"want").replace(/\b(fi)\b/g,"to").replace(/\b(webiste|wesite|websit)\b/g,"website").replace(/\b(buisness|busines)\b/g,"business");
+if(/\b(demo|sample|try)\b/.test(n)){let k=/shop|store|order/.test(n)?"shop":/course|training|lesson/.test(n)?"course":/game|matching/.test(n)?"game":null;if(k){add("You can explore this interactive example of our capabilities.","gia",{label:demos[k][0],href:demos[k][1]});return true}if(/demo|sample/.test(n)){Object.values(demos).forEach(d=>add(d[0],"gia",{label:"Open demo",href:d[1]}));return true}}
+if(/\b(how much|cost|price|budget|quote|deadline|how long)\b/.test(n)){add((lastNeed?"For the "+lastNeed+" solution we discussed: ":"")+(/\b(deadline|how long)\b/.test(n)?answers.timeline:answers.cost));chips([["Prepare my enquiry","brief"],["Contact","contact"]]);return true}
+if(/\b(farm|farmer|produce|sell|selling|shop|restaurant|menu|retail|boutique|orders|ordering)\b/.test(n)){recommend("shop",s);return true}
+if(/\b(appointment|booking|salon|barber|reservation)\b/.test(n)){recommend("booking",s);return true}
+if(/\b(game|matching|spelling)\b/.test(n)){recommend("game",s);return true}
+if(/\b(course|training|teach|school|learners|lms)\b/.test(n)){recommend("course",s);return true}
+if(/\b(chatbot|virtual assistant|ai assistant)\b/.test(n)){recommend("assistant",s);return true}
+if(/\b(website|webpage|landing page)\b/.test(n)&&/\b(want|need|build|create|business|make)\b/.test(n)){recommend("website",s);return true}
+if(lastNeed&&/^(yes|sure|okay|ok|please|that sounds good)\b/.test(n)){startBrief();return true}
+if(lastNeed&&!patterns.some(([k,p])=>p.test(n))){lastIdea=(lastIdea+"; "+s).slice(0,1200);add("I've noted that detail for your "+lastNeed+" idea. Would you like to prepare a project enquiry so our team can review your requirements?");chips([["Prepare my enquiry","brief"],["Costs","cost"],["Contact","contact"]]);return true}
+return false;
+}
+
 function respond(text){if(brief){const [key]=briefQuestions[brief.step];brief.values[key]=text;brief.step++;if(brief.step===briefQuestions.length)endBrief();else add(briefQuestions[brief.step][1]);return}
 let s=text.trim();
 if(/\b(start|prepare|create|write|make)\b.*\b(brief|enquiry|project inquiry)\b/i.test(s)){topic("brief");return}
 if(/^(hi|hey|hello|good morning|good afternoon|good evening|who are you)\b/i.test(s)){add("Hello! I'm Gia. I'm here to help you explore Beginning Concepts and prepare an enquiry.");options();return}
+if(smarter(s))return;
 let found=patterns.filter(([k,p])=>p.test(s)).map(x=>x[0]);if(found.length>1&&found.some(k=>["websites","apps","ai","learning"].includes(k))){const relevant=found.filter(k=>["websites","apps","ai","learning","digital"].includes(k));if(relevant.length>1){add("Your idea may combine "+relevant.join(", ")+". Let's explore one part first, or create a project brief with all the requirements.");chips([...relevant.map(k=>[k.charAt(0).toUpperCase()+k.slice(1),k]),["Project brief","brief"]]);return}}
 topic(found[0]||"unknown")}
 quick.addEventListener("click",e=>{let b=e.target.closest("[data-gia-topic]");if(b)topic(b.dataset.giaTopic,true)});
