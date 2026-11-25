@@ -18,7 +18,7 @@ apps:"We explore custom digital applications including booking and ordering expe
 ai:"Gia is Beginning Concepts' signature virtual assistant identity. We can customise her knowledge and user experience for businesses, service guides and educational platforms. This site combines AI conversation with a knowledge-guided fallback.",
 learning:"Our educational solutions can include interactive lessons, visual learning activities, resource libraries, training tools, quizzes and accessibility-conscious experiences. Tell us about your learners and the outcomes you want.",
 digital:"We can discuss searchable directories, resource hubs, QR-code entry points, interactive manuals, forms and other customised digital experiences. Start with the challenge you need technology to solve.",
-cost:"We do not have a published price list. A quotation depends on scope, design, technical features and maintenance needs. I can prepare a project enquiry for the team to review.",
+cost:"Websites start at J$10,000. Ask me for a preliminary estimate based on your requirements.",
 timeline:"Project timings depend on complexity, content, feedback and approvals. A deadline isn't confirmed until the team agrees to it; I can include your preferred dates in the brief.",
 hosting:"Domains, subdomains, Cloudflare DNS and hosting can be considered. Static sites may use free hosting, while secure accounts, databases or live AI often require a separate backend. We won't promise a hosting configuration before reviewing it.",
 maintenance:"Maintenance, changes and support can be discussed as part of the project. The arrangements need to be specifically agreed.",
@@ -35,7 +35,7 @@ const briefQuestions=[
 ];
 function add(text,person="gia",action){conversation.push({role:person==="user"?"user":"assistant",content:text});if(conversation.length>20)conversation.shift();let row=document.createElement("div");row.className="gia-line "+(person==="user"?"gia-user":"gia-agent");if(person!=="user"){let img=document.createElement("img");img.src=PIC;img.alt="";img.className="gia-mini";row.append(img)}let bubble=document.createElement("div");bubble.className="gia-msg";bubble.textContent=text;if(action){const link=document.createElement("a");link.href=action.href;link.textContent=action.label;link.className="gia-email";if(/^https:\/\//.test(action.href)){link.target="_blank";link.rel="noopener noreferrer"}bubble.append(document.createElement("br"),link)}row.append(bubble);log.append(row);log.scrollTop=log.scrollHeight}
 function chips(arr){quick.replaceChildren();arr.forEach(([label,key])=>{let b=document.createElement("button");b.type="button";b.className="gia-chip";b.textContent=label;b.dataset.giaTopic=key;quick.append(b)})}
-function options(){chips([["Websites","websites"],["Apps","apps"],["AI & Gia","ai"],["Learning","learning"],["Our work","work"],["Project brief","brief"]])}
+function options(){chips([["Websites","websites"],["Apps","apps"],["AI & Gia","ai"],["Learning","learning"],["Our work","work"],["Pricing","cost"],["Project brief","brief"]])}
 function mail(subject,body){return "mailto:"+EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body)}
 function open(){returnFocus=document.activeElement;panel.hidden=false;launcher.setAttribute("aria-expanded","true");if(first){first=false;add("Hello! I'm Gia, your Beginning Concepts digital guide. ✨\n\nI can explain our custom websites, apps, Gia assistants and learning tools—or help you prepare a project enquiry. What would you like to build?");options()}question.focus()}
 function hide(){panel.hidden=true;launcher.setAttribute("aria-expanded","false");(returnFocus?.focus?returnFocus:launcher).focus()}
@@ -46,7 +46,9 @@ function startBrief(){brief=lastNeed?{step:1,values:{service:lastNeed+" — "+la
 function endBrief(){const a=brief.values,body="Hello Beginning Concepts,\n\nI would like to discuss a project.\n\nType of project: "+a.service+"\nGoal and audience: "+a.goal+"\nImportant features: "+a.features+"\nPreferred timeframe: "+a.timing+"\n\nPlease let me know the next steps.\nThank you.";
 add("Here's the project brief I've prepared:\n\n"+body+"\n\nSelect the email draft below, review it and send it when you're ready.","gia",{label:"Open email draft ↗",href:mail("New project enquiry | Beginning Concepts",body)});brief=null;chips([["Start another brief","brief"],["Services","services"],["Contact","contact"]])}
 function topic(key,echo=false){if(echo)add(key==="brief"?"Start a project enquiry":key,"user");
-if(key==="brief"){startBrief();return}
+if(key==="cost"){pricing=null;priceFlow("");return}
+if(key==="cancel-pricing"){priceFlow("cancel");return}
+if(key==="brief"){pricing=null;startBrief();return}
 if(key==="cancel"){brief=null;add("Project brief cancelled. What would you like to explore instead?");options();return}
 if(key==="work"){add("Here are four examples of our work. The links open in a new tab so you can return to our conversation.");
 add("WAPS Communication — a free, caregiver-guided communication platform with visual and everyday support tools.","gia",{label:"Explore WAPS Communication ↗",href:"https://waps.beginningconcepts.org/"});
@@ -59,6 +61,27 @@ add(answers[key]||"I can help explore our services or prepare a project enquiry.
 chips([["Start a project","brief"],["View services","services"],["Costs","cost"],["Contact","contact"]])}
 
 let lastNeed="", lastIdea="";
+// Deterministic introductory pricing; estimates are not binding quotations.
+const pricingPackages={website:["Starter website",10000],business:["Small business website",25000],professional:["Professional website",45000],shop:["Online store",35000],app:["Custom web application",50000],ai:["AI chatbot",20000],game:["Educational game",15000],course:["Online course",25000]};
+let pricing=null;
+function pricingKind(s){return /online store|e.commerce|shopping cart|checkout/.test(s)?"shop":/chatbot|chat bot|ai assistant/.test(s)?"ai":/educational game|learning game|\bgame\b/.test(s)?"game":/course|training/.test(s)?"course":/\bapp(s|lication)?\b/.test(s)?"app":/professional website/.test(s)?"professional":/small business website|multi.page/.test(s)?"business":/website|web site|webpage|restaurant|salon|barber|landing page/.test(s)?"website":null}
+function priceFlow(input){
+ const n=input.toLowerCase().trim();
+ if(/^(cancel|exit|stop|new topic|cancel pricing)$/.test(n)){pricing=null;add("Pricing conversation closed.");options();return}
+ if(!pricing)pricing={kind:null,details:[],stage:0};
+ if(/institution|government|hospital|enterprise|sensitive data|medical records|complex integration/.test(n)){pricing=null;add("This project needs a tailored assessment rather than an automated price.","gia",{label:"Request a formal quotation",href:mail("Custom project quotation",input)});options();return}
+ if(pricing.stage===0){pricing.kind=pricingKind(n)||pricingKind(lastIdea.toLowerCase());if(!pricing.kind){add("Our websites start at J$10,000. What would you like to build: a website, online store, app, chatbot, educational game or online course?");chips([["Cancel pricing","cancel-pricing"]]);return}pricing.details.push(input);pricing.stage=1;add("Our "+pricingPackages[pricing.kind][0].toLowerCase()+" starts at J$"+pricingPackages[pricing.kind][1].toLocaleString("en-JM")+". What features do you need? For websites, tell me the total number of pages and whether you need an interactive menu, WhatsApp, booking, payments, accounts, a dashboard or a database. You can say basic if unsure.");chips([["Cancel pricing","cancel-pricing"]]);return}
+ if(pricing.stage===1){pricing.details.push(input);pricing.stage=2;add("Do you already have your logo, text and images? Do you need a custom domain, hosting or ongoing maintenance?");return}
+ pricing.details.push(input);
+ const scope=pricing.details.join("\n"), t=scope.toLowerCase(), k=pricing.kind, base=pricingPackages[k];let items=[base];
+ if(["website","business","professional"].includes(k)){const m=t.match(/(\d+)\s*(?:web\s*)?pages?\b/);const included=k==="website"?1:k==="business"?5:1;if(m&&Number(m[1])>included&&Number(m[1])<=50)items.push(["Additional pages",3000*(Number(m[1])-included)]);if(/interactive menu/.test(t)&&!/no interactive menu/.test(t))items.push(["Interactive menu",5000]);}
+ const total=items.reduce((a,b)=>a+b[1],0);
+ const uncertain=/booking|payment|accounts|dashboard|database|custom integration|more than|complex|\b(?:six|seven|eight|nine|ten) pages\b/.test(t);
+ const summary=items.map(x=>x[0]+": J$"+x[1].toLocaleString("en-JM")).join("\n")+"\nStarting estimate: J$"+total.toLocaleString("en-JM");
+ const body="Project requirements:\n"+scope+"\n\n"+summary+"\nAdditional features, content creation, domain, hosting and maintenance subject to assessment. Not a binding quotation.";
+ add(summary+"\n\n"+(uncertain?"Additional functionality requires individual assessment. ":"")+"Domain, hosting, content creation and maintenance are separate where required. This is a preliminary starting estimate, not a final quotation.","gia",{label:"Request official quotation",href:mail("Project pricing enquiry",body)});pricing=null;options();
+}
+
 const demos={shop:["Try our shop demo","https://beginningconcepts.org/shop/?v=design-studio"],course:["Try our course demo","https://beginningconcepts.org/course-demo/"],game:["Try our game demo","https://beginningconcepts.org/game-demo/index.html"]};
 function recommend(kind,idea){
 lastNeed=kind;lastIdea=idea;
@@ -124,6 +147,7 @@ close.addEventListener("click",()=>{if(activeRecognition)activeRecognition.stop(
 launcher.addEventListener("click",()=>{if(panel.hidden&&activeRecognition)activeRecognition.stop()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&activeRecognition)activeRecognition.stop()});
 async function askAI(s){
+if(!brief&&(pricing||/\b(how much|costs?|prices?|pricing|quotes?|quotation|budget|afford|fees?|rates?|charge|estimate)\b/i.test(s))){priceFlow(s);return}
 if(brief||/\b(start|prepare|create|write|make)\b.*\b(brief|enquiry|project inquiry)\b/i.test(s)){respond(s);return}
 busy=true;send.disabled=true;quick.inert=true;question.setAttribute("aria-busy","true");
 const pending=document.createElement("p");pending.className="gia-footnote";pending.textContent="Gia is thinking…";log.append(pending);log.scrollTop=log.scrollHeight;
