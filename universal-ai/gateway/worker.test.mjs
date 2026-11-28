@@ -15,3 +15,14 @@ test('health endpoint works without AI',async()=>{const r=await worker.fetch(new
 test('unknown origin preflight denied',async()=>{const r=await worker.fetch(new Request('https://example.test/v1/beginning-concepts',{method:'OPTIONS',headers:{Origin:'https://evil.test'}}),{});assert.equal(r.status,403)});
 test('allowed origin preflight accepted',async()=>{const r=await worker.fetch(new Request('https://example.test/v1/beginning-concepts',{method:'OPTIONS',headers:{Origin:origin}}),{});assert.equal(r.status,204)});
 test('quota fails shut after daily limit',async()=>{const {Quota}=await import('./worker.mjs');let stored={day:new Date().toISOString().slice(0,10),count:20};const q=new Quota({storage:{transaction:async fn=>fn({get:async()=>stored,put:async(_k,v)=>{stored=v}})}});const r=await q.fetch(new Request('https://quota.internal/reserve',{method:'POST',body:JSON.stringify({tenant:'beginning-concepts',units:1})}));assert.equal(r.status,429);assert.equal(stored.count,20)});
+
+test('mock AI success returns tenant assistant and does not leak another profile',async()=>{
+ let invoked=0;
+ const env={ENABLE_INFERENCE:'true',QUOTA:{idFromName:()=> 'global',get:()=>({fetch:async()=>new Response(null,{status:204})})},AI:{run:async(_model,payload)=>{invoked++;assert.match(payload.messages[0].content,/Beginning Concepts/);assert.doesNotMatch(payload.messages[0].content,/internal CSAT report/);return {response:'Welcome to Beginning Concepts'}}}};
+ const r=await call('beginning-concepts',origin,{message:'What do you do?'},env);
+ assert.equal(r.status,200);assert.equal((await r.json()).assistant,'Gia');assert.equal(invoked,1);
+});
+test('malformed request shape rejected',async()=>{
+ assert.equal((await call('beginning-concepts',origin,[],{})).status,400);
+ assert.equal((await call('beginning-concepts',origin,{message:'hi',history:{}},{})).status,400);
+});
