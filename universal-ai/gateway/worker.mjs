@@ -22,8 +22,8 @@ export default {async fetch(req,env){
  let chunks=[],size=0;while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>12000){await reader.cancel();return json({error:"Too large"},413)}chunks.push(value)}
  const bytes=new Uint8Array(size);let pos=0;for(const c of chunks){bytes.set(c,pos);pos+=c.length}
  let b;try{b=JSON.parse(new TextDecoder().decode(bytes))}catch{return json({error:"Invalid JSON"},400)}
- if(!b||typeof b.message!=="string"||!b.message.trim()||b.message.length>1200)return json({error:"Invalid message"},400);
- if(Object.keys(b).some(k=>!["message","history"].includes(k)))return json({error:"Unsupported field"},400);
+ if(!b||typeof b!=="object"||Array.isArray(b)||typeof b.message!=="string"||!b.message.trim()||b.message.length>1200)return json({error:"Invalid message"},400);
+ if(Object.keys(b).some(k=>!["message","history"].includes(k))||("history" in b&&!Array.isArray(b.history)))return json({error:"Unsupported field"},400);
  const history=Array.isArray(b.history)?b.history.slice(-8).filter(m=>m&&["user","assistant"].includes(m.role)&&typeof m.content==="string").map(m=>({role:m.role,content:m.content.slice(0,800)})):[];
  // Fail closed. No inference until an atomic quota service is configured.
  if(!env.AI||!env.QUOTA||env.ENABLE_INFERENCE!=="true")return json({fallback:true,error:"Cloud inference disabled"},503);
