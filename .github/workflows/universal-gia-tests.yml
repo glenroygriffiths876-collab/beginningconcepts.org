@@ -1,0 +1,22 @@
+name: Universal Gia gateway safety checks
+on:
+  push:
+    paths:
+      - 'universal-ai/gateway/**'
+      - '.github/workflows/universal-gia-tests.yml'
+  pull_request:
+    paths:
+      - 'universal-ai/gateway/**'
+      - '.github/workflows/universal-gia-tests.yml'
+jobs:
+  gateway:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: universal-ai/gateway
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
