@@ -43,7 +43,15 @@ export class Quota {
  const day=new Date().toISOString().slice(0,10);
  const allowed=await this.ctx.storage.transaction(async tx=>{
  const record=await tx.get("daily")||{};const count=record.day===day?record.count:0;
- if(count>=8000)return false;\n const visitor=typeof b.visitor==="string"?b.visitor.slice(0,64):"unknown";\n const minute=new Date().toISOString().slice(0,16);\n const key="visitor:"+b.tenant+":"+visitor;\n const previous=await tx.get(key)||{};\n const daily=previous.day===day?previous.daily:0;\n const perMinute=previous.minute===minute?previous.perMinute:0;\n if(daily>=30||perMinute>=5)return false;\n await tx.put(key,{day,daily:daily+1,minute,perMinute:perMinute+1});
+ if(count>=8000)return false;
+ const visitor=typeof b.visitor==="string"?b.visitor.slice(0,64):"unknown";
+ const minute=new Date().toISOString().slice(0,16);
+ const key="visitor:"+b.tenant+":"+visitor;
+ const previous=await tx.get(key)||{};
+ const daily=previous.day===day?previous.daily:0;
+ const perMinute=previous.minute===minute?previous.perMinute:0;
+ if(daily>=30||perMinute>=5)return false;
+ await tx.put(key,{day,daily:daily+1,minute,perMinute:perMinute+1});
  await tx.put("daily",{day,count:count+1});return true;
  });
  return new Response(null,{status:allowed?204:429});
