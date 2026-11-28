@@ -1,0 +1,5 @@
+name = "universal-gia"
+main = "worker.mjs"
+compatibility_date = "2026-11-01"
+[ai]
+binding = "AI"
