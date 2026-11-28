@@ -13,7 +13,7 @@ wrap.innerHTML='<button class="gia-launch" id="giaLaunch" type="button" aria-con
 document.body.append(wrap);
 const panel=document.getElementById("giaPanel"),launcher=document.getElementById("giaLaunch"),close=document.getElementById("giaClose"),log=document.getElementById("giaMessages"),quick=document.getElementById("giaQuick"),question=document.getElementById("giaQuestion");
 let first=true,returnFocus=null,brief=null;
-const conversation=[]; let busy=false; const endpoint="https://gia-ai.glenroygriffiths876.workers.dev/";
+const conversation=[]; let busy=false; const endpoint="https://universal-gia-staging.glenroygriffiths876.workers.dev/v1/beginning-concepts";
 const answers={
 websites:"Beginning Concepts creates custom, responsive websites designed around each organisation's needs. For an online shop, we can design the page layout, create branded product images and campaign banners, and build the shopping experience. We can also discuss content structure, contact tools, accessibility, domains, hosting and future updates. Actual features and scope are agreed during planning.",
 apps:"We explore custom digital applications including booking and ordering experiences, portals, dashboards, directories and business workflow tools. Requirements for user accounts, databases and security must be assessed before selecting the technology.",
