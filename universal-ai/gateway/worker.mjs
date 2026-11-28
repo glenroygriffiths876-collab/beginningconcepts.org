@@ -27,7 +27,23 @@ export default {async fetch(req,env){
   if(!env.QUOTA)return json({error:"Usage storage unavailable"},503);
   const result=await env.QUOTA.get(env.QUOTA.idFromName("global")).fetch("https://quota.internal/stats");
   if(!result.ok)return json({error:"Usage statistics unavailable"},503);
-  return new Response(await result.text(),{status:200,headers:h});
+  const usage=await result.json();
+  let cloudflare={status:"unconfigured",source:"Cloudflare Billable Usage API",neuronsToday:null,neuronsDailyFree:10000,percent:null,lastChecked:new Date().toISOString(),error:null};
+  if(env.CLOUDFLARE_ACCOUNT_ID&&env.CLOUDFLARE_USAGE_TOKEN){
+   try{
+    const upstream=await fetch("https://api.cloudflare.com/client/v4/accounts/"+encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID)+"/billable/usage",{headers:{"Authorization":"Bearer "+env.CLOUDFLARE_USAGE_TOKEN,"Accept":"application/json"},signal:AbortSignal.timeout(7000)});
+    if(!upstream.ok)throw Error("Cloudflare usage API returned HTTP "+upstream.status);
+    const data=await upstream.json();
+    if(data.success!==true||!Array.isArray(data.result))throw Error("Cloudflare usage data unavailable");
+    const today=new Date().toISOString().slice(0,10);
+    const aiRows=data.result.filter(r=>/workers ai/i.test(String(r.ServiceName||"")+" "+String(r.ServiceFamilyName||"")+" "+String(r.ChargeDescription||""))&&/neuron/i.test(String(r.ConsumedUnit||"")+" "+String(r.PricingUnit||""))&&String(r.ChargePeriodStart||"").slice(0,10)===today);
+    if(!aiRows.length)throw Error("Cloudflare API did not return a current-day Workers AI Neurons record; no usage estimate shown");
+    const neurons=aiRows.reduce((n,r)=>n+Number(r.ConsumedQuantity||0),0);
+    if(!Number.isFinite(neurons))throw Error("Invalid Cloudflare usage quantity");
+    cloudflare={status:"verified",source:"Cloudflare Billable Usage API",neuronsToday:neurons,neuronsDailyFree:10000,percent:Math.round(neurons/10000*1000)/10,lastChecked:new Date().toISOString(),error:null};
+   }catch(e){cloudflare={...cloudflare,status:"unavailable",error:String(e.message).slice(0,180)}}
+  }
+  return new Response(JSON.stringify({...usage,cloudflare}),{status:200,headers:h});
  }
  if(!t||url.pathname!=="/v1/"+id||!t.origins.includes(origin))return json({error:"Access denied"},403);
  h["Access-Control-Allow-Origin"]=origin;h["Access-Control-Allow-Methods"]="POST, OPTIONS";h["Access-Control-Allow-Headers"]="Content-Type";
