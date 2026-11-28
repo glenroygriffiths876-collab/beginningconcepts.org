@@ -1,1 +1,11 @@
-{"private":true,"type":"module","scripts":{"test":"node --test worker.test.mjs"}}
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test worker.test.mjs",
+    "deploy": "npm test && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
