@@ -1,6 +1,11 @@
-name: Deploy Universal Gia STAGING (manual)
+name: Deploy Universal Gia STAGING
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'universal-ai/gateway/**'
+      - '.github/workflows/universal-gia-deploy.yml'
 jobs:
   deploy:
     runs-on: ubuntu-latest
