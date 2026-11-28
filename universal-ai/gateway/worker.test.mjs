@@ -6,4 +6,7 @@ test('wrong origin denied',async()=>assert.equal((await call('beginning-concepts
 test('prototype tenant denied',async()=>assert.equal((await call('__proto__',origin,{message:'hello'})).status,403));
 test('client knowledge rejected',async()=>assert.equal((await call('beginning-concepts',origin,{message:'hello',knowledge:'secret'})).status,400));
 test('no quota no inference',async()=>assert.equal((await call('beginning-concepts',origin,{message:'hello'},{AI:{run(){throw Error('must not run')}}})).status,503));
-test('quota rejection prevents inference',async()=>assert.equal((await call('beginning-concepts',origin,{message:'hello'},{ENABLE_INFERENCE:'true',AI:{run(){throw Error('must not run')}},QUOTA:{fetch:async()=>new Response(null,{status:429})}})).status,429));
+test('quota rejection prevents inference',async()=>assert.equal((await call('beginning-concepts',origin,{message:'hello'},{ENABLE_INFERENCE:'true',AI:{run(){throw Error('must not run')}},QUOTA:{idFromName:()=> 'global',get:()=>({fetch:async()=>new Response(null,{status:429})})}})).status,429));
+
+test('registered but unapproved Ella origin denied',async()=>assert.equal((await call('service-excellence',origin,{message:'hello'})).status,403));
+test('large prompt rejected',async()=>assert.equal((await call('beginning-concepts',origin,{message:'x'.repeat(1201)})).status,400));
