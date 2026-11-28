@@ -1,0 +1,18 @@
+name: Universal AI security tests
+on:
+  push:
+    paths:
+      - 'universal-ai/gateway/**'
+      - '.github/workflows/universal-ai-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test universal-ai/gateway/worker.test.mjs
