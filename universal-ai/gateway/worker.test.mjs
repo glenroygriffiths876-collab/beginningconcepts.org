@@ -26,3 +26,25 @@ test('malformed request shape rejected',async()=>{
  assert.equal((await call('beginning-concepts',origin,[],{})).status,400);
  assert.equal((await call('beginning-concepts',origin,{message:'hi',history:{}},{})).status,400);
 });
+
+test('admin page loads but statistics require secret',async()=>{
+ const page=await worker.fetch(new Request('https://example.test/admin'),{});
+ assert.equal(page.status,200);assert.match(await page.text(),/Universal Gia/);
+ const denied=await worker.fetch(new Request('https://example.test/admin/usage'),{});
+ assert.equal(denied.status,403);
+});
+test('admin usage shows request counts but does not claim neuron consumption',async()=>{
+ const {Quota}=await import('./worker.mjs');
+ const values=new Map([['daily',{day:new Date().toISOString().slice(0,10),count:3}],['tenant-counts',{day:new Date().toISOString().slice(0,10),counts:{'beginning-concepts':3}}]]);
+ const quota=new Quota({storage:{get:async key=>values.get(key)}});
+ const env={ADMIN_TOKEN:'test-token',QUOTA:{idFromName:()=> 'global',get:()=>({fetch:req=>quota.fetch(new Request(req))})}};
+ const denied=await worker.fetch(new Request('https://example.test/admin/usage',{headers:{Authorization:'Bearer wrong'}}),env);
+ assert.equal(denied.status,403);
+ const response=await worker.fetch(new Request('https://example.test/admin/usage',{headers:{Authorization:'Bearer test-token'}}),env);
+ assert.equal(response.status,200);
+ const data=await response.json();
+ assert.equal(data.requestsToday,3);
+ assert.equal(data.byBot.find(b=>b.id==='beginning-concepts').requests,3);
+ assert.equal(data.aiNeuronsUsed,null);
+ assert.equal(data.aiNeuronUsageVerified,false);
+});
